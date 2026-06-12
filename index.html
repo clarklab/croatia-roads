@@ -6,113 +6,370 @@
 <meta name="theme-color" content="#0a1420">
 <title>MAGISTRALA — a fog-deck coronation run</title>
 <style>
+  @font-face{font-family:'Glag';src:url(data:font/woff2;base64,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) format('woff2');font-display:block;}
   :root{
-    --bg:#0a1420; --bg2:#0e1c2e; --panel:#122438; --panel2:#16304a;
-    --ink:#e8e2d4; --dim:#8fa3b8; --gold:#d4af37; --gold2:#f0d060;
-    --sea:#5db8e8; --stone:#cfc9ba; --wind:#9fe8d8; --road:#e8806f;
-    --bad:#e85d5d; --good:#7fd49a;
+    --paper:#f4edda; --paper2:#e9dfc2; --ink:#ece5d3; --dim:#9fb0c2; --faint:#5d7185;
+    --gold:#d8b54a; --gold2:#f3d878; --bad:#e86a5a; --good:#8fd9a8;
+    --glass:rgba(8,16,26,.62); --glassbrd:rgba(160,190,215,.16);
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+    --disp:'Avenir Next Condensed','Arial Narrow','Roboto Condensed','Liberation Sans Narrow',Arial,sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace;
+    --c-sea:#1f6e9c; --c-stone:#7a6648; --c-wind:#1f7f6e; --c-road:#a8402e;
+    --signgreen:#11603a; --signblue:#14497e;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
-    font-family:Georgia,'Times New Roman',serif; min-height:100%;}
-  body{background:radial-gradient(120% 90% at 50% 0%, #13283e 0%, var(--bg) 60%);}
-  #app{max-width:540px; margin:0 auto; padding:10px 10px calc(24px + env(safe-area-inset-bottom)); min-height:100vh;}
-  h1,h2,h3{font-weight:normal; margin:0;}
-  .glagtitle{font-size:34px; letter-spacing:2px; color:var(--gold); text-align:center; text-shadow:0 0 18px rgba(212,175,55,.35);}
-  .subtitle{text-align:center; color:var(--dim); font-style:italic; font-size:14px; margin-top:4px;}
-  .oracle{font-style:italic; color:#b9c6d6; font-size:14px; line-height:1.5;}
-  .panel{background:linear-gradient(180deg,var(--panel),var(--bg2)); border:1px solid #1f3a55;
-    border-radius:12px; padding:12px; margin:10px 0;}
-  .btn{display:inline-block; background:linear-gradient(180deg,#1d3a58,#16304a);
-    color:var(--ink); border:1px solid #2c5278; border-radius:10px; padding:12px 16px;
-    font-family:inherit; font-size:16px; cursor:pointer; margin:4px 2px;}
-  .btn:active{transform:translateY(1px);}
-  .btn.gold{background:linear-gradient(180deg,#7a651e,#5a4a14); border-color:var(--gold); color:#ffe9a8;}
-  .btn.danger{border-color:#7a3030; color:#f0b0b0;}
-  .btn.small{padding:7px 10px; font-size:13px; border-radius:8px;}
-  .btn:disabled{opacity:.35; pointer-events:none;}
-  .row{display:flex; gap:6px; flex-wrap:wrap; align-items:center;}
+  html,body{margin:0; padding:0; min-height:100%; background:#0a1420;}
+  body{font-family:var(--serif); color:var(--ink); overflow-x:hidden;}
+
+  /* ================= SCENE — the living coast ================= */
+  /* per-leg palettes */
+  body{--sky1:#33203f;--sky2:#d8865c;--suncol:#ffb27a;--sunx:72%;--suny:46%;--sunr:44px;
+       --m1:#241726;--m2:#3c2438;--sea1:#27435e;--sea2:#16283c;--starop:.25;--fogop:.22;--fogdur:70s;}
+  body[data-leg="1"]{--sky1:#13222b;--sky2:#46604e;--suncol:#cfe0c8;--sunx:24%;--suny:30%;--sunr:24px;
+       --m1:#0c1612;--m2:#1c2b22;--sea1:#1d3a40;--sea2:#10242a;--starop:.45;--fogop:.45;--fogdur:55s;}
+  body[data-leg="2"]{--sky1:#0e1d31;--sky2:#3f6f96;--suncol:#ffd9a0;--sunx:78%;--suny:34%;--sunr:30px;
+       --m1:#102034;--m2:#1d3650;--sea1:#1c4566;--sea2:#10293f;--starop:.4;--fogop:.18;--fogdur:75s;}
+  body[data-leg="3"]{--sky1:#1f3136;--sky2:#7fa39e;--suncol:#eef6f0;--sunx:30%;--suny:24%;--sunr:20px;
+       --m1:#172325;--m2:#2a3d3e;--sea1:#2a5258;--sea2:#163135;--starop:.1;--fogop:.6;--fogdur:16s;}
+  body[data-leg="4"]{--sky1:#0f131d;--sky2:#46587a;--suncol:#d7dcef;--sunx:66%;--suny:22%;--sunr:22px;
+       --m1:#121a2a;--m2:#232f49;--sea1:#1d3148;--sea2:#101c2c;--starop:.6;--fogop:.3;--fogdur:60s;}
+  body[data-leg="5"]{--sky1:#221d3c;--sky2:#b06040;--suncol:#ff9c5a;--sunx:38%;--suny:48%;--sunr:40px;
+       --m1:#291c2c;--m2:#46283a;--sea1:#473053;--sea2:#241a30;--starop:.3;--fogop:.22;--fogdur:70s;}
+  body[data-leg="6"]{--sky1:#371a3c;--sky2:#f08246;--suncol:#ffc46a;--sunx:50%;--suny:56%;--sunr:62px;
+       --m1:#2b1430;--m2:#54203e;--sea1:#6e3a44;--sea2:#34172a;--starop:.12;--fogop:.16;--fogdur:80s;}
+  body[data-leg="7"]{--sky1:#070d1c;--sky2:#3a3418;--suncol:#f2eed6;--sunx:74%;--suny:20%;--sunr:20px;
+       --m1:#0a0f1c;--m2:#141c2e;--sea1:#101d33;--sea2:#070e1a;--starop:1;--fogop:.25;--fogdur:65s;}
+
+  #scene{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+    transition:filter 1.2s ease;}
+  #scene .sky{position:absolute; inset:0;
+    background:linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 78%, var(--sea1) 79%, var(--sea2) 100%);
+    transition:background 1.5s ease;}
+  #scene .stars{position:absolute; inset:0 0 30% 0; opacity:var(--starop); transition:opacity 1.5s;
+    background-image:
+      radial-gradient(1.2px 1.2px at 12% 22%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 28% 9%, #fff 50%, transparent 51%),
+      radial-gradient(1.4px 1.4px at 41% 31%, #ffeec8 50%, transparent 51%),
+      radial-gradient(1px 1px at 57% 14%, #fff 50%, transparent 51%),
+      radial-gradient(1.3px 1.3px at 66% 27%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 78% 7%, #cfe2ff 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 89% 19%, #fff 50%, transparent 51%),
+      radial-gradient(1px 1px at 8% 44%, #fff 50%, transparent 51%),
+      radial-gradient(1.2px 1.2px at 49% 48%, #ffeec8 50%, transparent 51%),
+      radial-gradient(1px 1px at 93% 41%, #fff 50%, transparent 51%);
+    animation:twinkle 7s ease-in-out infinite alternate;}
+  @keyframes twinkle{from{opacity:calc(var(--starop)*.55)} to{opacity:var(--starop)}}
+  #scene .sun{position:absolute; left:var(--sunx); top:var(--suny); width:calc(var(--sunr)*2); height:calc(var(--sunr)*2);
+    margin:calc(var(--sunr)*-1) 0 0 calc(var(--sunr)*-1); border-radius:50%;
+    background:var(--suncol); transition:all 1.5s ease;
+    box-shadow:0 0 30px 6px var(--suncol), 0 0 120px 40px color-mix(in srgb, var(--suncol) 35%, transparent);}
+  @supports not (color: color-mix(in srgb, red, blue)){ #scene .sun{box-shadow:0 0 30px 6px var(--suncol), 0 0 120px 40px rgba(255,190,120,.3);} }
+  #scene .mtn{position:absolute; left:0; width:100%;}
+  #scene .mtn path{transition:fill 1.5s ease;}
+  #scene .m2{bottom:21%; height:26%;} #scene .m2 path{fill:var(--m2);}
+  #scene .m1{bottom:14%; height:26%;} #scene .m1 path{fill:var(--m1);}
+  #scene .sea{position:absolute; left:0; right:0; bottom:0; height:22%;
+    background:linear-gradient(180deg, var(--sea1), var(--sea2)); transition:background 1.5s ease;}
+  #scene .sea::before{content:""; position:absolute; inset:0; opacity:.25;
+    background:repeating-linear-gradient(180deg, rgba(255,255,255,.10) 0 1px, transparent 1px 7px);
+    mask-image:linear-gradient(180deg,#000,transparent);
+    -webkit-mask-image:linear-gradient(180deg,#000,transparent);}
+  #scene .glint{position:absolute; bottom:8%; left:calc(var(--sunx) - 9%); width:18%; height:13%;
+    background:radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--suncol) 38%, transparent), transparent 70%);
+    filter:blur(4px); animation:glint 5s ease-in-out infinite alternate; transition:left 1.5s ease;}
+  @keyframes glint{from{opacity:.5} to{opacity:1}}
+  #scene .fogband{position:absolute; width:170%; height:24%; bottom:16%; opacity:var(--fogop);
+    background:radial-gradient(48% 58% at 50% 50%, rgba(214,228,233,.85), transparent 72%);
+    filter:blur(10px); transition:opacity 1.5s;}
+  #scene .f1{animation:fogdrift var(--fogdur) linear infinite alternate;}
+  #scene .f2{bottom:9%; height:18%; animation:fogdrift var(--fogdur) linear infinite alternate-reverse;}
+  @keyframes fogdrift{from{transform:translateX(-26%)} to{transform:translateX(-4%)}}
+  #scene .vig{position:absolute; inset:0;
+    background:radial-gradient(120% 95% at 50% 38%, transparent 55%, rgba(2,6,12,.55) 100%);}
+  body[data-boss="tunnel"] #scene{filter:brightness(.32) saturate(.6);}
+  body[data-screen="gameover"] #scene{filter:saturate(.25) brightness(.75);}
+  body[data-screen="gameover"] #scene .fogband{opacity:.95;}
+  body[data-screen="win"] #scene{filter:saturate(1.25) brightness(1.1) sepia(.18);}
+
+  /* ================= APP SHELL ================= */
+  #app{position:relative; z-index:1; max-width:560px; margin:0 auto; min-height:100dvh;
+    padding:max(10px, env(safe-area-inset-top)) 12px calc(14px + env(safe-area-inset-bottom));
+    display:flex; flex-direction:column;}
+  .grow{flex:1 1 auto;}
+  h1,h2,h3,p{margin:0; font-weight:normal;}
+
+  /* ================= SIGNAGE / TYPE ================= */
+  .glagtitle{font-family:'Glag',var(--serif); font-size:clamp(30px,9vw,44px); letter-spacing:3px; color:var(--gold2); text-align:center;
+    text-shadow:0 1px 0 #5a4612, 0 0 26px rgba(216,181,74,.5);}
+  .latintitle{font-family:var(--disp); font-weight:700; text-transform:uppercase; letter-spacing:.42em;
+    text-indent:.42em; text-align:center; color:var(--ink); font-size:15px; margin-top:6px; opacity:.9;}
+  .subtitle{text-align:center; color:#aebccd; font-style:italic; font-size:14.5px; margin-top:10px;
+    text-shadow:0 1px 3px rgba(2,6,12,.9);}
+  .oracle{font-style:italic; color:#c4d2de; font-size:14.5px; line-height:1.62;}
+  .tiny{font-size:11.5px; color:var(--faint); line-height:1.5;}
+
+  .roadsign{display:inline-flex; align-items:center; gap:9px; background:linear-gradient(180deg,#177347,#0f5634);
+    border:2px solid #e8f2ea; outline:2px solid #0c3a23; border-radius:8px; padding:7px 13px;
+    font-family:var(--disp); font-weight:600; text-transform:uppercase; letter-spacing:.09em;
+    color:#fff; font-size:15.5px; box-shadow:0 4px 14px rgba(0,0,0,.45); white-space:nowrap;}
+  .roadsign .arr{opacity:.85; font-family:var(--serif);}
+  .roadsign .legno{font-size:10.5px; background:rgba(255,255,255,.18); border-radius:4px; padding:2px 6px;
+    letter-spacing:.12em;}
+  .blindchip{display:inline-block; font-family:var(--disp); font-weight:600; text-transform:uppercase;
+    letter-spacing:.12em; font-size:12.5px; color:#dce8f4; background:linear-gradient(180deg,#1b4a7e,#143a64);
+    border:1.5px solid #cfe0f0; border-radius:7px; padding:5px 11px; box-shadow:0 3px 10px rgba(0,0,0,.4);}
+  .blindchip.boss{background:linear-gradient(180deg,#7e1f1b,#5e1512); border-color:#f4d9d2; color:#ffe4dc;}
+
+  .warnsign{display:flex; gap:11px; align-items:flex-start; background:linear-gradient(180deg,rgba(64,18,22,.88),rgba(38,10,14,.88));
+    border:1.5px solid #b8473c; border-radius:11px; padding:10px 12px; margin:9px 0;
+    box-shadow:0 6px 18px rgba(0,0,0,.4); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);}
+  .warnsign .tri{flex:0 0 auto; width:34px; height:31px;}
+  .warnsign b{font-family:var(--disp); text-transform:uppercase; letter-spacing:.1em; color:#ffd9cf; font-size:13.5px;}
+  .warnsign p{color:#e8b8ac; font-size:12.5px; line-height:1.5; margin-top:3px;}
+  .warnsign .wf{color:#b98a83; font-style:italic;}
+
+  /* ================= GLASS PANELS ================= */
+  .panel{background:var(--glass); border:1px solid var(--glassbrd); border-radius:14px;
+    padding:13px 14px; margin:9px 0; backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px);
+    box-shadow:0 10px 30px rgba(0,0,0,.35);}
+
+  /* ================= DASHBOARD ================= */
+  .dash{background:var(--glass); border:1px solid var(--glassbrd); border-radius:14px;
+    padding:10px 12px 12px; margin:8px 0 6px; backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px);}
+  .odorow{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
+  .odo{font-family:var(--mono); font-size:clamp(26px,8vw,34px); color:var(--gold2); letter-spacing:1px;
+    text-shadow:0 0 16px rgba(216,181,74,.35); font-variant-numeric:tabular-nums;}
+  .odo small{font-size:12px; color:var(--dim); font-family:var(--disp); text-transform:uppercase; letter-spacing:.14em; margin-left:5px;}
+  .odotarget{font-family:var(--mono); color:var(--dim); font-size:13.5px; font-variant-numeric:tabular-nums; text-align:right;}
+  .odotarget b{color:var(--ink);}
+  .roadtrack{position:relative; height:18px; margin:9px 0 2px; border-radius:9px; overflow:hidden;
+    background:linear-gradient(180deg,#222a31,#15191e); border:1px solid #39424b;}
+  .roadtrack .dashes{position:absolute; inset:0;
+    background:repeating-linear-gradient(90deg, transparent 0 12px, rgba(244,237,218,.5) 12px 22px) center/100% 2px no-repeat;}
+  .roadtrack .gone{position:absolute; left:0; top:0; bottom:0; width:var(--pct,0%);
+    background:linear-gradient(90deg, rgba(216,181,74,.18), rgba(216,181,74,.42)); transition:width .6s cubic-bezier(.3,.8,.3,1);}
+  .roadtrack .car{position:absolute; top:50%; left:var(--pct,0%); transform:translate(-72%,-50%);
+    width:26px; height:12px; transition:left .6s cubic-bezier(.3,.8,.3,1); filter:drop-shadow(0 0 5px rgba(216,181,74,.7));}
+  .meters{display:flex; gap:7px; margin-top:9px;}
+  .meter{flex:1; text-align:center; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.08);
+    border-radius:9px; padding:5px 2px 6px;}
+  .meter b{display:block; font-family:var(--mono); font-size:17px; color:var(--ink); font-variant-numeric:tabular-nums;}
+  .meter.kn b{color:var(--gold2);}
+  .meter label{font-family:var(--disp); text-transform:uppercase; letter-spacing:.1em; font-size:9px; color:var(--faint);}
+
+  /* ================= CREW (jokers/omens) ================= */
+  .crew{display:flex; gap:7px; overflow-x:auto; padding:6px 2px; margin:2px -2px;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;}
+  .crew::-webkit-scrollbar{display:none;}
+  .ctile{flex:0 0 auto; width:86px; border-radius:10px; padding:7px 7px 8px; cursor:pointer;
+    background:linear-gradient(168deg,#2a3650,#1a2336); border:1px solid #45577e;
+    box-shadow:0 5px 14px rgba(0,0,0,.4); transition:transform .12s, border-color .12s;}
+  .ctile:active{transform:scale(.96);}
+  .ctile.open{border-color:var(--gold); box-shadow:0 0 0 1px var(--gold), 0 5px 14px rgba(0,0,0,.4);}
+  .ctile .cg{width:30px; height:30px; border-radius:50%; margin:1px auto 5px; display:flex; align-items:center;
+    justify-content:center; font-family:var(--serif); font-size:17px; color:var(--gold2);
+    background:radial-gradient(circle at 35% 30%, #3d4f74, #1c2740); border:1px solid #5a6f9c;}
+  .ctile .cn{font-family:var(--disp); font-size:10.5px; line-height:1.25; text-align:center; color:#dde6f2;
+    text-transform:uppercase; letter-spacing:.04em; min-height:26px;}
+  .ctile .ct{display:block; text-align:center; font-size:10px; color:var(--good); margin-top:3px; font-family:var(--mono);}
+  .ctile.omen{background:linear-gradient(168deg,#23402f,#142719); border-color:#3f7251;}
+  .ctile.omen .cg{background:radial-gradient(circle at 35% 30%, #2f5c40, #122218); border-color:#4f8a62; color:#b8e8c4;}
+  .slotnote{font-family:var(--disp); font-size:9.5px; color:var(--faint); letter-spacing:.16em; text-transform:uppercase; margin:1px 2px 0;}
+
+  .infobar{background:var(--glass); border:1px solid var(--gold); border-radius:12px; padding:11px 13px; margin:7px 0;
+    backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px); animation:fadeup .22s ease;}
+  .infobar.omen{border-color:#4f8a62;}
+  .infobar b{font-family:var(--disp); text-transform:uppercase; letter-spacing:.08em; color:var(--gold2); font-size:13.5px;}
+  .infobar.omen b{color:#a8e0b4;}
+  .infobar .tagv{font-family:var(--mono); color:var(--good); font-size:12px; margin-left:6px;}
+  .infobar p{color:#bccadbcc; color:#bccadb; font-size:13px; line-height:1.5; margin:5px 0 0;}
+  .infobar .ibtns{display:flex; gap:7px; margin-top:9px;}
+  .sw{white-space:nowrap; font-family:var(--disp); letter-spacing:.04em;}
+  .sw svg{width:12px; height:12px; vertical-align:-1.5px;}
+  .sw.sea{color:#6fb9e2;} .sw.stone{color:#cdb289;} .sw.wind{color:#67cdb5;} .sw.road{color:#ef9075;}
+
+  /* ================= PLAYZONE ================= */
+  .pz{min-height:118px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:10px 8px; gap:4px; margin:7px 0; border-radius:14px;
+    background:rgba(7,14,23,.5); border:1px solid rgba(160,190,215,.1);
+    backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);}
+  .pz.idle p{font-style:italic; color:var(--faint); font-size:12.5px; max-width:300px; line-height:1.6;}
+  .pzname{font-family:var(--disp); text-transform:uppercase; letter-spacing:.18em; font-size:14.5px; color:var(--gold2);}
+  .pzname i{font-style:normal; font-size:10.5px; color:var(--dim); letter-spacing:.1em;}
+  .pzcards{display:flex; gap:6px; justify-content:center; margin:2px 0; padding-top:17px;}
+  .zc{position:relative; animation:zpop .3s cubic-bezier(.2,1.4,.4,1) both;}
+  .zc .zk{position:absolute; left:50%; top:-15px; transform:translateX(-50%); font-family:var(--mono);
+    font-size:12px; color:#9fd9ef; white-space:nowrap; animation:chipfloat .55s ease both; text-shadow:0 1px 4px #000;}
+  .zc .zk i{font-style:normal; color:#f0a890; margin-left:3px;}
+  .zc.zdeb .mini, .zc.zoff .mini{filter:grayscale(1) brightness(.5);}
+  .pzmath{display:flex; align-items:baseline; gap:7px; font-family:var(--mono); animation:fadeup .3s ease both;}
+  .pzmath b{font-size:21px; font-variant-numeric:tabular-nums;}
+  .pzmath .km{color:#6fb9e2;} .pzmath .tm{color:#ef9075;}
+  .pzmath span{font-family:var(--disp); font-size:9.5px; letter-spacing:.16em; color:var(--faint); text-transform:uppercase;}
+  .pzmath em{font-style:normal; color:var(--dim); font-size:15px;}
+  .pztotal{font-family:var(--mono); font-size:27px; color:var(--gold2); font-variant-numeric:tabular-nums;
+    text-shadow:0 0 18px rgba(216,181,74,.5); animation:slam .34s cubic-bezier(.2,1.5,.4,1) both;}
+  .pztotal span{font-size:13px; color:var(--dim);}
+  .pztotal.ghost{opacity:.55; text-shadow:none; animation:none;}
+  .pz.preview .pzmath{animation:none;}
+  .pz.noanim *{animation:none !important;}
+  .pzdeb{font-size:11px; color:var(--bad); font-family:var(--disp); letter-spacing:.1em; text-transform:uppercase;}
+  @keyframes zpop{from{transform:scale(.4) rotate(-6deg); opacity:0} to{transform:scale(1) rotate(0); opacity:1}}
+  @keyframes chipfloat{from{opacity:0; transform:translate(-50%,8px)} 35%{opacity:1} to{opacity:1; transform:translate(-50%,0)}}
+  @keyframes fadeup{from{opacity:0; transform:translateY(7px)} to{opacity:1; transform:translateY(0)}}
+  @keyframes slam{from{opacity:0; transform:scale(1.7)} to{opacity:1; transform:scale(1)}}
+
+  /* ================= CARDS ================= */
+  .fan{display:flex; justify-content:center; align-items:flex-end; padding:24px 0 14px; min-height:128px;}
+  .pcard{position:relative; width:62px; height:88px; border-radius:8px; flex:0 0 auto;
+    margin:0 clamp(-19px, calc(((min(100vw, 560px) - 46px) / var(--n,8) - 62px) / 2), -5px);
+    background:linear-gradient(163deg,#faf4e4 0%, #efe6cc 60%, #e6dabb 100%);
+    border:1px solid #c8b98f; cursor:pointer; user-select:none; color:var(--sc,#333);
+    box-shadow:0 4px 10px rgba(0,0,0,.45), inset 0 0 0 1.5px rgba(255,255,255,.5);
+    transform:rotate(var(--rot,0deg)) translateY(var(--ty,0px));
+    transition:transform .16s cubic-bezier(.3,1.3,.4,1), box-shadow .16s;}
+  .pcard.sel{transform:rotate(0deg) translateY(calc(var(--ty,0px) - 26px)) scale(1.06); z-index:5;
+    box-shadow:0 12px 24px rgba(0,0,0,.55), 0 0 0 2px var(--gold), 0 0 22px rgba(216,181,74,.45),
+      inset 0 0 0 1.5px rgba(255,255,255,.5);}
+  .pcard.deal{animation:dealin .42s cubic-bezier(.2,1.2,.35,1) both;}
+  @keyframes dealin{from{transform:translate(60px,-70px) rotate(14deg); opacity:0}
+    to{transform:rotate(var(--rot,0deg)) translateY(var(--ty,0px)); opacity:1}}
+  .suit-sea{--sc:var(--c-sea);} .suit-stone{--sc:var(--c-stone);}
+  .suit-wind{--sc:var(--c-wind);} .suit-road{--sc:var(--c-road);}
+  .pcard .idx{position:absolute; top:4px; left:5px; line-height:1; text-align:center;}
+  .pcard .idx b{display:block; font-family:var(--disp); font-weight:700; font-size:16px;}
+  .pcard .idx svg.ip{width:10px; height:10px; margin-top:1.5px;}
+  .pcard .bigpip{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;}
+  .pcard .bigpip svg{width:34px; height:34px; opacity:.92; filter:drop-shadow(0 1px 0 rgba(255,255,255,.55));}
+  .pcard .face{font-family:'Glag',var(--serif); position:absolute; inset:16px 10px 14px; display:flex; align-items:center; justify-content:center;
+    font-size:30px; border:1.5px solid currentColor; border-radius:6px; opacity:.92;
+    background:linear-gradient(150deg, rgba(255,255,255,.35), transparent);}
+  .pcard .a1{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); padding:5px 8px 6px;
+    background:#15683f; color:#fff; border:1.5px solid #fff; outline:1.5px solid #0c4226; border-radius:7px;
+    font-family:var(--disp); font-weight:700; font-size:17px; letter-spacing:.04em;
+    box-shadow:0 2px 5px rgba(0,0,0,.3);}
+  .pcard .gn{font-family:'Glag',var(--serif); position:absolute; bottom:3px; right:5px; font-size:11px; opacity:.4;}
+  .pcard.saint{border-color:var(--gold);}
+  .pcard.saint::before{content:""; position:absolute; inset:-1px; border-radius:8px; pointer-events:none;
+    box-shadow:inset 0 0 10px rgba(216,181,74,.65), 0 0 9px rgba(216,181,74,.5);}
+  .pcard.saint .idx::after{content:"✦"; display:block; color:#a8821e; font-size:8.5px; margin-top:1px;}
+  .pcard.deb{filter:grayscale(.95) brightness(.6);}
+  .pcard.deb::after{content:""; position:absolute; inset:0; border-radius:8px;
+    background:linear-gradient(45deg, transparent 47.5%, rgba(60,20,20,.85) 47.5% 52.5%, transparent 52.5%),
+      linear-gradient(-45deg, transparent 47.5%, rgba(60,20,20,.85) 47.5% 52.5%, transparent 52.5%);}
+  .pcard.back{background:
+      radial-gradient(circle at 50% 50%, rgba(216,181,74,.16) 0 24%, transparent 25%),
+      repeating-linear-gradient(45deg,#1c2b44 0 7px,#16223a 7px 14px);
+    border-color:#3c5278;}
+  .pcard.back .idx,.pcard.back .gn,.pcard.back .bigpip,.pcard.back .face,.pcard.back .a1{display:none;}
+  .pcard.back::after{content:"Ⱅ"; font-family:'Glag',var(--serif); position:absolute; inset:0; display:flex; align-items:center;
+    justify-content:center; font-size:25px; color:#5d7ba8; text-shadow:0 0 8px rgba(93,123,168,.6);}
+  .mini{position:relative; width:40px; height:57px; border-radius:5px;
+    background:linear-gradient(163deg,#faf4e4,#e9dec1); border:1px solid #c8b98f; color:var(--sc,#333);
+    box-shadow:0 2px 6px rgba(0,0,0,.4); display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .mini b{font-family:var(--disp); font-size:14px; line-height:1;}
+  .mini svg{width:14px; height:14px; margin-top:3px;}
+  .mini .fg{font-size:17px; line-height:1.1;}
+
+  /* ================= BUTTONS / ACTION BAR ================= */
+  .bx{display:inline-flex; align-items:center; justify-content:center; gap:7px; font-family:var(--disp);
+    font-weight:600; text-transform:uppercase; letter-spacing:.13em; font-size:14px; color:#e4ecf4;
+    background:linear-gradient(180deg,#27486e,#1a3354);
+    border:1px solid #4a6e96; border-radius:12px; padding:13px 18px; cursor:pointer;
+    box-shadow:0 5px 14px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.14); transition:transform .1s, filter .15s;}
+  .bx:active{transform:scale(.97);}
+  .bx:disabled{opacity:.32; pointer-events:none;}
+  .bx.gold{background:linear-gradient(180deg,#a07f24,#6e5414); border-color:#e2c25e; color:#fff3cd;
+    text-shadow:0 1px 2px rgba(60,40,0,.55); position:relative; overflow:hidden;}
+  .bx.gold::after{content:""; position:absolute; top:0; bottom:0; width:46%; left:-60%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.28), transparent);
+    animation:shine 3.2s ease-in-out infinite;}
+  @keyframes shine{0%,55%{left:-60%} 85%,100%{left:130%}}
+  .bx.warn{background:linear-gradient(180deg,#6e2a22,#4c1b16); border-color:#a85648; color:#f4cdc2;}
+  .bx.sm{padding:8px 12px; font-size:11.5px; border-radius:9px; letter-spacing:.1em;}
+  .bx.ghost{background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.16); box-shadow:none;}
+  .actionbar{display:flex; gap:9px; padding:2px 0 4px;}
+  .actionbar .bx{flex:1; padding:15px 8px;}
+  .actionbar .bx.gold{flex:1.6;}
+  .fanbar{display:flex; justify-content:space-between; align-items:center; padding:0 2px;}
+  .seg{display:inline-flex; border:1px solid rgba(255,255,255,.16); border-radius:9px; overflow:hidden;}
+  .seg button{font-family:var(--disp); text-transform:uppercase; letter-spacing:.1em; font-size:10.5px;
+    background:transparent; color:var(--dim); border:0; padding:6px 11px; cursor:pointer;}
+  .seg button.on{background:rgba(216,181,74,.18); color:var(--gold2);}
+
+  /* ================= RECEIPT ================= */
+  .receiptwrap{display:flex; justify-content:center; padding:8px 0;}
+  .receipt{width:min(330px,88vw); background:#f6f2e6; color:#2b2922; font-family:var(--mono); font-size:13px;
+    padding:18px 18px 26px; box-shadow:0 14px 40px rgba(0,0,0,.55); position:relative;
+    animation:fadeup .35s ease; line-height:1.55;
+    -webkit-mask-image:linear-gradient(#000 0 calc(100% - 9px), transparent calc(100% - 9px)),
+      radial-gradient(circle at 8px calc(100% - 0px), #000 0 8px, transparent 8px);
+    mask-image:linear-gradient(#000 calc(100% - 9px), transparent calc(100% - 9px));}
+  .receipt::after{content:""; position:absolute; left:0; right:0; bottom:0; height:9px;
+    background:linear-gradient(-45deg, transparent 6.5px, #f6f2e6 7px) 0 0/13px 13px repeat-x,
+      linear-gradient(45deg, transparent 6.5px, #f6f2e6 7px) 6.5px 0/13px 13px repeat-x;}
+  .receipt h3{text-align:center; font-size:13.5px; letter-spacing:.14em; margin-bottom:2px;}
+  .receipt .rsub{text-align:center; font-size:10.5px; color:#6e6a5c; letter-spacing:.06em;}
+  .receipt .rl{display:flex; justify-content:space-between; gap:8px; font-variant-numeric:tabular-nums;}
+  .receipt .rl span:first-child{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .receipt .rdiv{border:0; border-top:1.5px dashed #b8b09a; margin:9px 0;}
+  .receipt .rtotal{font-weight:bold; font-size:15px;}
+  .receipt .rfoot{text-align:center; font-size:10.5px; color:#6e6a5c; margin-top:11px; letter-spacing:.08em;}
+
+  /* ================= SHOP ================= */
+  .shopitem{display:flex; justify-content:space-between; gap:11px; align-items:center;
+    background:linear-gradient(168deg,rgba(38,52,80,.85),rgba(22,31,50,.85)); border:1px solid #3d5176;
+    border-radius:12px; padding:11px 12px; margin:8px 0; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);}
+  .shopitem.sold{opacity:.32;}
+  .shopitem .skind{font-family:var(--disp); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--faint);}
+  .shopitem .sname{font-family:var(--disp); text-transform:uppercase; letter-spacing:.06em; color:var(--gold2);
+    font-size:14px; margin:2px 0 3px;}
+  .shopitem .sdesc{color:#aebccd; font-size:12px; line-height:1.45;}
+  .pricetag{flex:0 0 auto; text-align:center;}
+  .pricetag .pt{display:inline-block; background:#f0e6c8; color:#4a3c14; font-family:var(--mono); font-size:13px;
+    font-weight:bold; padding:3px 9px; border-radius:4px; transform:rotate(3deg); box-shadow:0 2px 6px rgba(0,0,0,.4);
+    margin-bottom:7px;}
+
+  /* ================= BIG SCREENS ================= */
+  .big{flex:1; display:flex; flex-direction:column; justify-content:center; text-align:center; padding:26px 6px; gap:4px;}
+  .big h2{font-family:var(--disp); text-transform:uppercase; letter-spacing:.3em; text-indent:.3em;
+    color:var(--gold2); font-size:clamp(17px,5.4vw,23px); margin:12px 0;}
+  .big h2.mut{color:#aebccd;}
+  .fogtext{color:#c2cfde; font-style:italic; line-height:1.75; font-size:14.5px; max-width:340px; margin:0 auto;
+    text-shadow:0 1px 3px rgba(2,6,12,.9), 0 0 14px rgba(2,6,12,.65);}
+  .crown{width:54px; height:38px; margin:0 auto 6px; filter:drop-shadow(0 0 14px rgba(216,181,74,.6));}
+  .menubtns{display:flex; flex-direction:column; gap:10px; align-items:stretch; max-width:280px;
+    width:100%; margin:22px auto 0;}
+  .rules{font-size:13.5px; color:#bccadb; line-height:1.65; text-align:left;}
+  .rules b{color:var(--gold2); font-family:var(--disp); letter-spacing:.06em; text-transform:uppercase; font-size:12.5px;}
+
+  /* ================= MISC ================= */
   .spread{display:flex; justify-content:space-between; align-items:center; gap:8px;}
-
-  /* top bar */
-  .topbar{display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center;}
-  .legname{font-size:12px; letter-spacing:1.5px; color:var(--dim); text-transform:uppercase;}
-  .blindname{font-size:19px; color:var(--gold2);}
-  .stat{font-size:13px; color:var(--dim);}
-  .stat b{color:var(--ink); font-size:15px;}
-  .kn{color:var(--gold2);}
-  .progress{height:10px; background:#0c1828; border:1px solid #1f3a55; border-radius:6px; overflow:hidden; margin-top:6px;}
-  .progress>div{height:100%; background:linear-gradient(90deg,#3b7bb8,var(--gold)); transition:width .5s ease;}
-  .targetline{display:flex; justify-content:space-between; font-size:13px; color:var(--dim); margin-top:3px;}
-  .targetline b{color:var(--ink);}
-
-  /* cards */
-  .hand{display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin:10px 0;}
-  .card{width:58px; height:82px; background:linear-gradient(165deg,#f7f1e3,#e6dcc4); border-radius:8px;
-    border:2px solid #c9bda0; position:relative; cursor:pointer; user-select:none;
-    box-shadow:0 3px 8px rgba(0,0,0,.45); transition:transform .12s ease, box-shadow .12s; color:#222;}
-  .card.sel{transform:translateY(-12px); border-color:var(--gold); box-shadow:0 8px 16px rgba(212,175,55,.35);}
-  .card .rank{position:absolute; top:4px; left:6px; font-size:20px; font-weight:bold;}
-  .card .glag{position:absolute; top:26px; left:7px; font-size:11px; opacity:.55;}
-  .card .suit{position:absolute; bottom:4px; right:5px; font-size:20px;}
-  .card.debuffed{filter:grayscale(1) brightness(.55);}
-  .card.back{background:repeating-linear-gradient(45deg,#16304a,#16304a 6px,#122438 6px,#122438 12px);
-    border-color:#2c5278; color:var(--dim);}
-  .card.back .rank,.card.back .glag,.card.back .suit{visibility:hidden;}
-  .card.back::after{content:"Ⱅ"; position:absolute; inset:0; display:flex; align-items:center;
-    justify-content:center; font-size:26px; color:#3b6a96;}
-
-  /* jokers + omens */
-  .jrow{display:flex; gap:6px; flex-wrap:wrap; margin:6px 0;}
-  .joker{background:linear-gradient(170deg,#23344c,#17273b); border:1px solid #34557c; border-radius:10px;
-    padding:7px 9px; font-size:12px; max-width:160px; cursor:default; position:relative;}
-  .joker .jname{color:var(--gold2); font-size:13px;}
-  .joker .jdesc{color:var(--dim); margin-top:2px; line-height:1.35;}
-  .joker.omen{border-color:#5a7a5a;}
-  .joker.omen .jname{color:#a8e0a8;}
-  .slotnote{font-size:11px; color:#54708c; letter-spacing:1px; text-transform:uppercase; margin-top:8px;}
-
-  /* last play */
-  .lastplay{text-align:center; animation:pop .35s ease;}
-  .lastplay .hname{font-size:18px; color:var(--gold2); letter-spacing:1px;}
-  .lastplay .math{font-size:22px; margin-top:4px;}
-  .lastplay .math .km{color:var(--sea);} .lastplay .math .tm{color:var(--road);}
-  .lastplay .total{color:var(--gold); font-size:26px;}
-  @keyframes pop{from{transform:scale(.92); opacity:.3;} to{transform:scale(1); opacity:1;}}
-
-  .bossbanner{background:linear-gradient(180deg,#3a1828,#241020); border:1px solid #7a3050;
-    border-radius:10px; padding:9px 12px; font-size:13px; color:#e8b8c8; margin:8px 0;}
-  .bossbanner b{color:#ffd0e0; letter-spacing:1px;}
-
-  .shopitem{display:flex; justify-content:space-between; gap:10px; align-items:center;
-    border:1px solid #2a4a6e; border-radius:10px; padding:10px; margin:8px 0;
-    background:linear-gradient(180deg,#152a42,#10202f);}
-  .shopitem .sname{color:var(--gold2); font-size:15px;}
-  .shopitem .sdesc{color:var(--dim); font-size:12.5px; margin-top:3px; line-height:1.35;}
-  .price{color:var(--gold2); white-space:nowrap; font-size:15px;}
-  .sold{opacity:.35;}
-
-  .bigscreen{text-align:center; padding:40px 10px;}
-  .bigscreen h2{font-size:30px; color:var(--gold); margin:14px 0;}
-  .fogtext{color:#9fb0c4; font-style:italic; line-height:1.7;}
-  .statline{color:var(--dim); font-size:14px; margin:4px 0; overflow:hidden;}
-  .statline b{color:var(--ink);}
-
-  #toast{position:fixed; left:50%; bottom:90px; transform:translateX(-50%);
-    background:#1d3a58; border:1px solid var(--gold); color:var(--ink); border-radius:10px;
-    padding:10px 16px; font-size:14px; opacity:0; pointer-events:none; transition:opacity .25s;
-    max-width:88vw; text-align:center; z-index:50;}
-  #toast.show{opacity:1;}
-
-  .controls{position:sticky; bottom:0; background:linear-gradient(0deg,var(--bg) 70%,transparent);
-    padding:10px 0 4px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;}
-  .rules{font-size:13.5px; color:#b9c6d6; line-height:1.6;}
-  .rules b{color:var(--gold2);}
-  hr{border:0; border-top:1px solid #1f3a55; margin:12px 0;}
-  .tiny{font-size:11.5px; color:#54708c;}
+  .hudtop{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; padding:2px 0;}
+  #toast{position:fixed; left:50%; bottom:108px; transform:translateX(-50%) translateY(8px); z-index:60;
+    background:linear-gradient(180deg,#1b4a7e,#143a64); border:1.5px solid #cfe0f0; color:#eef4fa;
+    border-radius:10px; padding:11px 17px; font-family:var(--disp); font-size:13px; letter-spacing:.05em;
+    opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; max-width:88vw; text-align:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.5);}
+  #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  hr{border:0; border-top:1px solid rgba(255,255,255,.1); margin:12px 0;}
+  .kn{color:var(--gold2); font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  @media (prefers-reduced-motion:reduce){ *,*::before,*::after{animation-duration:.001s !important; transition-duration:.001s !important;} }
 </style>
 </head>
 <body>
+<div id="scene" aria-hidden="true">
+  <div class="sky"></div>
+  <div class="stars"></div>
+  <div class="sun"></div>
+  <div class="glint"></div>
+  <svg class="mtn m2" viewBox="0 0 1000 260" preserveAspectRatio="none"><path d="M0 260 L0 175 L85 118 L175 162 L255 88 L365 148 L455 108 L555 168 L645 92 L755 158 L845 118 L935 158 L1000 132 L1000 260 Z"/></svg>
+  <svg class="mtn m1" viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M0 220 L0 148 L115 78 L225 138 L325 58 L445 128 L575 68 L695 138 L815 88 L915 142 L1000 108 L1000 220 Z"/></svg>
+  <div class="sea"></div>
+  <div class="fogband f1"></div>
+  <div class="fogband f2"></div>
+  <div class="vig"></div>
+</div>
 <div id="app"></div>
 <div id="toast"></div>
 <script>
@@ -479,14 +736,26 @@ function scoreHand(played){
     noDiscards: S.discardsThisRound===0,
     debuffed: [],
   };
-  for(const c of scored){
-    if(isDebuffed(c)){ ctx.debuffed.push(c.id); continue; }
+  ctx.breakdown = [];
+  for(const c of played){
+    if(!set.has(c.id)){
+      ctx.breakdown.push({rank:c.rank, suit:c.suit, enh:c.enh, off:true, dkm:0, dt:0});
+      continue;
+    }
+    if(isDebuffed(c)){
+      ctx.debuffed.push(c.id);
+      ctx.breakdown.push({rank:c.rank, suit:c.suit, enh:c.enh, deb:true, dkm:0, dt:0});
+      continue;
+    }
+    const km0=ctx.km, t0=ctx.tempo;
     const triggers = (hasJoker("burabottle") && c.suit==="wind") ? 2 : 1;
     for(let t=0;t<triggers;t++){
       ctx.km += chipVal(c);
       if(c.enh==="saint") ctx.km += 30;
       for(const j of S.jokers){ const d=JBY[j.id]; if(d.perCard) d.perCard(ctx,c,j); }
     }
+    ctx.breakdown.push({rank:c.rank, suit:c.suit, enh:c.enh,
+      dkm:Math.round((ctx.km-km0)*100)/100, dt:Math.round((ctx.tempo-t0)*100)/100});
   }
   for(const j of S.jokers){ const d=JBY[j.id]; if(d.add) d.add(ctx,j); }
   for(const j of S.jokers){ const d=JBY[j.id]; if(d.mult) d.mult(ctx,j); }
@@ -701,8 +970,29 @@ function clearSave(){ if(IS_BROWSER){ try{ localStorage.removeItem(SAVE_KEY); }c
 /* ============================================================
    RENDER
    ============================================================ */
-function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+function esc(t){ return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 function fmt(n){ return n.toLocaleString("en-US"); }
+
+const PIP_PATHS = {
+  sea:'<path d="M2 8.5c3.2-3.8 6.8-3.8 10 0s6.8 3.8 10 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M2 15.5c3.2-3.8 6.8-3.8 10 0s6.8 3.8 10 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
+  stone:'<path fill="currentColor" fill-rule="evenodd" d="M12 2 21.5 11.5 18.5 11.5 18.5 22 5.5 22 5.5 11.5 2.5 11.5 Z M10.4 22 13.6 22 13.6 15.5 10.4 15.5 Z"/>',
+  wind:'<path d="M3 8h11a3 3 0 1 0-3-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M3 13h15a3 3 0 1 1-3 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M3 18h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
+  road:'<path d="M8 22C8 15 16 13 16 2" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/><path d="M8 22C8 15 16 13 16 2" fill="none" stroke="#f4edda" stroke-width="1.3" stroke-dasharray="2.6 2.8" stroke-linecap="round"/>',
+};
+function pipSVG(suit, cls){ return `<svg class="${cls||""}" viewBox="0 0 24 24" aria-hidden="true">${PIP_PATHS[suit]}</svg>`; }
+const CAR_SVG = '<svg viewBox="0 0 26 12" aria-hidden="true"><path fill="#f3d878" d="M1 8c0-2 1.5-3 4-3.4L8 2.4C8.6 1.6 9.6 1 10.8 1h6.4c1.6 0 3 .8 3.8 2.1L22.6 6C24.5 6.4 25 7.2 25 8.4c0 .9-.7 1.6-1.6 1.6H22a2.4 2.4 0 0 1-4.7 0h-8.6a2.4 2.4 0 0 1-4.7 0H2.6C1.7 10 1 9.1 1 8Z"/><circle cx="6.5" cy="9.6" r="1.7" fill="#2b2418"/><circle cx="19.6" cy="9.6" r="1.7" fill="#2b2418"/></svg>';
+const TRI_SVG = '<svg class="tri" viewBox="0 0 34 31" aria-hidden="true"><path d="M17 2 32 28.5 2 28.5 Z" fill="#7e1f1b" stroke="#f4d9d2" stroke-width="2.4" stroke-linejoin="round"/><text x="17" y="24" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="#ffd9cf">!</text></svg>';
+const CROWN_SVG = '<svg class="crown" viewBox="0 0 54 38" aria-hidden="true"><path d="M4 32 2 10 14 19 27 4 40 19 52 10 50 32 Z" fill="#d8b54a" stroke="#8a6c1c" stroke-width="2" stroke-linejoin="round"/><circle cx="27" cy="22" r="3.2" fill="#7e1f1b"/><circle cx="13.5" cy="25" r="2.3" fill="#14497e"/><circle cx="40.5" cy="25" r="2.3" fill="#14497e"/></svg>';
+
+function fmtDesc(t){
+  let h = esc(t);
+  const m = {"🌊 Sea":"sea","🪨 Stone":"stone","🌬️ Wind":"wind","🛣️ Road":"road"};
+  for(const k in m){
+    const su=m[k], name=su[0].toUpperCase()+su.slice(1);
+    h = h.split(k).join(`<span class="sw ${su}">${pipSVG(su)} ${name}</span>`);
+  }
+  return h;
+}
 
 let toastTimer=null;
 function toast(msg){
@@ -713,42 +1003,43 @@ function toast(msg){
   toastTimer=setTimeout(()=>t.classList.remove("show"), 2600);
 }
 
-function cardHTML(c){
-  const deb = isDebuffed(c) ? " debuffed" : "";
-  const back = c.faceDown ? " back" : "";
-  const sel = S.sel.includes(c.id) ? " sel" : "";
-  const col = SUITS[c.suit].color;
-  const star = c.enh==="saint" ? "✦" : "";
-  return `<div class="card${sel}${deb}${back}" onclick="toggleCard(${c.id})">
-    <div class="rank" style="color:${col}">${RANK_LABEL[c.rank]}${star}</div>
-    <div class="glag">${GLAG[c.rank]}</div>
-    <div class="suit">${SUITS[c.suit].glyph}</div></div>`;
+/* ---- signage ---- */
+function legSign(){
+  const l=curLeg();
+  return `<div class="roadsign">${l.from} <span class="arr">→</span> ${l.to} <span class="legno">${S.leg+1}/8</span></div>`;
+}
+function blindChip(){
+  return `<span class="blindchip${isBossBlind()?" boss":""}">${esc(blindName())}</span>`;
+}
+function warnSign(boss, withFlavor){
+  return `<div class="warnsign">${TRI_SVG}<div><b>${esc(boss.name)}</b><p>${fmtDesc(boss.desc)}</p>
+    ${withFlavor?`<p class="wf">${esc(boss.flavor)}</p>`:""}</div></div>`;
 }
 
-function jokerHTML(j, i, sellable){
-  const d = JBY[j.id];
-  const tag = d.tag ? ` <span style="color:var(--good)">[${d.tag(j)}]</span>` : "";
-  const sell = sellable ? `<button class="btn small danger" style="margin-top:5px" onclick="sellJoker(${i})">sell ${Math.max(1,Math.floor(d.cost/2))} kn</button>` : "";
-  return `<div class="joker"><div class="jname">${esc(d.name)}${tag}</div>
-    <div class="jdesc">${esc(d.desc)}</div>${sell}</div>`;
+/* ---- cards ---- */
+function cardHTML(c, rot, ty){
+  const sel=S.sel.includes(c.id);
+  const cls=`pcard suit-${c.suit}${sel?" sel":""}${isDebuffed(c)?" deb":""}${c.faceDown?" back":""}${c.enh==="saint"?" saint":""}`;
+  const center = c.faceDown ? "" :
+    c.rank===14 ? `<div class="a1">A1</div>` :
+    c.rank>=11  ? `<div class="face">${GLAG[c.rank]}</div>` :
+                  `<div class="bigpip">${pipSVG(c.suit)}</div>`;
+  return `<div class="${cls}" data-id="${c.id}" style="--rot:${rot||0}deg;--ty:${ty||0}px" onclick="toggleCard(${c.id})">
+    <div class="idx"><b>${RANK_LABEL[c.rank]}</b>${pipSVG(c.suit,"ip")}</div>${center}
+    ${c.faceDown?"":`<div class="gn">${GLAG[c.rank]}</div>`}</div>`;
 }
-
-function omenHTML(o, i){
-  const d = OBY[o.id];
-  const usable = S.screen==="round";
-  return `<div class="joker omen"><div class="jname">${esc(d.name)}</div>
-    <div class="jdesc">${esc(d.desc)}</div>
-    ${usable?`<button class="btn small" style="margin-top:5px" onclick="useOmen(${i})">read it</button>`:""}</div>`;
+function miniCard(b){
+  const center = b.rank>=11 && b.rank<=13 ? `<span class="fg">${GLAG[b.rank]}</span>` : pipSVG(b.suit);
+  return `<div class="mini suit-${b.suit}"><b>${RANK_LABEL[b.rank]}</b>${center}</div>`;
 }
-
-function crewHTML(sellable){
-  if(!S.jokers.length && !S.omens.length) return "";
-  return `<div class="jrow">`
-    + S.jokers.map((j,i)=>jokerHTML(j,i,sellable)).join("")
-    + S.omens.map((o,i)=>omenHTML(o,i)).join("")
-    + `</div><div class="slotnote">passengers ${S.jokers.length}/${MAX_JOKERS} · omens ${S.omens.length}/${MAX_OMENS}</div>`;
+function handHTML(){
+  sortHand();
+  const n=S.hand.length, mid=(n-1)/2;
+  const rotStep = n>5?3.4:5, dip = n>5?1.5:2.4;
+  return `<div class="fan" style="--n:${n}">`+S.hand.map((c,i)=>
+    cardHTML(c, ((i-mid)*rotStep).toFixed(1), (Math.abs(i-mid)**2*dip).toFixed(1))
+  ).join("")+`</div>`;
 }
-
 function sortHand(){
   const mode = S.sortMode||"rank";
   S.hand.sort((a,b)=> mode==="rank"
@@ -757,142 +1048,213 @@ function sortHand(){
 }
 function setSort(m){ S.sortMode=m; render(); }
 
-function previewHTML(){
-  const leg=curLeg(); const boss=isBossBlind();
-  const name=blindName(); const target=blindTarget(S.leg,S.blind);
+/* ---- crew (passengers + omens) ---- */
+function showInfo(kind, idx){
+  const cur=S.info;
+  S.info = (cur && cur.kind===kind && cur.idx===idx) ? null : {kind, idx};
+  render();
+}
+function hideInfo(){ S.info=null; render(); }
+function crewHTML(){
+  if(!S.jokers.length && !S.omens.length) return "";
+  const inf=S.info||null;
+  let h=`<div class="crew">`;
+  h+=S.jokers.map((j,i)=>{
+    const d=JBY[j.id];
+    const open=inf&&inf.kind==="joker"&&inf.idx===i;
+    return `<div class="ctile${open?" open":""}" onclick="showInfo('joker',${i})">
+      <div class="cg">${esc(d.name[d.name.startsWith("The ")?4:0])}</div>
+      <div class="cn">${esc(d.name)}</div>${d.tag?`<span class="ct">${d.tag(j)}</span>`:""}</div>`;
+  }).join("");
+  h+=S.omens.map((o,i)=>{
+    const d=OBY[o.id];
+    const open=inf&&inf.kind==="omen"&&inf.idx===i;
+    return `<div class="ctile omen${open?" open":""}" onclick="showInfo('omen',${i})">
+      <div class="cg">☽</div><div class="cn">${esc(d.name)}</div></div>`;
+  }).join("");
+  h+=`</div><div class="slotnote">passengers ${S.jokers.length}/${MAX_JOKERS} · omens ${S.omens.length}/${MAX_OMENS}</div>`;
+  return h;
+}
+function infoHTML(sellable){
+  const inf=S.info||null;
+  if(!inf) return "";
+  if(inf.kind==="joker"){
+    const j=S.jokers[inf.idx]; if(!j){S.info=null; return "";}
+    const d=JBY[j.id];
+    return `<div class="infobar"><b>${esc(d.name)}</b>${d.tag?`<span class="tagv">${d.tag(j)}</span>`:""}
+      <p>${fmtDesc(d.desc)}</p><div class="ibtns">
+      ${sellable?`<button class="bx sm warn" onclick="S.info=null;sellJoker(${inf.idx})">sell · ${Math.max(1,Math.floor(d.cost/2))} kn</button>`:""}
+      <button class="bx sm ghost" onclick="hideInfo()">close</button></div></div>`;
+  }
+  const o=S.omens[inf.idx]; if(!o){S.info=null; return "";}
+  const d=OBY[o.id];
+  const readable = S.screen==="round";
+  return `<div class="infobar omen"><b>${esc(d.name)}</b><p>${fmtDesc(d.desc)}</p><div class="ibtns">
+    ${readable?`<button class="bx sm gold" onclick="S.info=null;useOmen(${inf.idx})">read it${d.targets?` · ${d.targets===1?"1 card":"up to "+d.targets+" cards"}`:""}</button>`:""}
+    <button class="bx sm ghost" onclick="hideInfo()">close</button></div></div>`;
+}
+
+/* ---- playzone ---- */
+function playzoneHTML(){
+  const lp=S.lastPlay;
+  if(lp){
+    const an=lp.seen?" noanim":"";
+    const bd=lp.breakdown||[];
+    const cards=bd.map((b,i)=>`<div class="zc suit-${b.suit}${b.deb?" zdeb":""}${b.off?" zoff":""}" style="animation-delay:${i*90}ms">
+        ${miniCard(b)}${(!b.deb&&!b.off)?`<span class="zk" style="animation-delay:${i*90+170}ms">+${fmt(b.dkm)}${b.dt?`<i>+${fmt(b.dt)}t</i>`:""}</span>`:""}</div>`).join("");
+    const dly=bd.length*90+240;
+    return `<div class="pz${an}">
+      <div class="pzname">${esc(HANDS[lp.type].name)} <i>lvl ${lp.lvl}</i></div>
+      <div class="pzcards">${cards}</div>
+      <div class="pzmath" style="animation-delay:${dly}ms"><b class="km">${fmt(lp.km)}</b><span>km</span><em>×</em><b class="tm">${fmt(lp.tempo)}</b><span>tempo</span></div>
+      <div class="pztotal" style="animation-delay:${dly+200}ms">+${fmt(lp.total)} <span>km</span></div>
+      ${lp.debuffed.length?`<div class="pzdeb">${lp.debuffed.length} card${lp.debuffed.length>1?"s":""} scored nothing</div>`:""}
+    </div>`;
+  }
+  const sel=selectedCards();
+  if(sel.length){
+    const r=scoreHand(sel);
+    return `<div class="pz preview"><div class="pzname">${esc(HANDS[r.type].name)} <i>lvl ${r.lvl}</i></div>
+      <div class="pzmath"><b class="km">${fmt(r.km)}</b><span>km</span><em>×</em><b class="tm">${fmt(r.tempo)}</b><span>tempo</span></div>
+      <div class="pztotal ghost">+${fmt(r.total)} <span>km</span></div>
+      ${r.debuffed.length?`<div class="pzdeb">${r.debuffed.length} card${r.debuffed.length>1?"s":""} would score nothing</div>`:""}</div>`;
+  }
+  return `<div class="pz idle"><p>${esc(S.prophecy)}</p></div>`;
+}
+
+/* ---- screens ---- */
+function roundHTML(){
+  const pct=Math.min(100, Math.round(100*S.score/S.target));
   return `
-  <div class="glagtitle" style="font-size:22px;margin-top:8px">ⰏⰀⰃⰋⰔⰕⰓⰀⰎⰀ</div>
-  <div class="panel">
-    <div class="legname">Leg ${S.leg+1} of 8 · ${leg.from} → ${leg.to}</div>
-    <p class="oracle">${esc(leg.flavor)}</p>
-    <p class="oracle tiny" style="color:#54708c">${esc(S.prophecy)}</p>
-  </div>
-  <div class="panel" style="${boss?"border-color:#7a3050":""}">
-    <div class="spread"><h2 style="color:${boss?"#ffd0e0":"var(--gold2)"};font-size:21px">${esc(name)}</h2>
-      <div class="stat">reward <b class="kn">${blindReward()} kn</b>+</div></div>
-    ${boss?`<div class="bossbanner"><b>${esc(leg.boss.desc)}</b><br><span style="color:#c890a8">${esc(leg.boss.flavor)}</span></div>`:""}
-    <div class="stat" style="margin-top:6px">distance to cover: <b>${fmt(target)} km</b></div>
-    <div class="stat">maneuvers: <b>${maneuversForRound()}</b> · scenic glances: <b>3</b></div>
-    <div style="margin-top:12px">
-      <button class="btn gold" onclick="startBlind();render()">DRIVE</button>
-      ${!boss?`<button class="btn" onclick="skipBlind()">wave it through</button>`:""}
+  <div class="hudtop">${legSign()}${blindChip()}</div>
+  ${isBossBlind()?warnSign(curLeg().boss,false):""}
+  ${bossIs("venice")&&S.venSuit?`<div class="slotnote" style="color:#e8a89a">forbidden now: <span class="sw ${S.venSuit}">${pipSVG(S.venSuit)} ${SUITS[S.venSuit].name}</span></div>`:""}
+  <div class="dash">
+    <div class="odorow"><span class="odo" id="odo">${fmt(S.score)}</span><span class="odotarget">of <b>${fmt(S.target)}</b> km<br>${esc(curLeg().to)} ahead</span></div>
+    <div class="roadtrack" style="--pct:${pct}%"><div class="dashes"></div><div class="gone"></div><div class="car">${CAR_SVG}</div></div>
+    <div class="meters">
+      <div class="meter"><b>${S.maneuvers}</b><label>maneuvers</label></div>
+      <div class="meter"><b>${S.discards}</b><label>glances</label></div>
+      <div class="meter kn"><b>${S.kuna}</b><label>kuna</label></div>
+      <div class="meter"><b>${S.drawPile.length}</b><label>deck</label></div>
     </div>
-    ${!boss?`<div class="tiny" style="margin-top:6px">Waving a stretch through skips it — no shop, but the road usually leaves something on the passenger seat.</div>`:""}
   </div>
-  ${crewHTML(true)}
-  <div class="spread" style="margin-top:14px">
-    <span class="stat kn"><b>${S.kuna} kn</b></span>
-    <button class="btn small danger" onclick="abandonRun()">abandon run</button>
+  ${crewHTML()}${infoHTML(false)}
+  <div class="grow">${playzoneHTML()}</div>
+  <div class="fanbar">
+    <button class="bx sm ghost" onclick="abandonRun()">abandon</button>
+    <span class="seg">
+      <button class="${(S.sortMode||"rank")==="rank"?"on":""}" onclick="setSort('rank')">rank</button>
+      <button class="${S.sortMode==="suit"?"on":""}" onclick="setSort('suit')">suit</button>
+    </span>
+  </div>
+  ${handHTML()}
+  <div class="actionbar">
+    <button class="bx" onclick="discardSelected()" ${S.sel.length&&S.discards>0?"":"disabled"}>glance · ${S.discards}</button>
+    <button class="bx gold" onclick="playSelected()" ${S.sel.length?"":"disabled"}>play maneuver</button>
   </div>`;
 }
 
-function roundHTML(){
-  sortHand();
-  const leg=curLeg();
-  const pct=Math.min(100, Math.round(100*S.score/S.target));
-  const lp=S.lastPlay;
-  const sel=selectedCards();
-  const ev = sel.length ? evaluate(sel) : null;
+function previewHTML(){
+  const leg=curLeg(), boss=isBossBlind();
+  const target=blindTarget(S.leg,S.blind);
   return `
-  <div class="topbar">
-    <div>
-      <div class="legname">Leg ${S.leg+1}/8 · ${leg.from} → ${leg.to}</div>
-      <div class="blindname">${esc(blindName())}</div>
+  <div style="text-align:center;margin:14px 0 4px">${legSign()}</div>
+  <div class="panel"><p class="oracle">${esc(leg.flavor)}</p></div>
+  <div class="panel">
+    <div class="spread">${blindChip()}<span class="tiny">reward <span class="kn">${blindReward()} kn</span> + leftovers + interest</span></div>
+    ${boss?warnSign(leg.boss,true):""}
+    <div class="odorow" style="margin-top:10px"><span class="odo" style="font-size:24px">${fmt(target)}<small>km to cover</small></span></div>
+    <div class="tiny" style="margin-top:5px">${maneuversForRound()} maneuvers · 3 scenic glances</div>
+    <div style="display:flex;gap:9px;margin-top:13px">
+      <button class="bx gold" style="flex:1.6" onclick="startBlind();render()">drive</button>
+      ${!boss?`<button class="bx" style="flex:1" onclick="skipBlind()">wave through</button>`:""}
     </div>
-    <div style="text-align:right">
-      <div class="stat">maneuvers <b>${S.maneuvers}</b> · glances <b>${S.discards}</b></div>
-      <div class="stat"><span class="kn"><b>${S.kuna} kn</b></span> · deck <b>${S.drawPile.length}</b></div>
-    </div>
+    ${!boss?`<div class="tiny" style="margin-top:7px">Waving a stretch through skips it — no kiosk after, but the road usually leaves something on the passenger seat.</div>`:""}
   </div>
-  <div class="progress"><div style="width:${pct}%"></div></div>
-  <div class="targetline"><span><b>${fmt(S.score)}</b> km driven</span><span>of <b>${fmt(S.target)}</b> km</span></div>
-  ${isBossBlind()?`<div class="bossbanner"><b>${esc(curLeg().boss.name)}</b> — ${esc(curLeg().boss.desc)}
-    ${bossIs("venice")&&S.venSuit?`<br>Forbidden now: <b>${SUITS[S.venSuit].glyph} ${SUITS[S.venSuit].name}</b>`:""}</div>`:""}
-  ${crewHTML(false)}
-  ${lp?`<div class="panel lastplay">
-      <div class="hname">${esc(HANDS[lp.type].name).toUpperCase()} <span class="tiny">lvl ${lp.lvl}</span></div>
-      <div class="math"><span class="km">${fmt(lp.km)} KM</span> × <span class="tm">${fmt(lp.tempo)} TEMPO</span> = <span class="total">${fmt(lp.total)} km</span></div>
-      ${lp.debuffed.length?`<div class="tiny" style="color:var(--bad)">${lp.debuffed.length} card(s) scored nothing</div>`:""}
-    </div>`:""}
-  <div class="hand">${S.hand.map(c=>cardHTML(c)).join("")}</div>
-  <div class="spread">
-    <span class="stat" style="min-height:18px">${ev?`→ <b>${esc(HANDS[ev.type].name)}</b> lvl ${S.handLevels[ev.type]}`:""}</span>
-    <span>
-      <button class="btn small" onclick="setSort('rank')">⇅ rank</button>
-      <button class="btn small" onclick="setSort('suit')">⇅ suit</button>
-    </span>
-  </div>
-  <div class="controls">
-    <button class="btn gold" onclick="playSelected()" ${sel.length?"":"disabled"}>PLAY MANEUVER</button>
-    <button class="btn" onclick="discardSelected()" ${sel.length&&S.discards>0?"":"disabled"}>scenic glance</button>
-  </div>
-  <div class="spread"><span class="tiny">${esc(S.prophecy)}</span>
-    <button class="btn small danger" onclick="abandonRun()">abandon</button></div>`;
+  ${crewHTML()}${infoHTML(true)}
+  <div class="grow"></div>
+  <div class="spread"><span class="kn" style="font-size:16px">${S.kuna} kn</span>
+    <button class="bx sm ghost" onclick="abandonRun()">abandon run</button></div>
+  <p class="tiny" style="text-align:center;margin-top:8px;font-style:italic">${esc(S.prophecy)}</p>`;
 }
 
 function cashHTML(){
   const c=S.cash;
+  const d=new Date();
   return `
-  <div class="bigscreen">
-    <div class="legname">${esc(blindName())} — cleared</div>
-    <h2 style="font-size:24px">${fmt(S.score)} km on the clock</h2>
-    <div class="panel" style="text-align:left">
-      <div class="statline">stretch cleared <b style="float:right" class="kn">${c.base} kn</b></div>
-      <div class="statline">maneuvers unspent <b style="float:right" class="kn">${c.perHand} kn</b></div>
-      <div class="statline">interest (1 per 5 kn held, max 5) <b style="float:right" class="kn">${c.interest} kn</b></div>
-      <hr><div class="statline">wallet <b style="float:right" class="kn">${S.kuna} kn</b></div>
-    </div>
-    <button class="btn gold" onclick="afterBossOrRound()">pull in at the kiosk</button>
+  <div class="big">
+    <div style="margin-bottom:6px">${blindChip()}</div>
+    <div class="receiptwrap"><div class="receipt">
+      <h3>KIOSK NA KRAJU CESTE</h3>
+      <div class="rsub">OIB 11250000001125 · ${esc(curLeg().from)}—${esc(curLeg().to)}</div>
+      <hr class="rdiv">
+      <div class="rl"><span>stretch cleared</span><span>${c.base} kn</span></div>
+      <div class="rl"><span>maneuvers unspent ×${c.perHand}</span><span>${c.perHand} kn</span></div>
+      <div class="rl"><span>interest (1/5 kn, max 5)</span><span>${c.interest} kn</span></div>
+      <hr class="rdiv">
+      <div class="rl rtotal"><span>WALLET</span><span>${S.kuna} kn</span></div>
+      <div class="rl"><span>distance driven</span><span>${fmt(S.score)} km</span></div>
+      <hr class="rdiv">
+      <div class="rfoot">RAČUN · 1125-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}<br>HVALA — VOZITE OPREZNO</div>
+    </div></div>
+    <button class="bx gold" style="align-self:center;min-width:240px" onclick="afterBossOrRound()">pull in at the kiosk</button>
   </div>`;
 }
 
 function shopItemHTML(it, i){
-  let name, desc;
-  if(it.kind==="joker"){ const d=JBY[it.id]; name=d.name; desc=d.desc; }
-  else if(it.kind==="omen"){ const d=OBY[it.id]; name="Omen: "+d.name; desc=d.desc; }
-  else { name=RADIO_NAMES[it.hand];
-    desc="Levels up "+HANDS[it.hand].name+" (+"+HANDS[it.hand].lkm+" KM, +"+HANDS[it.hand].ltempo+" Tempo). Currently lvl "+S.handLevels[it.hand]+"."; }
-  return `<div class="shopitem ${it.sold?"sold":""}">
-    <div><div class="sname">${esc(name)}</div><div class="sdesc">${esc(desc)}</div></div>
-    <div style="text-align:right">
-      <div class="price">${it.price} kn</div>
-      ${it.sold?`<div class="tiny">taken</div>`:`<button class="btn small gold" onclick="buyItem(${i})">buy</button>`}
+  let kind, name, desc;
+  if(it.kind==="joker"){ const d=JBY[it.id]; kind="putnik · passenger"; name=d.name; desc=fmtDesc(d.desc); }
+  else if(it.kind==="omen"){ const d=OBY[it.id]; kind="omen"; name=d.name; desc=fmtDesc(d.desc); }
+  else { kind="radio";
+    name=RADIO_NAMES[it.hand];
+    desc=`Levels up <b style="color:var(--gold2)">${esc(HANDS[it.hand].name)}</b> — +${HANDS[it.hand].lkm} KM, +${HANDS[it.hand].ltempo} Tempo. Now lvl ${S.handLevels[it.hand]}.`; }
+  return `<div class="shopitem${it.sold?" sold":""}">
+    <div><div class="skind">${kind}</div><div class="sname">${esc(name)}</div><div class="sdesc">${desc}</div></div>
+    <div class="pricetag"><span class="pt">${it.price} kn</span><br>
+      ${it.sold?`<span class="tiny">taken</span>`:`<button class="bx sm gold" onclick="buyItem(${i})">buy</button>`}
     </div></div>`;
 }
 
 function shopHTML(){
   return `
-  <div class="glagtitle" style="font-size:20px;margin-top:8px">THE KIOSK AT THE EDGE OF THE ROAD</div>
-  <div class="subtitle">coffee, omens, passengers, one working radio</div>
-  <div class="panel">
-    ${S.shop.items.map((it,i)=>shopItemHTML(it,i)).join("")}
-    <div class="spread" style="margin-top:8px">
-      <button class="btn small" onclick="rerollShop()">restock shelf — ${COSTS.reroll} kn</button>
-      <span class="stat kn"><b>${S.kuna} kn</b></span>
-    </div>
+  <div style="text-align:center;margin:14px 0 2px">
+    <div class="roadsign" style="background:linear-gradient(180deg,#1b5286,#123c64);outline-color:#0a2742">KIOSK <span class="legno">24h</span></div>
+    <div class="subtitle">coffee, omens, passengers, one working radio</div>
   </div>
-  ${crewHTML(true)}
-  <div class="controls"><button class="btn gold" onclick="leaveShop()">BACK ON THE ROAD</button></div>`;
+  ${S.shop.items.map((it,i)=>shopItemHTML(it,i)).join("")}
+  <div class="spread" style="margin-top:4px">
+    <button class="bx sm" onclick="rerollShop()">restock · ${COSTS.reroll} kn</button>
+    <span class="kn" style="font-size:17px">${S.kuna} kn</span>
+  </div>
+  ${crewHTML()}${infoHTML(true)}
+  <div class="grow"></div>
+  <div class="actionbar"><button class="bx gold" onclick="leaveShop()">back on the road</button></div>`;
 }
 
 function winHTML(){
   clearSave();
   return `
-  <div class="bigscreen">
-    <div class="glagtitle">ⰁⰋⰑⰃⰓⰀⰄ</div>
-    <h2>THE WHITE CITY RECEIVES YOU</h2>
+  <div class="big">
+    ${CROWN_SVG}
+    <div class="glagtitle" style="font-size:30px">ⰁⰋⰑⰃⰓⰀⰄ</div>
+    <h2>The White City receives you</h2>
     <p class="fogtext">The fleet of 1125 lowers its signal flags. The fog rolls back out to sea like a tide
     that has lost an argument. On the riva of Biograd somebody has set out one chair, facing the water,
     and on the chair: a crown. It fits. It always fit.</p>
-    <h2 style="font-size:20px;color:var(--gold2)">PETAR KREŠIMIR IV, RETURNED</h2>
-    <div class="panel" style="text-align:left">
-      <div class="statline">stretches cleared <b style="float:right">${S.stats.rounds}</b></div>
-      <div class="statline">maneuvers played <b style="float:right">${S.stats.hands}</b></div>
-      <div class="statline">best single maneuver <b style="float:right">${fmt(S.stats.bestHand)} km</b></div>
-      <div class="statline">stretches waved through <b style="float:right">${S.stats.skips}</b></div>
+    <h2 style="font-size:15px;margin-top:14px">Petar Krešimir IV, returned</h2>
+    <div class="receiptwrap"><div class="receipt">
+      <h3>CORONATION LEDGER</h3><hr class="rdiv">
+      <div class="rl"><span>stretches cleared</span><span>${S.stats.rounds}</span></div>
+      <div class="rl"><span>maneuvers played</span><span>${S.stats.hands}</span></div>
+      <div class="rl"><span>best single maneuver</span><span>${fmt(S.stats.bestHand)} km</span></div>
+      <div class="rl"><span>stretches waved through</span><span>${S.stats.skips}</span></div>
+      <hr class="rdiv"><div class="rfoot">KRUNA SE NE VRAĆA · THE CROWN IS NOT RETURNED</div>
+    </div></div>
+    <div class="menubtns">
+      <button class="bx gold" onclick="newRun();render()">drive it again</button>
+      <button class="bx ghost" onclick="toMenu()">rest</button>
     </div>
-    <button class="btn gold" onclick="newRun();render()">drive it again</button>
-    <button class="btn" onclick="toMenu()">rest</button>
   </div>`;
 }
 
@@ -900,49 +1262,56 @@ function gameoverHTML(){
   clearSave();
   const leg=curLeg();
   return `
-  <div class="bigscreen">
-    <div class="glagtitle" style="color:#7f93a8">ⰏⰀⰃⰎⰀ</div>
-    <h2 style="color:#9fb0c4">THE FOG TAKES THE CAR</h2>
+  <div class="big">
+    <div class="glagtitle" style="color:#93a6ba;text-shadow:none;font-size:30px">ⰏⰀⰃⰎⰀ</div>
+    <h2 class="mut">The fog takes the car</h2>
     <p class="fogtext">Somewhere between ${leg.from} and ${leg.to}, the white comes down off the karst
     and the road forgets it was going anywhere. You wake at the Pula amphitheater car park.
     The engine is already running. It is always already running.</p>
-    <div class="panel" style="text-align:left">
-      <div class="statline">fell short by <b style="float:right">${fmt(Math.max(0,S.target-S.score))} km</b></div>
-      <div class="statline">stretches cleared <b style="float:right">${S.stats.rounds}</b></div>
-      <div class="statline">best single maneuver <b style="float:right">${fmt(S.stats.bestHand)} km</b></div>
+    <div class="receiptwrap"><div class="receipt" style="filter:saturate(.6)">
+      <h3>INCIDENT REPORT</h3><hr class="rdiv">
+      <div class="rl"><span>fell short by</span><span>${fmt(Math.max(0,S.target-S.score))} km</span></div>
+      <div class="rl"><span>stretches cleared</span><span>${S.stats.rounds}</span></div>
+      <div class="rl"><span>best single maneuver</span><span>${fmt(S.stats.bestHand)} km</span></div>
+      <hr class="rdiv"><div class="rfoot">MAGLA · NO WITNESSES</div>
+    </div></div>
+    <div class="menubtns">
+      <button class="bx gold" onclick="newRun();render()">wake up. drive.</button>
+      <button class="bx ghost" onclick="toMenu()">stay in the fog</button>
     </div>
-    <button class="btn gold" onclick="newRun();render()">wake up. drive.</button>
-    <button class="btn" onclick="toMenu()">stay in the fog</button>
   </div>`;
 }
 
 function menuHTML(){
   const cont = hasSave();
   return `
-  <div class="bigscreen" style="padding-top:60px">
+  <div class="big">
+    <div class="grow" style="min-height:6vh"></div>
     <div class="glagtitle">ⰏⰀⰃⰋⰔⰕⰓⰀⰎⰀ</div>
-    <div class="subtitle">MAGISTRALA — the drive from Pula to Biograd, remembered wrong</div>
-    <p class="fogtext" style="margin-top:24px">Eight legs of coast road. A deck of Sea, Stone, Wind and Asphalt.
+    <div class="latintitle">Magistrala</div>
+    <div class="subtitle">the drive from Pula to Biograd, remembered wrong</div>
+    <p class="fogtext" style="margin-top:20px">Eight legs of coast road. A deck of Sea, Stone, Wind and Asphalt.
     The Bura is real and it is waiting above Senj. Out-drive the road's hazards and crown yourself
     at Biograd — or the fog returns you to the Pula car park to begin again. It is a loop.
     It was always a loop.</p>
-    <div style="margin-top:20px">
-      ${cont?`<button class="btn gold" onclick="continueRun()">continue the drive</button>`:""}
-      <button class="btn ${cont?"":"gold"}" onclick="confirmNewRun()">new run</button>
-      <button class="btn" onclick="toggleRules()">how the road works</button>
+    <div class="menubtns">
+      ${cont?`<button class="bx gold" onclick="continueRun()">continue the drive</button>`:""}
+      <button class="bx ${cont?"":"gold"}" onclick="confirmNewRun()">new run</button>
+      <button class="bx ghost" onclick="toggleRules()">how the road works</button>
     </div>
-    <div class="panel rules" id="rules" style="display:none;text-align:left">
+    <div class="panel rules" id="rules" style="display:none">
       <b>The loop:</b> each of the 8 legs has an Open Road, Heavy Traffic, and a named hazard
       waiting at the landmark. Cover the distance before your maneuvers run out.<br><br>
       <b>Maneuvers</b> are poker hands: a Pair is an <b>Overtake</b>, a Straight is <b>The Magistrala</b>,
       a Flush is a <b>Full Bura</b>, a Full House is a <b>Konoba Lunch</b>. Each scores
-      <b>KM × TEMPO</b>. A <b>scenic glance</b> discards up to five cards and draws fresh ones.<br><br>
+      <b>KM × Tempo</b>. A <b>scenic glance</b> discards up to five cards and draws fresh ones.<br><br>
       <b>Passengers</b> ride along and bend the scoring in their favor. <b>Omens</b> are read once,
       on the road, against your selected cards. <b>Radio stations</b> level a maneuver up permanently.
       Money is in <b>kuna</b>, which no longer exists, which is why the kiosk accepts it.<br><br>
       <b>The driver may watch. The driver may never play.</b> The driver is the sacrifice.
     </div>
-    <div class="tiny" style="margin-top:24px">no network · no build · the run sleeps in localStorage between bursts of play</div>
+    <div class="grow"></div>
+    <p class="tiny" style="margin-top:18px">no network · no build · the run sleeps in localStorage between bursts of play</p>
   </div>`;
 }
 
@@ -961,20 +1330,56 @@ function abandonRun(){
   clearSave(); toMenu();
 }
 
+/* ---- master render + post effects ---- */
+let _lastScreen=null, _odoShown=null, _lastHandIds=[];
 function render(){
   if(!IS_BROWSER) return;
+  const scr = S ? S.screen : "menu";
+  document.body.dataset.screen = scr;
+  document.body.dataset.leg = S ? S.leg : 6;
+  document.body.dataset.boss = (S && scr==="round" && isBossBlind()) ? curLeg().boss.id : "";
   const app=document.getElementById("app");
-  if(!S){ app.innerHTML=menuHTML(); return; }
-  switch(S.screen){
-    case "preview": app.innerHTML=previewHTML(); break;
-    case "round":   app.innerHTML=roundHTML(); break;
-    case "cash":    app.innerHTML=cashHTML(); break;
-    case "shop":    app.innerHTML=shopHTML(); break;
-    case "win":     app.innerHTML=winHTML(); break;
-    case "gameover":app.innerHTML=gameoverHTML(); break;
-    default: app.innerHTML=menuHTML();
+  let html="";
+  if(!S) html=menuHTML();
+  else switch(scr){
+    case "preview": html=previewHTML(); break;
+    case "round":   html=roundHTML(); break;
+    case "cash":    html=cashHTML(); break;
+    case "shop":    html=shopHTML(); break;
+    case "win":     html=winHTML(); break;
+    case "gameover":html=gameoverHTML(); break;
+    default: html=menuHTML();
   }
-  window.scrollTo(0,0);
+  app.innerHTML=html;
+  if(scr!==_lastScreen){ window.scrollTo(0,0); _lastScreen=scr; _odoShown=null; _lastHandIds=[]; }
+  if(S && scr==="round"){
+    const el=document.getElementById("odo");
+    if(el){
+      const target=S.score;
+      const from=(_odoShown===null||_odoShown>target)?target:_odoShown;
+      if(from!==target && typeof requestAnimationFrame!=="undefined") tweenOdo(el, from, target);
+      else el.textContent=fmt(target);
+      _odoShown=target;
+    }
+    if(typeof app.querySelectorAll==="function"){
+      const ids=S.hand.map(c=>c.id);
+      const prev=new Set(_lastHandIds);
+      let di=0;
+      app.querySelectorAll(".fan .pcard[data-id]").forEach(n=>{
+        if(!prev.has(+n.dataset.id) && _lastHandIds.length){ n.classList.add("deal"); n.style.animationDelay=(di++*65)+"ms"; }
+      });
+      _lastHandIds=ids;
+    }
+    if(S.lastPlay && !S.lastPlay.seen) S.lastPlay.seen=true;
+  }
+}
+function tweenOdo(el, from, to){
+  const t0=performance.now(), dur=620;
+  (function step(t){
+    const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+    el.textContent=fmt(Math.round(from+(to-from)*e));
+    if(k<1) requestAnimationFrame(step);
+  })(t0);
 }
 
 function boot(){ S=null; render(); }
@@ -985,6 +1390,7 @@ if(typeof module!=="undefined" && module.exports){
   module.exports = {get S(){return S;}, set S(v){S=v;}, newRun, startBlind, skipBlind,
     playSelected, discardSelected, useOmen, sellJoker, buyItem, rerollShop, toShop,
     leaveShop, afterBossOrRound, evaluate, scoreHand, toggleCard, selectedCards,
+    showInfo, hideInfo, setSort, toMenu,
     HANDS, JOKERS, OMENS, LEGS, newCard, blindTarget, JBY, OBY, maneuversForRound};
 }
 </script>

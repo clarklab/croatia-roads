@@ -44,6 +44,17 @@ Every leg ends at a real hazard of the real route:
 - **The Sunset Applause** — Zadar's riva accepts only full five-card gestures
 - **VENICE, 1125** — the final boss; after every maneuver, a different suit is forbidden
 
+## The look
+
+An Adriatic-noir travel poster that drives with you: every leg repaints the sky —
+Istrian dawn, Učka forest dark, bura storm-grey over Senj, the Zadar sunset Hitchcock
+rated, Biograd night-gold — over layered karst silhouettes, drifting fog, and a sea
+with a sun-glint that follows the sun. The score is an odometer, progress is a little
+car on a dashed road, legs are highway direction signs, bosses are warning triangles,
+and the payout screen is a thermal kiosk receipt. Cards carry hand-drawn SVG pips
+(wave, kažun, gust, switchback road) and true Glagolitic letterforms from a 4.6 KB
+embedded font subset, so nothing renders as tofu on a phone in airplane mode.
+
 ## Playing
 
 Open `index.html` on a phone. No build, no dependencies, no network. The run sleeps
