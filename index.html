@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0b0b14">
+<title>ANTENNA OF THE BURA — a short rite for the Pula→Biograd corridor</title>
+<style>
+  :root{
+    --void:#0b0b14; --bone:#e8dfc8; --terra:#a83a2a; --salt:#7fd4c1;
+    --gold:#c9a227; --fog:#5b5b73; --blood:#6e1423;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
+  html,body{background:var(--void); color:var(--bone); font-family:Georgia,'Times New Roman',serif; min-height:100%;}
+  body{padding:14px 14px 90px; max-width:560px; margin:0 auto; line-height:1.45;}
+  h1{font-size:1.5rem; letter-spacing:.12em; text-align:center; color:var(--gold);
+     text-transform:uppercase; margin:10px 0 2px; font-weight:normal;}
+  .sub{text-align:center; font-style:italic; color:var(--fog); font-size:.85rem; margin-bottom:14px;}
+  .glag{font-size:1.6rem; letter-spacing:.25em; color:var(--salt); text-align:center; display:block;}
+  .card{border:1px solid var(--fog); border-radius:6px; padding:12px 14px; margin:10px 0;
+        background:linear-gradient(160deg, rgba(201,162,39,.06), rgba(0,0,0,0));}
+  .card.fulfilled{opacity:.38; border-style:dashed;}
+  .card.fulfilled .title::after{content:" ✶ WITNESSED"; color:var(--gold); font-size:.7rem; letter-spacing:.2em;}
+  .card .title{color:var(--bone); font-variant:small-caps; letter-spacing:.08em; font-size:1.05rem;}
+  .card .rite{color:#bfb6a0; font-size:.9rem; margin-top:4px; font-style:italic;}
+  .card .denari{float:right; color:var(--gold); font-size:.85rem;}
+  button{font-family:inherit; background:transparent; color:var(--bone); border:1px solid var(--gold);
+         border-radius:4px; padding:12px 18px; font-size:1rem; letter-spacing:.1em; cursor:pointer; width:100%;}
+  button:active{background:var(--gold); color:var(--void);}
+  .small-btn{width:auto; padding:6px 12px; font-size:.8rem; border-color:var(--fog); color:var(--fog);}
+  .stationpick{display:grid; gap:8px; margin:10px 0;}
+  .stationpick button{text-align:left; font-size:.9rem; border-color:var(--fog);}
+  .stationpick button.sel{border-color:var(--salt); color:var(--salt);}
+  .stationpick .sdesc{display:block; font-size:.72rem; color:var(--fog); font-style:italic; letter-spacing:0;}
+  .hourbanner{border-top:1px solid var(--gold); border-bottom:1px solid var(--gold);
+              text-align:center; padding:10px 4px; margin:18px 0 8px;}
+  .hourbanner .hname{font-variant:small-caps; letter-spacing:.15em; color:var(--gold);}
+  .hourbanner .hspan{color:var(--fog); font-size:.78rem; font-style:italic;}
+  #burawrap{position:fixed; bottom:0; left:0; right:0; background:var(--void);
+            border-top:1px solid var(--fog); padding:8px 14px 10px; max-width:560px; margin:0 auto;}
+  #burabar{height:10px; background:#1c1c2b; border:1px solid var(--fog); border-radius:5px; overflow:hidden;}
+  #burafill{height:100%; width:0%; background:linear-gradient(90deg,var(--salt),var(--terra)); transition:width .6s;}
+  #buralabel{display:flex; justify-content:space-between; font-size:.72rem; color:var(--fog);
+             letter-spacing:.15em; margin-top:3px;}
+  #toast{position:fixed; top:14px; left:14px; right:14px; max-width:532px; margin:0 auto;
+         background:var(--blood); color:var(--bone); border:1px solid var(--gold); border-radius:6px;
+         padding:12px 16px; font-style:italic; text-align:center; display:none; z-index:9;
+         box-shadow:0 0 30px rgba(0,0,0,.8);}
+  .rule{border:none; border-top:1px dashed var(--fog); margin:18px 0;}
+  .lawlist{font-size:.88rem; color:#bfb6a0; padding-left:18px;}
+  .lawlist li{margin:8px 0;}
+  .pname{display:flex; align-items:center; gap:10px; border:1px dashed var(--fog);
+         border-radius:4px; padding:8px 10px; margin:6px 0;}
+  .pname .pg{font-size:1.5rem; color:var(--salt); letter-spacing:.15em; flex:1;}
+  .pname .plat{font-size:.75rem; color:var(--fog);}
+  .stat{display:flex; justify-content:space-between; font-size:.9rem; padding:2px 0; color:#bfb6a0;}
+  .stat b{color:var(--gold); font-weight:normal;}
+  #oraclebtn{margin:14px 0; border-color:var(--salt); color:var(--salt);}
+  #arrivebtn{border-color:var(--terra); color:var(--terra); margin-top:18px;}
+  .verdict{text-align:center; padding:20px 8px;}
+  .verdict h2{color:var(--gold); font-variant:small-caps; letter-spacing:.2em; font-weight:normal; margin:14px 0 8px;}
+  .crown{font-size:3rem;}
+  .fineprint{color:var(--fog); font-size:.72rem; text-align:center; margin-top:24px; font-style:italic;}
+  .hidden{display:none;}
+</style>
+</head>
+<body>
+
+<h1>Antenna of the Bura</h1>
+<div class="sub">a short rite for the corridor between the Arena of Pula<br>
+and the White City of Kings · one round ≈ fifteen minutes<br>
+<span class="glag">ⰀⰐⰕⰅⰐⰀ</span></div>
+
+<div id="toast" onclick="this.style.display='none'"></div>
+
+<!-- ════════ SCREEN: VESTIBULE ════════ -->
+<div id="screen-vestibule">
+  <div class="card">
+    <p style="font-size:.92rem">You are traversing a wire of land strung between two dead
+    empires. Rome ends at Pula. The Kingdom of the Croats waits at Biograd, where kings were
+    crowned and the city was burned for it. The road takes five hours. <em>This rite does
+    not.</em> You play it in short bursts, whenever the mood strikes: tell the Oracle where
+    you are, it deals you seven omens, you hunt them out the window. Fifteen minutes, give
+    or take. Then put the phone down and watch the sea. The Bura — the white wind that falls
+    off the Velebit and capsizes trucks out of principle — will wait. It is very old.</p>
+  </div>
+
+  <hr class="rule">
+  <p style="font-variant:small-caps; letter-spacing:.12em; color:var(--gold)">The Eternal Laws</p>
+  <ol class="lawlist">
+    <li><b>The Law of the Mountain.</b> Inside any tunnel, the word “tunnel” is forbidden.
+        A violator must immediately confess one (1) true secret, aloud, to the mountain.
+        This law is in effect even when the game is not.</li>
+    <li><b>The Law of the Witness.</b> An omen counts only if seen with the eyes. Phones
+        showing pictures of omens are mirrors, and mirrors lie.</li>
+    <li><b>The Law of the Driver.</b> The driver may witness omens but may never operate
+        the Antenna. The driver is the sacrifice. Treat the driver kindly.</li>
+    <li><b>The Law of Roadkill.</b> All roadkill receives four (4) seconds of silence.
+        This is not optional. The Bura counts.</li>
+    <li><b>The Law of the Hum.</b> When the Bura Meter fills, all souls aboard must hum
+        a single shared note for ten seconds. The note will choose itself.</li>
+  </ol>
+
+  <hr class="rule">
+  <p style="font-variant:small-caps; letter-spacing:.12em; color:var(--gold)">Incorporation of Souls</p>
+  <p style="font-size:.85rem; color:var(--fog); font-style:italic">Each traveler presses the
+  bone once and receives a Liburnian travel-name in the old Glagolitic script. Your real name
+  stays in Pula. You retrieve it on the way back, probably.</p>
+  <div id="souls"></div>
+  <button class="small-btn" style="width:100%; margin-top:6px" onclick="addSoul()">☩ press the bone — receive a travel-name</button>
+
+  <hr class="rule">
+  <p style="font-variant:small-caps; letter-spacing:.12em; color:var(--gold)">Where on the wire are you?</p>
+  <div class="stationpick" id="stations"></div>
+
+  <button id="dealbtn" onclick="deal()" style="margin-top:14px">⚓ DEAL THE SEVEN OMENS</button>
+  <button id="arrivebtn" onclick="arrive()">⛵ WE HAVE ARRIVED AT THE WHITE CITY (final verdict)</button>
+  <p class="fineprint">Treasury so far: <span id="vest-denari">0</span> fog-denari ·
+  rounds played: <span id="vest-rounds">0</span></p>
+</div>
+
+<!-- ════════ SCREEN: ROUND ════════ -->
+<div id="screen-round" class="hidden">
+  <div class="card">
+    <div class="stat"><span>this round</span><b id="round-progress">0 / 7 witnessed</b></div>
+    <div class="stat"><span>treasury (all rounds)</span><b id="denari">0</b></div>
+    <div class="stat"><span>bura events survived</span><b id="huracount">0</b></div>
+  </div>
+
+  <button id="oraclebtn" onclick="consultOracle()">◉ CONSULT THE ORACLE OF THE OLEANDER MEDIAN</button>
+
+  <div id="handzone"></div>
+
+  <button class="small-btn" style="width:100%; margin-top:14px" onclick="endRound(false)">
+    ⟲ fold the hand — return to the vestibule (omens witnessed are kept)</button>
+</div>
+
+<!-- ════════ SCREEN: CORONATION ════════ -->
+<div id="screen-verdict" class="hidden"></div>
+
+<div id="burawrap">
+  <div id="burabar"><div id="burafill"></div></div>
+  <div id="buralabel"><span>BURA METER</span><span id="burapct">0 / 100</span></div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   ANTENNA OF THE BURA — a rite of minutes for a road of hours
+   ══════════════════════════════════════════════════════════════ */
+
+const GLAG = ["Ⰰ","Ⰱ","Ⰲ","Ⰳ","Ⰴ","Ⰵ","Ⰶ","Ⰷ","Ⰸ","Ⰹ","Ⰺ","Ⰻ","Ⰼ","Ⰽ","Ⰾ","Ⰿ","Ⱀ","Ⱁ","Ⱂ","Ⱃ","Ⱄ","Ⱅ","Ⱆ","Ⱇ","Ⱈ","Ⱉ","Ⱋ","Ⱌ","Ⱍ","Ⱎ","Ⱏ","Ⱐ","Ⱑ","Ⱖ","Ⱓ"];
+const SYLL = ["Vol","Tar","Sen","Aen","Kur","Lib","Osor","Ven","Rav","Bur","Mas","Kre","Zvo","Tes","Pul","Bio","Vel","Ucka","Rok","Jad"];
+const TAIL = ["ica","na","ar","imir","slav","ona","issa","entum","ka","ša"];
+
+const STATIONS = [
+ {name:"The Arena's Shadow", span:"Pula → the foot of Učka · Rome lets go of your ankle",
+  omens:[
+   ["A roadside stand selling MED (honey)","Salute it with the left hand only. The right hand is for Rome.",12],
+   ["A field of red Istrian earth (terra rossa)","Say aloud: “the redness is administrative.” Do not explain.",9],
+   ["A kažun — a small round stone hut alone in a field","It is not empty. Wave anyway.",18],
+   ["Any olive tree older than your bloodline (i.e., any olive tree)","Whisper: “Vespasian forgives nothing.”",11],
+   ["A tractor","The tractor is a chronovore — it eats minutes. Do not make eye contact with its driver.",15],
+   ["A sign for VODNJAN or BALE or SVETVINČENAT","Pronounce it confidently and entirely wrong, as an offering.",8],
+  ]},
+ {name:"The Long Swallowing", span:"Učka tunnel → Rijeka → Bakar · the mountain eats you and is sorry",
+  omens:[
+   ["The mouth of the Učka tunnel","All aboard inhale together as you enter. The mountain will hold your breath for you. (Law 1 is in effect.)",20],
+   ["The iron herons of Rijeka (port cranes)","Count them aloud in a whisper. If you lose count, that number is now yours.",14],
+   ["A container ship or ferry on the water","Name it something it would hate. e.g. “Susan.”",13],
+   ["Graffiti containing the letter Ž","Ž is the youngest letter and must be encouraged. Say “bravo.”",10],
+   ["The Bakar bay industrial shore","Once they made coke fuel here. The bay remembers fire. Hold your breath for 5 seconds in solidarity.",16],
+   ["A toll booth or toll gantry","The toll booth is a psychopomp. It ferries you between fiscal worlds. Thank it by name (its name is on the receipt).",12],
+  ]},
+ {name:"The Bura's Teeth", span:"the Kvarner ledge / the A1 spine · the white wind tests the antenna",
+  omens:[
+   ["A windsock at full horizontal","The Bura is showing you its tongue. Show it yours.",22],
+   ["A road sign warning of wind (VJETAR) or a wind-closed lane","Applaud briefly. The wind likes recognition. It is, after all, performing.",15],
+   ["An island visible across the water (Krk, Rab, Pag — any will do)","Point at it and state how much salt it contains. Confidence matters; accuracy does not.",12],
+   ["A bus overtaking your vehicle","A bus is a reliquary of knees. Lower your eyes as it passes.",9],
+   ["A wind farm or single turbine","Each blade is rowing the sky somewhere. Wish them a good catch.",13],
+   ["The bare white stone flanks of the Velebit","The mountain is a god that decided to stop apologizing. Nod once.",17],
+  ]},
+ {name:"The Lightning Saint", span:"Sveti Rok → Smiljan's reach → Maslenica · electricity remembers where it was born",
+  omens:[
+   ["The Sveti Rok tunnel (the long one — 5.7 km)","Each soul holds a single sung note as long as comfortable. The tunnel keeps the harmonies. (Law 1 applies, fiercely.)",25],
+   ["A sign for GOSPIĆ or SMILJAN","Tesla was born off this exit during a lightning storm. Touch the nearest plastic object and apologize to it for everything.",21],
+   ["The Maslenica bridge","All aboard exhale crossing it. The bridge is structurally held up by exhalations. This is not in the engineering report but it is true.",24],
+   ["A lone horse (konj) in a field","The horse has been expecting a different car. Apologize with your eyes.",14],
+   ["A power line crossing the road","You have been read. Sit up straight.",8],
+   ["Any rest stop (odmorište)","Rest stops are embassies of no nation. If you stop at one, you must each eat something or be in debt to nowhere.",10],
+  ]},
+ {name:"The White City of Kings", span:"Zadar's pull → Biograd na Moru · where Croat kings were crowned, and one of you is owed a coronation",
+  omens:[
+   ["A sign for ZADAR","Somewhere beyond it the Sea Organ is playing chords for drowned emperors. Hum one note in its direction.",13],
+   ["First glimpse of the open sea after the inland stretch","Everyone must say a word they have never said in a car before. Any word. The sea collects them.",19],
+   ["A marina forest of sailboat masts","Each mast is a needle and the sky is the haystack. Find nothing. Be satisfied.",11],
+   ["A sign for BIOGRAD NA MORU","The White City. King Petar Krešimir IV's royal seat; Coloman crowned here in 1102; Venice burned it for the honor. Sit in silence for the length of one breath.",26],
+   ["An oleander hedge in the median, blooming or not","The oleander is poisonous and decorative, like history. Wink at it.",9],
+   ["A man wearing socks WITH sandals","THE PILGRIM OF COMFORT. The road's highest omen. He has transcended. Award yourselves the full bounty and speak of him forever.",40],
+  ]},
+];
+
+const UNIVERSAL = [
+ ["A German license plate (D)","Quietly say “gute Fahrt” and accept that it is funny.",6],
+ ["An Austrian license plate (A)","The Habsburgs still send observers. Wave like you know.",6],
+ ["A Konzum, Lidl, or Studenac","A granary-temple of the corridor. Touch your sternum.",5],
+ ["A fig tree growing somewhere it shouldn't","Figs are escape artists. Say “well done” and mean it.",8],
+ ["A person eating burek in any context","Witness them. Say nothing. Some rites are private.",10],
+ ["Roadkill","Four seconds of silence. Mandatory. (Law 4.) The Bura counts with you.",7],
+ ["A stone wall with no mortar, older than your country","It is held together by stubbornness, the national binder.",9],
+ ["A car going truly, insultingly slowly","It is carrying something fragile: perhaps eggs, perhaps a promise.",5],
+ ["A church on a hill that no road appears to reach","It is reached by intention alone. Squint at it respectfully.",11],
+ ["A dog riding in another car, head out the window","A fellow antenna, better tuned. Defer to it.",8],
+];
+
+const PROPHECIES = [
+ "Before the {n}th oleander, {who} will crave something salted and will not say so.",
+ "The Bura has counted your tires and finds the number {mood}.",
+ "{who} is sitting on the seam between two ancient dioceses. Shift slightly left.",
+ "A truck carrying {cargo} will pass. It will not know what it has done.",
+ "The next tunnel already knows {who}'s secret. Entering it is forgiveness.",
+ "In {n} kilometers, a smell. Do not investigate. It is the {cargo} of the old world.",
+ "{who} will see the sea first, but will say nothing, hoarding it like a coin.",
+ "The radio, on or off, is playing the same song. The song is about {cargo}.",
+ "Somewhere on this road a kažun is thinking about {who}. It thinks fondly.",
+ "The number {n} will appear three times before Biograd. Once on a sign, once on a plate, once in your heart.",
+ "A toll is coming that cannot be paid in kuna, euro, or denari. Pay it in {cargo}.",
+ "The Velebit has noticed your vehicle and rated it: {mood}. This is its highest score.",
+ "{who} must open and close one window before the next bridge, to let the old air finish its journey.",
+ "Biograd was burned in 1125 and is fine now. So will be the thing {who} is worrying about.",
+];
+const CARGO = ["unlabeled honey","retired church bells","one thousand windsocks","Roman administrative regret","sheep with opinions","the concept of Tuesday","decommissioned lighthouse light","mineral water and dread","figs of unusual ambition","the Bura's spare teeth"];
+const MOODS = ["acceptable","auspicious","liturgically sound","suspiciously even","beloved","prime, and therefore dangerous","the same as in 1102","adequate for coronation"];
+
+const KINGS = [
+ [0,  "👻","The Uncrowned Fog","You arrive, technically. The Bura barely noticed you. The White City grants you the rank of Weather. Walk to the sea immediately and stand in it to the ankle; this is remedial coronation."],
+ [80, "🐐","Duke of the Island Goats","A solid, honest transmission. The goats of Pag — who answer to no king — accept you as one of their own. Your crown is invisible and smells faintly of cheese. Wear it proudly."],
+ [180,"⚡","Elector of the Lightning Saint","Tesla's exit acknowledges you. You may, for one evening in Biograd, point at any electrical device and say 'I understand you' — and be, briefly, correct."],
+ [300,"🌬️","Voivode of the White Wind","The Bura itself escorts you the last kilometer, which is why the car shook. You are now entitled to refer to weather forecasts as 'the family news.'"],
+ [420,"👑","PETAR KREŠIMIR IV, RETURNED","Total transmission. The antenna sang. By the authority of the omens witnessed, the party is crowned in Biograd na Moru as the old kings were — quietly, by the sea, with Venice seething somewhere over the horizon. First round of ice cream is a state function."],
+];
+
+/* ── state ── */
+let S = JSON.parse(localStorage.getItem("antenna") || "null") || {
+  souls:[], denari:0, hura:0, bura:0, rounds:0, station:0,
+  hand:null,            // array of {title, rite, val, done} or null when in vestibule
+  arrived:false
+};
+function save(){ localStorage.setItem("antenna", JSON.stringify(S)); }
+
+/* ── souls ── */
+function makeName(){
+  const g = () => GLAG[Math.floor(Math.random()*GLAG.length)];
+  const glag = g()+g()+g()+g();
+  const latin = SYLL[Math.floor(Math.random()*SYLL.length)] + TAIL[Math.floor(Math.random()*TAIL.length)];
+  return {glag, latin};
+}
+function addSoul(){ S.souls.push(makeName()); save(); renderSouls(); }
+function renderSouls(){
+  document.getElementById("souls").innerHTML = S.souls.map(s =>
+    `<div class="pname"><span class="pg">${s.glag}</span><span class="plat">spoken: “${s.latin}”</span></div>`
+  ).join("") || `<p class="fineprint">no souls incorporated yet — the car is, legally, empty</p>`;
+}
+
+/* ── station picker ── */
+function pickStation(i){ S.station = i; save(); renderStations(); }
+function renderStations(){
+  document.getElementById("stations").innerHTML = STATIONS.map((st,i)=>
+    `<button class="${S.station===i?'sel':''}" onclick="pickStation(${i})">
+      ${i+1}. ${st.name}<span class="sdesc">${st.span}</span></button>`
+  ).join("");
+}
+
+/* ── dealing: 4 station omens + 3 universal, shuffled ── */
+function draw(arr, n){
+  const pool = arr.slice();
+  const out = [];
+  while(out.length < n && pool.length) out.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
+  return out;
+}
+function deal(){
+  if(S.souls.length === 0) addSoul();
+  const cards = draw(STATIONS[S.station].omens, 4).concat(draw(UNIVERSAL, 3));
+  cards.sort(()=>Math.random()-.5);
+  S.hand = cards.map(o => ({title:o[0], rite:o[1], val:o[2], done:false}));
+  save(); render();
+  toast(`The Oracle deals seven omens for “${STATIONS[S.station].name}.” Hunt them out the window. The antenna is live.`);
+}
+
+/* ── witnessing ── */
+function witness(i){
+  const c = S.hand[i];
+  if(c.done) return;
+  c.done = true;
+  S.denari += c.val;
+  S.bura = Math.min(100, S.bura + 10 + Math.floor(Math.random()*16));
+  let msg = `✶ WITNESSED: ${c.title} — ${c.val} fog-denari enter the treasury.`;
+  if(S.bura >= 100){
+    S.hura++; S.bura = 0; S.denari += 30;
+    msg += " ⚠ THE BURA METER IS FULL. ALL SOULS HUM ONE SHARED NOTE FOR TEN SECONDS. NOW. (+30 denari for surviving)";
+  }
+  save();
+  if(S.hand.every(x=>x.done)){
+    toast(msg + " — The hand is complete. The round closes itself like a sea anemone.");
+    setTimeout(()=>endRound(true), 1500);
+  } else { toast(msg); render(); }
+}
+function endRound(complete){
+  if(S.hand){ S.rounds++; S.hand = null; }
+  save(); render();
+  if(complete) toast("Round complete. Put the phone down. Watch the water. Deal again whenever the road gets long.");
+}
+
+/* ── oracle ── */
+function consultOracle(){
+  const p = PROPHECIES[Math.floor(Math.random()*PROPHECIES.length)];
+  const who = S.souls.length ? "“"+S.souls[Math.floor(Math.random()*S.souls.length)].latin+"”" : "the driver";
+  const txt = p.replace("{who}", who)
+               .replace("{n}", 2+Math.floor(Math.random()*11))
+               .replace("{cargo}", CARGO[Math.floor(Math.random()*CARGO.length)])
+               .replace("{mood}", MOODS[Math.floor(Math.random()*MOODS.length)]);
+  toast("◉ THE ORACLE SPEAKS: " + txt);
+}
+
+/* ── arrival & verdict ── */
+function arrive(){ S.arrived = true; save(); render(); }
+function reset(){ localStorage.removeItem("antenna"); location.reload(); }
+
+/* ── render ── */
+function render(){
+  document.getElementById("screen-vestibule").classList.toggle("hidden", !!S.hand || S.arrived);
+  document.getElementById("screen-round").classList.toggle("hidden", !S.hand || S.arrived);
+  document.getElementById("screen-verdict").classList.toggle("hidden", !S.arrived);
+
+  document.getElementById("burafill").style.width = S.bura+"%";
+  document.getElementById("burapct").textContent = S.bura+" / 100";
+
+  if(S.arrived){ renderVerdict(); return; }
+
+  if(!S.hand){
+    renderSouls(); renderStations();
+    document.getElementById("vest-denari").textContent = S.denari;
+    document.getElementById("vest-rounds").textContent = S.rounds;
+    return;
+  }
+
+  const done = S.hand.filter(c=>c.done).length;
+  document.getElementById("round-progress").textContent = done+" / "+S.hand.length+" witnessed";
+  document.getElementById("denari").textContent = S.denari+" ℱ";
+  document.getElementById("huracount").textContent = S.hura;
+  document.getElementById("handzone").innerHTML =
+    `<div class="hourbanner">
+       <div class="hname">${STATIONS[S.station].name}</div>
+       <div class="hspan">${STATIONS[S.station].span}</div>
+     </div>` +
+    S.hand.map((c,i)=>
+      `<div class="card ${c.done?'fulfilled':''}" onclick="witness(${i})">
+        <span class="denari">${c.val} ℱ</span>
+        <div class="title">${c.title}</div>
+        <div class="rite">${c.rite}</div>
+      </div>`).join("");
+}
+function renderVerdict(){
+  let k = KINGS[0];
+  for(const c of KINGS) if(S.denari >= c[0]) k = c;
+  document.getElementById("screen-verdict").innerHTML = `
+    <div class="verdict">
+      <div class="crown">${k[1]}</div>
+      <h2>${k[2]}</h2>
+      <p style="font-size:.95rem">${k[3]}</p>
+      <hr class="rule">
+      <div class="stat"><span>final treasury</span><b>${S.denari} fog-denari</b></div>
+      <div class="stat"><span>rounds played</span><b>${S.rounds}</b></div>
+      <div class="stat"><span>bura events survived</span><b>${S.hura}</b></div>
+      <div class="stat"><span>souls aboard</span><b>${S.souls.length}</b></div>
+      <hr class="rule">
+      <p class="fineprint">Biograd na Moru — “the White City on the Sea” — crowned its kings
+      and was burned by Venice in 1125 for the audacity. It rebuilt. So does everyone.
+      Go stand in the sea to the ankle. That part is real and you should do it.</p>
+      <button class="small-btn" style="margin-top:18px" onclick="reset()">⟲ dissolve the liturgy (new journey)</button>
+    </div>`;
+}
+
+/* ── toast ── */
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{ t.style.display="none"; }, 9000);
+}
+
+render();
+</script>
+</body>
+</html>
