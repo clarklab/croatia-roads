@@ -385,6 +385,29 @@
   .rules{font-size:13.5px; color:#bccadb; line-height:1.65; text-align:left;}
   .rules b{color:var(--gold2); font-family:var(--disp); letter-spacing:.06em; text-transform:uppercase; font-size:12.5px;}
 
+  /* ================= ART ================= */
+  .ctile .cg{position:relative; overflow:hidden; width:52px; height:52px;}
+  .cgart{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%;}
+  .ibart{float:left; width:62px; height:62px; border-radius:50%; object-fit:cover; margin:0 11px 4px 0;
+    border:1px solid rgba(216,181,74,.4); box-shadow:0 3px 10px rgba(0,0,0,.4);}
+  .infobar.omen .ibart{border-color:#4f8a62;}
+  .sart{flex:0 0 auto; width:56px; height:56px; border-radius:50%; object-fit:cover;
+    border:1px solid #3d5176; box-shadow:0 3px 9px rgba(0,0,0,.4);}
+  .pcard .face .fart{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:4.5px;}
+  .pcard .face{overflow:hidden;}
+  .pcard .face .fart ~ span{position:absolute; bottom:1px; right:2.5px; font-size:12px; line-height:1;
+    color:var(--sc); background:rgba(246,240,224,.85); border-radius:4px; padding:1.5px 3px; z-index:2;}
+  .pcard .face .fart ~ .ftick{z-index:2;}
+  .bart{flex:0 0 auto; width:64px; height:64px; border-radius:50%; object-fit:cover; align-self:center;
+    border:1.5px solid #b8473c; box-shadow:0 4px 12px rgba(0,0,0,.5);}
+  .endmed{position:relative; width:148px; height:148px; margin:0 auto 10px; border-radius:50%;
+    border:2px solid rgba(216,181,74,.5); box-shadow:0 0 30px rgba(216,181,74,.25); overflow:hidden;
+    background:#0c1322;}
+  .endmed .endart{width:100%; height:100%; object-fit:cover;}
+  .endmed .crown{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:none;}
+  .endmed:has(.crown:only-child) .crown{display:block;}
+  .fogmed{border-color:rgba(147,166,186,.4); box-shadow:0 0 30px rgba(147,166,186,.15);}
+
   /* ================= INTRO ================= */
   .intro{flex:1; display:flex; flex-direction:column; min-height:92dvh; cursor:pointer;}
   .ithead{display:flex; justify-content:space-between; align-items:center; padding:6px 2px;}
@@ -1101,6 +1124,9 @@ const PIP_PATHS = {
   road:'<path fill="currentColor" d="M9.3 2.6 L14.7 2.6 L20.6 21.6 L3.4 21.6 Z"/>'+
       '<path d="M12 4 V21" fill="none" stroke="#f4edda" stroke-width="1.5" stroke-dasharray="2.6 2.6" stroke-linecap="round"/>',
 };
+function artImg(src, cls){
+  return `<img class="${cls}" src="${src}" alt="" loading="lazy" onerror="this.remove()">`;
+}
 function pipSVG(suit, cls){ return `<svg class="${cls||""}" viewBox="0 0 24 24" aria-hidden="true">${PIP_PATHS[suit]}</svg>`; }
 const CAR_SVG = '<svg viewBox="0 0 26 12" aria-hidden="true"><path fill="#f3d878" d="M1 8c0-2 1.5-3 4-3.4L8 2.4C8.6 1.6 9.6 1 10.8 1h6.4c1.6 0 3 .8 3.8 2.1L22.6 6C24.5 6.4 25 7.2 25 8.4c0 .9-.7 1.6-1.6 1.6H22a2.4 2.4 0 0 1-4.7 0h-8.6a2.4 2.4 0 0 1-4.7 0H2.6C1.7 10 1 9.1 1 8Z"/><circle cx="6.5" cy="9.6" r="1.7" fill="#2b2418"/><circle cx="19.6" cy="9.6" r="1.7" fill="#2b2418"/></svg>';
 const TRI_SVG = '<svg class="tri" viewBox="0 0 34 31" aria-hidden="true"><path d="M17 2 32 28.5 2 28.5 Z" fill="#7e1f1b" stroke="#f4d9d2" stroke-width="2.4" stroke-linejoin="round"/><text x="17" y="24" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="#ffd9cf">!</text></svg>';
@@ -1134,8 +1160,9 @@ function blindChip(){
   return `<span class="blindchip${isBossBlind()?" boss":""}">${esc(blindName())}</span>`;
 }
 function warnSign(boss, withFlavor){
-  return `<div class="warnsign">${TRI_SVG}<div><b>${esc(boss.name)}</b><p>${fmtDesc(boss.desc)}</p>
-    ${withFlavor?`<p class="wf">${esc(boss.flavor)}</p>`:""}</div></div>`;
+  return `<div class="warnsign">${TRI_SVG}<div style="flex:1"><b>${esc(boss.name)}</b><p>${fmtDesc(boss.desc)}</p>
+    ${withFlavor?`<p class="wf">${esc(boss.flavor)}</p>`:""}</div>
+    ${withFlavor?artImg("art/b-"+boss.id+".webp","bart"):""}</div>`;
 }
 
 /* ---- cards ---- */
@@ -1143,7 +1170,7 @@ function cardFace(c){
   if(c.faceDown) return "";
   return `<i class="cframe"></i>`
     + (c.rank===14 ? `<div class="a1">A1<span class="a1line"></span></div>` :
-    c.rank>=11 ? `<div class="face"><span>${GLAG[c.rank]}</span><i class="ftick tl"></i><i class="ftick tr"></i><i class="ftick bl"></i><i class="ftick br"></i></div>` :
+    c.rank>=11 ? `<div class="face">${artImg("art/f-"+(c.rank===11?"galeb":c.rank===12?"teta":"kralj")+".webp","fart")}<span>${GLAG[c.rank]}</span><i class="ftick tl"></i><i class="ftick tr"></i><i class="ftick bl"></i><i class="ftick br"></i></div>` :
     `<div class="bigpip"><span class="gbg">${GLAG[c.rank]}</span><span class="ring"></span>${pipSVG(c.suit)}</div>`)
     + `<div class="idx flip"><b>${RANK_LABEL[c.rank]}</b>${pipSVG(c.suit,"ip")}</div>`;
 }
@@ -1191,14 +1218,14 @@ function crewHTML(){
     const d=JBY[j.id];
     const open=inf&&inf.kind==="joker"&&inf.idx===i;
     return `<div class="ctile${open?" open":""}" onclick="showInfo('joker',${i})">
-      <div class="cg">${esc(d.name[d.name.startsWith("The ")?4:0])}</div>
+      <div class="cg">${esc(d.name[d.name.startsWith("The ")?4:0])}${artImg("art/p-"+j.id+".webp","cgart")}</div>
       <div class="cn">${esc(d.name)}</div>${d.tag?`<span class="ct">${d.tag(j)}</span>`:""}</div>`;
   }).join("");
   h+=S.omens.map((o,i)=>{
     const d=OBY[o.id];
     const open=inf&&inf.kind==="omen"&&inf.idx===i;
     return `<div class="ctile omen${open?" open":""}" onclick="showInfo('omen',${i})">
-      <div class="cg">☽</div><div class="cn">${esc(d.name)}</div></div>`;
+      <div class="cg">☽${artImg("art/o-"+o.id+".webp","cgart")}</div><div class="cn">${esc(d.name)}</div></div>`;
   }).join("");
   h+=`</div><div class="slotnote">passengers ${S.jokers.length}/${MAX_JOKERS} · omens ${S.omens.length}/${MAX_OMENS}</div>`;
   return h;
@@ -1209,7 +1236,7 @@ function infoHTML(sellable){
   if(inf.kind==="joker"){
     const j=S.jokers[inf.idx]; if(!j){S.info=null; return "";}
     const d=JBY[j.id];
-    return `<div class="infobar"><b>${esc(d.name)}</b>${d.tag?`<span class="tagv">${d.tag(j)}</span>`:""}
+    return `<div class="infobar">${artImg("art/p-"+j.id+".webp","ibart")}<b>${esc(d.name)}</b>${d.tag?`<span class="tagv">${d.tag(j)}</span>`:""}
       <p>${fmtDesc(d.desc)}</p><div class="ibtns">
       ${sellable?`<button class="bx sm warn" onclick="S.info=null;sellJoker(${inf.idx})">sell · ${Math.max(1,Math.floor(d.cost/2))} kn</button>`:""}
       <button class="bx sm ghost" onclick="hideInfo()">close</button></div></div>`;
@@ -1217,7 +1244,7 @@ function infoHTML(sellable){
   const o=S.omens[inf.idx]; if(!o){S.info=null; return "";}
   const d=OBY[o.id];
   const readable = S.screen==="round";
-  return `<div class="infobar omen"><b>${esc(d.name)}</b><p>${fmtDesc(d.desc)}</p><div class="ibtns">
+  return `<div class="infobar omen">${artImg("art/o-"+o.id+".webp","ibart")}<b>${esc(d.name)}</b><p>${fmtDesc(d.desc)}</p><div class="ibtns">
     ${readable?`<button class="bx sm gold" onclick="S.info=null;useOmen(${inf.idx})">read it${d.targets?` · ${d.targets===1?"1 card":"up to "+d.targets+" cards"}`:""}</button>`:""}
     <button class="bx sm ghost" onclick="hideInfo()">close</button></div></div>`;
 }
@@ -1357,14 +1384,15 @@ function cashHTML(){
 }
 
 function shopItemHTML(it, i){
-  let kind, name, desc;
-  if(it.kind==="joker"){ const d=JBY[it.id]; kind="putnik · passenger"; name=d.name; desc=fmtDesc(d.desc); }
-  else if(it.kind==="omen"){ const d=OBY[it.id]; kind="omen"; name=d.name; desc=fmtDesc(d.desc); }
+  let kind, name, desc, art;
+  if(it.kind==="joker"){ const d=JBY[it.id]; kind="putnik · passenger"; name=d.name; desc=fmtDesc(d.desc); art="art/p-"+it.id+".webp"; }
+  else if(it.kind==="omen"){ const d=OBY[it.id]; kind="omen"; name=d.name; desc=fmtDesc(d.desc); art="art/o-"+it.id+".webp"; }
   else { kind="radio";
-    name=RADIO_NAMES[it.move];
+    name=RADIO_NAMES[it.move]; art="art/radio.webp";
     desc=`${esc(RADIO_DESCS[it.move])} <b style="color:var(--gold2)">${esc(MOVES[it.move].name)}</b> is lvl ${S.moveLevels[it.move]}.`; }
   return `<div class="shopitem${it.sold?" sold":""}">
-    <div><div class="skind">${kind}</div><div class="sname">${esc(name)}</div><div class="sdesc">${desc}</div></div>
+    ${artImg(art,"sart")}
+    <div style="flex:1"><div class="skind">${kind}</div><div class="sname">${esc(name)}</div><div class="sdesc">${desc}</div></div>
     <div class="pricetag"><span class="pt">${it.price} kn</span><br>
       ${it.sold?`<span class="tiny">taken</span>`:`<button class="bx sm gold" onclick="buyItem(${i})">buy</button>`}
     </div></div>`;
@@ -1390,7 +1418,7 @@ function winHTML(){
   clearSave();
   return `
   <div class="big">
-    ${CROWN_SVG}
+    <div class="endmed">${artImg("art/win.webp","endart")}${CROWN_SVG}</div>
     <div class="glagtitle" style="font-size:30px">ⰁⰋⰑⰃⰓⰀⰄ</div>
     <h2>The White City receives you</h2>
     <p class="fogtext">The fleet of 1125 lowers its signal flags. The fog rolls back out to sea like a tide
@@ -1417,6 +1445,7 @@ function gameoverHTML(){
   const leg=curLeg();
   return `
   <div class="big">
+    <div class="endmed fogmed">${artImg("art/fog.webp","endart")}</div>
     <div class="glagtitle" style="color:#93a6ba;text-shadow:none;font-size:30px">ⰏⰀⰃⰎⰀ</div>
     <h2 class="mut">The fog takes the car</h2>
     <p class="fogtext">Somewhere between ${leg.from} and ${leg.to}, the white comes down off the karst
