@@ -78,9 +78,10 @@ that order is everything, a five-card line lights up into a FULL SEND over the Z
 sunset, and the Bura kills a card mid-chain to show what breaking rhythm costs. Fully
 self-paced — back and next buttons, tap to advance, skip anytime, rewatch from the menu.
 
-Open `index.html` on a phone. No build, no dependencies, no network. The run sleeps
-in `localStorage` between bursts of play, so it survives the actual five-hour drive
-it is about.
+Open `index.html` on a phone. No build, no dependencies — the only thing fetched is
+type (Fraunces and Public Sans, from Google Fonts; the Glagolitic face is embedded).
+The run sleeps in `localStorage` between bursts of play, so it survives the actual
+five-hour drive it is about.
 
 A full run takes 30–60 minutes. Balance was tuned by simulation: a solver that
 enumerates every ordering of every playable line wins 58% of runs; you, with eight
