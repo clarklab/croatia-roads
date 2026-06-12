@@ -61,6 +61,14 @@ paper, with mirrored corner indices, framed Glagolitic faces, and a motorway-shi
 A1, all from a 4.6 KB embedded font subset and inline SVG, so nothing renders as
 tofu on a phone in airplane mode.
 
+Above the suit system sits the etched-art program: 44 antique copperplate
+engravings with watercolor wash, in the manner of old banknotes — a cameo portrait
+for every passenger (the Konoba Grandmother with her spoon-scepter, the Dead Wasp
+lying in state), a vignette for every omen, court portraits for the Galeb, the Teta
+and the Kralj on the face cards, a medallion for every boss, and end-screen art for
+the crown and the fog. The whole program is 150 KB of WebP in `art/`, and the game
+falls back to letter monograms if the folder is missing.
+
 ## Playing
 
 First visit offers **Learn the Road** — a 60-second fully animated introduction that
