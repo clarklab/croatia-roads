@@ -238,7 +238,9 @@
   .fan{display:flex; justify-content:center; align-items:flex-end; padding:24px 0 14px; min-height:128px;}
   .pcard{position:relative; width:62px; height:88px; border-radius:8px; flex:0 0 auto;
     margin:0 clamp(-19px, calc(((min(100vw, 560px) - 46px) / var(--n,8) - 62px) / 2), -5px);
-    background:linear-gradient(163deg,#faf4e4 0%, #efe6cc 60%, #e6dabb 100%);
+    background:
+      radial-gradient(120% 90% at 50% 0%, var(--wash,transparent), transparent 70%),
+      linear-gradient(163deg,#faf4e4 0%, #efe6cc 60%, #e6dabb 100%);
     border:1px solid #c8b98f; cursor:pointer; user-select:none; color:var(--sc,#333);
     box-shadow:0 4px 10px rgba(0,0,0,.45), inset 0 0 0 1.5px rgba(255,255,255,.5);
     transform:rotate(var(--rot,0deg)) translateY(var(--ty,0px));
@@ -249,21 +251,44 @@
   .pcard.deal{animation:dealin .42s cubic-bezier(.2,1.2,.35,1) both;}
   @keyframes dealin{from{transform:translate(60px,-70px) rotate(14deg); opacity:0}
     to{transform:rotate(var(--rot,0deg)) translateY(var(--ty,0px)); opacity:1}}
-  .suit-sea{--sc:var(--c-sea);} .suit-stone{--sc:var(--c-stone);}
-  .suit-wind{--sc:var(--c-wind);} .suit-road{--sc:var(--c-road);}
-  .pcard .idx{position:absolute; top:4px; left:5px; line-height:1; text-align:center;}
-  .pcard .idx b{display:block; font-family:var(--disp); font-weight:700; font-size:16px;}
-  .pcard .idx svg.ip{width:10px; height:10px; margin-top:1.5px;}
+  .suit-sea{--sc:var(--c-sea); --wash:rgba(31,110,156,.085);}
+  .suit-stone{--sc:var(--c-stone); --wash:rgba(122,102,72,.10);}
+  .suit-wind{--sc:var(--c-wind); --wash:rgba(31,127,110,.085);}
+  .suit-road{--sc:var(--c-road); --wash:rgba(168,64,46,.075);}
+  .pcard .idx{position:absolute; top:4px; left:5px; line-height:1; text-align:center; z-index:2;}
+  .pcard .idx.flip{top:auto; left:auto; bottom:4px; right:5px; transform:rotate(180deg); opacity:.85;}
+  .pcard .idx.flip b{font-size:13px;}
+  .pcard .idx.flip svg.ip{width:8.5px; height:8.5px;}
+  .pcard .idx b{display:block; font-family:var(--disp); font-weight:700; font-size:18.5px;
+    text-shadow:0 1px 0 rgba(255,255,255,.65);}
+  .pcard .idx svg.ip{width:11px; height:11px; margin-top:2px;}
   .pcard .bigpip{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;}
-  .pcard .bigpip svg{width:34px; height:34px; opacity:.92; filter:drop-shadow(0 1px 0 rgba(255,255,255,.55));}
-  .pcard .face{font-family:'Glag',var(--serif); position:absolute; inset:16px 10px 14px; display:flex; align-items:center; justify-content:center;
-    font-size:30px; border:1.5px solid currentColor; border-radius:6px; opacity:.92;
-    background:linear-gradient(150deg, rgba(255,255,255,.35), transparent);}
-  .pcard .a1{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); padding:5px 8px 6px;
-    background:#15683f; color:#fff; border:1.5px solid #fff; outline:1.5px solid #0c4226; border-radius:7px;
+  .pcard .bigpip{top:9px;}
+  .pcard .bigpip .ring{position:absolute; width:47px; height:47px; border-radius:50%;
+    border:1.3px solid currentColor; opacity:.17;}
+  .pcard .bigpip .gbg{position:absolute; font-family:'Glag',var(--serif); font-size:48px;
+    opacity:.075; line-height:1; transform:translateY(-2px);}
+  .pcard .bigpip svg{width:33px; height:33px; opacity:.95; position:relative;
+    filter:drop-shadow(0 1px 0 rgba(255,255,255,.55));}
+  .pcard .face{font-family:'Glag',var(--serif); position:absolute; inset:15px 11px 15px; display:flex; align-items:center; justify-content:center;
+    font-size:29px; border:1.4px solid currentColor; border-radius:6px;
+    background:linear-gradient(155deg, var(--wash,transparent), rgba(255,255,255,.3));}
+  .pcard .face span{text-shadow:0 1px 0 rgba(255,255,255,.6);}
+  .pcard .ftick{position:absolute; width:5.5px; height:5.5px; border-color:currentColor; border-style:solid;
+    border-width:0; opacity:.55;}
+  .pcard .ftick.tl{top:2px; left:2px; border-top-width:1.4px; border-left-width:1.4px;}
+  .pcard .ftick.tr{top:2px; right:2px; border-top-width:1.4px; border-right-width:1.4px;}
+  .pcard .ftick.bl{bottom:2px; left:2px; border-bottom-width:1.4px; border-left-width:1.4px;}
+  .pcard .ftick.br{bottom:2px; right:2px; border-bottom-width:1.4px; border-right-width:1.4px;}
+  .pcard .a1{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); padding:5px 9px 7px;
+    background:linear-gradient(180deg,#1a7a4a,#11572f); color:#fff; border:1.5px solid #fff;
+    outline:1.5px solid #0c4226; border-radius:8px 8px 10px 10px;
     font-family:var(--disp); font-weight:700; font-size:17px; letter-spacing:.04em;
-    box-shadow:0 2px 5px rgba(0,0,0,.3);}
-  .pcard .gn{font-family:'Glag',var(--serif); position:absolute; bottom:3px; right:5px; font-size:11px; opacity:.4;}
+    box-shadow:0 2px 5px rgba(0,0,0,.3); text-align:center;}
+  .pcard .a1 .a1line{display:block; height:2.5px; margin-top:3px; border-radius:2px;
+    background:repeating-linear-gradient(90deg,#fff 0 4px,transparent 4px 7px); opacity:.85;}
+  .pcard .cframe{position:absolute; inset:3px; border-radius:5.5px; pointer-events:none;
+    border:1px solid currentColor; opacity:.14;}
   .pcard.saint{border-color:var(--gold);}
   .pcard.saint::before{content:""; position:absolute; inset:-1px; border-radius:8px; pointer-events:none;
     box-shadow:inset 0 0 10px rgba(216,181,74,.65), 0 0 9px rgba(216,181,74,.5);}
@@ -277,6 +302,8 @@
       repeating-linear-gradient(45deg,#1c2b44 0 7px,#16223a 7px 14px);
     border-color:#3c5278;}
   .pcard.back .idx,.pcard.back .gn,.pcard.back .bigpip,.pcard.back .face,.pcard.back .a1{display:none;}
+  .pcard.back::before{content:""; position:absolute; inset:7px; border-radius:5px;
+    border:1px solid rgba(216,181,74,.28);}
   .pcard.back::after{content:"Ⱅ"; font-family:'Glag',var(--serif); position:absolute; inset:0; display:flex; align-items:center;
     justify-content:center; font-size:25px; color:#5d7ba8; text-shadow:0 0 8px rgba(93,123,168,.6);}
   .mini{position:relative; width:40px; height:57px; border-radius:5px;
@@ -358,6 +385,29 @@
   .rules{font-size:13.5px; color:#bccadb; line-height:1.65; text-align:left;}
   .rules b{color:var(--gold2); font-family:var(--disp); letter-spacing:.06em; text-transform:uppercase; font-size:12.5px;}
 
+  /* ================= ART ================= */
+  .ctile .cg{position:relative; overflow:hidden; width:52px; height:52px;}
+  .cgart{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%;}
+  .ibart{float:left; width:62px; height:62px; border-radius:50%; object-fit:cover; margin:0 11px 4px 0;
+    border:1px solid rgba(216,181,74,.4); box-shadow:0 3px 10px rgba(0,0,0,.4);}
+  .infobar.omen .ibart{border-color:#4f8a62;}
+  .sart{flex:0 0 auto; width:56px; height:56px; border-radius:50%; object-fit:cover;
+    border:1px solid #3d5176; box-shadow:0 3px 9px rgba(0,0,0,.4);}
+  .pcard .face .fart{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:4.5px;}
+  .pcard .face{overflow:hidden;}
+  .pcard .face .fart ~ span{position:absolute; bottom:1px; right:2.5px; font-size:12px; line-height:1;
+    color:var(--sc); background:rgba(246,240,224,.85); border-radius:4px; padding:1.5px 3px; z-index:2;}
+  .pcard .face .fart ~ .ftick{z-index:2;}
+  .bart{flex:0 0 auto; width:64px; height:64px; border-radius:50%; object-fit:cover; align-self:center;
+    border:1.5px solid #b8473c; box-shadow:0 4px 12px rgba(0,0,0,.5);}
+  .endmed{position:relative; width:148px; height:148px; margin:0 auto 10px; border-radius:50%;
+    border:2px solid rgba(216,181,74,.5); box-shadow:0 0 30px rgba(216,181,74,.25); overflow:hidden;
+    background:#0c1322;}
+  .endmed .endart{width:100%; height:100%; object-fit:cover;}
+  .endmed .crown{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:none;}
+  .endmed:has(.crown:only-child) .crown{display:block;}
+  .fogmed{border-color:rgba(147,166,186,.4); box-shadow:0 0 30px rgba(147,166,186,.15);}
+
   /* ================= INTRO ================= */
   .intro{flex:1; display:flex; flex-direction:column; min-height:92dvh; cursor:pointer;}
   .ithead{display:flex; justify-content:space-between; align-items:center; padding:6px 2px;}
@@ -374,8 +424,11 @@
   .itcap b{color:var(--ink); font-style:normal;}
   .pcard.it{margin:0; cursor:default; transform:none;}
   .pcard.it.sm{width:52px; height:74px;}
-  .pcard.it.sm .idx b{font-size:13px;} .pcard.it.sm .bigpip svg{width:26px;height:26px;}
-  .pcard.it.sm .face{font-size:22px; inset:13px 8px 11px;}
+  .pcard.it.sm .idx b{font-size:14px;} .pcard.it.sm .bigpip svg{width:25px;height:25px;}
+  .pcard.it.sm .bigpip .ring{width:38px; height:38px;}
+  .pcard.it.sm .bigpip .gbg{font-size:38px;}
+  .pcard.it.sm .face{font-size:21px; inset:12px 8px 12px;}
+  .pcard.it.sm .idx.flip{display:none;}
   .itd{display:inline-flex; flex-direction:column; align-items:center; gap:6px;
     animation:itdeal .55s cubic-bezier(.2,1.25,.35,1) both;}
   @keyframes itdeal{from{opacity:0; transform:translateY(34px) rotate(7deg) scale(.7);}
@@ -421,7 +474,9 @@
   @keyframes itkill{from{filter:none;} to{filter:grayscale(1) brightness(.45);}}
   .itdie{animation:itdiecon .4s ease both; color:var(--bad) !important; font-size:15px;}
   @keyframes itdiecon{from{opacity:0;} to{opacity:1;}}
-  .itdots{display:flex; gap:7px; justify-content:center; padding:8px 0 2px;}
+  .itnav{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 2px 2px;}
+  .itnav .bx{min-width:74px;}
+  .itdots{display:flex; gap:7px; justify-content:center; padding:8px 0 2px; flex-wrap:wrap;}
   .itdots i{width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.16); transition:all .3s;}
   .itdots i.on{background:var(--gold2); box-shadow:0 0 8px rgba(216,181,74,.7); transform:scale(1.25);}
   .itdots i.done{background:rgba(216,181,74,.45);}
@@ -1053,11 +1108,25 @@ function esc(t){ return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 function fmt(n){ return n.toLocaleString("en-US"); }
 
 const PIP_PATHS = {
-  sea:'<path d="M2 8.5c3.2-3.8 6.8-3.8 10 0s6.8 3.8 10 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M2 15.5c3.2-3.8 6.8-3.8 10 0s6.8 3.8 10 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>',
-  stone:'<path fill="currentColor" fill-rule="evenodd" d="M12 2 21.5 11.5 18.5 11.5 18.5 22 5.5 22 5.5 11.5 2.5 11.5 Z M10.4 22 13.6 22 13.6 15.5 10.4 15.5 Z"/>',
-  wind:'<path d="M3 8h11a3 3 0 1 0-3-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M3 13h15a3 3 0 1 1-3 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M3 18h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
-  road:'<path d="M8 22C8 15 16 13 16 2" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/><path d="M8 22C8 15 16 13 16 2" fill="none" stroke="#f4edda" stroke-width="1.3" stroke-dasharray="2.6 2.8" stroke-linecap="round"/>',
+  /* Sea — three fading swells */
+  sea:'<path d="M2.5 8c3.1-4 6.9-4 10 0s6.9 4 10 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>'+
+      '<path d="M2.5 13.8c3.1-4 6.9-4 10 0s6.9 4 10 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" opacity=".62"/>'+
+      '<path d="M2.5 19.6c3.1-4 6.9-4 10 0s6.9 4 10 0" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" opacity=".3"/>',
+  /* Stone — a kažun: capstone, corbelled roof, body with arched doorway */
+  stone:'<circle cx="12" cy="2.3" r="1.45" fill="currentColor"/>'+
+      '<path fill="currentColor" d="M12 3.6 C7.4 5.2 4.6 8.5 3.6 11.7 L20.4 11.7 C19.4 8.5 16.6 5.2 12 3.6 Z"/>'+
+      '<path fill="currentColor" fill-rule="evenodd" d="M4.5 13.1 L19.5 13.1 L18.9 21.7 L5.1 21.7 Z M10.35 21.7 L10.35 17.3 Q12 15.4 13.65 17.3 L13.65 21.7 Z"/>',
+  /* Wind — two curled gusts and a fading tail */
+  wind:'<path d="M2.6 8.4h11.6a3.1 3.1 0 1 0-3.1-3.1" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'+
+      '<path d="M2.6 13.8h15.8a3.3 3.3 0 1 1-3.3 3.3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>'+
+      '<path d="M2.6 19.2h7.2" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".42"/>',
+  /* Road — perspective tarmac with a dashed centerline */
+  road:'<path fill="currentColor" d="M9.3 2.6 L14.7 2.6 L20.6 21.6 L3.4 21.6 Z"/>'+
+      '<path d="M12 4 V21" fill="none" stroke="#f4edda" stroke-width="1.5" stroke-dasharray="2.6 2.6" stroke-linecap="round"/>',
 };
+function artImg(src, cls){
+  return `<img class="${cls}" src="${src}" alt="" loading="lazy" onerror="this.remove()">`;
+}
 function pipSVG(suit, cls){ return `<svg class="${cls||""}" viewBox="0 0 24 24" aria-hidden="true">${PIP_PATHS[suit]}</svg>`; }
 const CAR_SVG = '<svg viewBox="0 0 26 12" aria-hidden="true"><path fill="#f3d878" d="M1 8c0-2 1.5-3 4-3.4L8 2.4C8.6 1.6 9.6 1 10.8 1h6.4c1.6 0 3 .8 3.8 2.1L22.6 6C24.5 6.4 25 7.2 25 8.4c0 .9-.7 1.6-1.6 1.6H22a2.4 2.4 0 0 1-4.7 0h-8.6a2.4 2.4 0 0 1-4.7 0H2.6C1.7 10 1 9.1 1 8Z"/><circle cx="6.5" cy="9.6" r="1.7" fill="#2b2418"/><circle cx="19.6" cy="9.6" r="1.7" fill="#2b2418"/></svg>';
 const TRI_SVG = '<svg class="tri" viewBox="0 0 34 31" aria-hidden="true"><path d="M17 2 32 28.5 2 28.5 Z" fill="#7e1f1b" stroke="#f4d9d2" stroke-width="2.4" stroke-linejoin="round"/><text x="17" y="24" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="#ffd9cf">!</text></svg>';
@@ -1091,23 +1160,28 @@ function blindChip(){
   return `<span class="blindchip${isBossBlind()?" boss":""}">${esc(blindName())}</span>`;
 }
 function warnSign(boss, withFlavor){
-  return `<div class="warnsign">${TRI_SVG}<div><b>${esc(boss.name)}</b><p>${fmtDesc(boss.desc)}</p>
-    ${withFlavor?`<p class="wf">${esc(boss.flavor)}</p>`:""}</div></div>`;
+  return `<div class="warnsign">${TRI_SVG}<div style="flex:1"><b>${esc(boss.name)}</b><p>${fmtDesc(boss.desc)}</p>
+    ${withFlavor?`<p class="wf">${esc(boss.flavor)}</p>`:""}</div>
+    ${withFlavor?artImg("art/b-"+boss.id+".webp","bart"):""}</div>`;
 }
 
 /* ---- cards ---- */
+function cardFace(c){
+  if(c.faceDown) return "";
+  return `<i class="cframe"></i>`
+    + (c.rank===14 ? `<div class="a1">A1<span class="a1line"></span></div>` :
+    c.rank>=11 ? `<div class="face">${artImg("art/f-"+(c.rank===11?"galeb":c.rank===12?"teta":"kralj")+".webp","fart")}<span>${GLAG[c.rank]}</span><i class="ftick tl"></i><i class="ftick tr"></i><i class="ftick bl"></i><i class="ftick br"></i></div>` :
+    `<div class="bigpip"><span class="gbg">${GLAG[c.rank]}</span><span class="ring"></span>${pipSVG(c.suit)}</div>`)
+    + `<div class="idx flip"><b>${RANK_LABEL[c.rank]}</b>${pipSVG(c.suit,"ip")}</div>`;
+}
 function cardHTML(c, rot, ty){
   const ord=S.sel.indexOf(c.id);
   const sel=ord>=0;
   const cls=`pcard suit-${c.suit}${sel?" sel":""}${isDebuffed(c)?" deb":""}${c.faceDown?" back":""}${c.enh==="saint"?" saint":""}`;
-  const center = c.faceDown ? "" :
-    c.rank===14 ? `<div class="a1">A1</div>` :
-    c.rank>=11  ? `<div class="face">${GLAG[c.rank]}</div>` :
-                  `<div class="bigpip">${pipSVG(c.suit)}</div>`;
   return `<div class="${cls}" data-id="${c.id}" style="--rot:${rot||0}deg;--ty:${ty||0}px" onclick="toggleCard(${c.id})">
-    <div class="idx"><b>${RANK_LABEL[c.rank]}</b>${pipSVG(c.suit,"ip")}</div>${center}
-    ${sel?`<span class="ord">${ord+1}</span>`:""}
-    ${c.faceDown?"":`<div class="gn">${GLAG[c.rank]}</div>`}</div>`;
+    <div class="idx"><b>${RANK_LABEL[c.rank]}</b>${pipSVG(c.suit,"ip")}</div>
+    ${cardFace(c)}
+    ${sel?`<span class="ord">${ord+1}</span>`:""}</div>`;
 }
 function miniCard(b){
   const center = b.rank>=11 && b.rank<=13 ? `<span class="fg">${GLAG[b.rank]}</span>` : pipSVG(b.suit);
@@ -1144,14 +1218,14 @@ function crewHTML(){
     const d=JBY[j.id];
     const open=inf&&inf.kind==="joker"&&inf.idx===i;
     return `<div class="ctile${open?" open":""}" onclick="showInfo('joker',${i})">
-      <div class="cg">${esc(d.name[d.name.startsWith("The ")?4:0])}</div>
+      <div class="cg">${esc(d.name[d.name.startsWith("The ")?4:0])}${artImg("art/p-"+j.id+".webp","cgart")}</div>
       <div class="cn">${esc(d.name)}</div>${d.tag?`<span class="ct">${d.tag(j)}</span>`:""}</div>`;
   }).join("");
   h+=S.omens.map((o,i)=>{
     const d=OBY[o.id];
     const open=inf&&inf.kind==="omen"&&inf.idx===i;
     return `<div class="ctile omen${open?" open":""}" onclick="showInfo('omen',${i})">
-      <div class="cg">☽</div><div class="cn">${esc(d.name)}</div></div>`;
+      <div class="cg">☽${artImg("art/o-"+o.id+".webp","cgart")}</div><div class="cn">${esc(d.name)}</div></div>`;
   }).join("");
   h+=`</div><div class="slotnote">passengers ${S.jokers.length}/${MAX_JOKERS} · omens ${S.omens.length}/${MAX_OMENS}</div>`;
   return h;
@@ -1162,7 +1236,7 @@ function infoHTML(sellable){
   if(inf.kind==="joker"){
     const j=S.jokers[inf.idx]; if(!j){S.info=null; return "";}
     const d=JBY[j.id];
-    return `<div class="infobar"><b>${esc(d.name)}</b>${d.tag?`<span class="tagv">${d.tag(j)}</span>`:""}
+    return `<div class="infobar">${artImg("art/p-"+j.id+".webp","ibart")}<b>${esc(d.name)}</b>${d.tag?`<span class="tagv">${d.tag(j)}</span>`:""}
       <p>${fmtDesc(d.desc)}</p><div class="ibtns">
       ${sellable?`<button class="bx sm warn" onclick="S.info=null;sellJoker(${inf.idx})">sell · ${Math.max(1,Math.floor(d.cost/2))} kn</button>`:""}
       <button class="bx sm ghost" onclick="hideInfo()">close</button></div></div>`;
@@ -1170,7 +1244,7 @@ function infoHTML(sellable){
   const o=S.omens[inf.idx]; if(!o){S.info=null; return "";}
   const d=OBY[o.id];
   const readable = S.screen==="round";
-  return `<div class="infobar omen"><b>${esc(d.name)}</b><p>${fmtDesc(d.desc)}</p><div class="ibtns">
+  return `<div class="infobar omen">${artImg("art/o-"+o.id+".webp","ibart")}<b>${esc(d.name)}</b><p>${fmtDesc(d.desc)}</p><div class="ibtns">
     ${readable?`<button class="bx sm gold" onclick="S.info=null;useOmen(${inf.idx})">read it${d.targets?` · ${d.targets===1?"1 card":"up to "+d.targets+" cards"}`:""}</button>`:""}
     <button class="bx sm ghost" onclick="hideInfo()">close</button></div></div>`;
 }
@@ -1310,14 +1384,15 @@ function cashHTML(){
 }
 
 function shopItemHTML(it, i){
-  let kind, name, desc;
-  if(it.kind==="joker"){ const d=JBY[it.id]; kind="putnik · passenger"; name=d.name; desc=fmtDesc(d.desc); }
-  else if(it.kind==="omen"){ const d=OBY[it.id]; kind="omen"; name=d.name; desc=fmtDesc(d.desc); }
+  let kind, name, desc, art;
+  if(it.kind==="joker"){ const d=JBY[it.id]; kind="putnik · passenger"; name=d.name; desc=fmtDesc(d.desc); art="art/p-"+it.id+".webp"; }
+  else if(it.kind==="omen"){ const d=OBY[it.id]; kind="omen"; name=d.name; desc=fmtDesc(d.desc); art="art/o-"+it.id+".webp"; }
   else { kind="radio";
-    name=RADIO_NAMES[it.move];
+    name=RADIO_NAMES[it.move]; art="art/radio.webp";
     desc=`${esc(RADIO_DESCS[it.move])} <b style="color:var(--gold2)">${esc(MOVES[it.move].name)}</b> is lvl ${S.moveLevels[it.move]}.`; }
   return `<div class="shopitem${it.sold?" sold":""}">
-    <div><div class="skind">${kind}</div><div class="sname">${esc(name)}</div><div class="sdesc">${desc}</div></div>
+    ${artImg(art,"sart")}
+    <div style="flex:1"><div class="skind">${kind}</div><div class="sname">${esc(name)}</div><div class="sdesc">${desc}</div></div>
     <div class="pricetag"><span class="pt">${it.price} kn</span><br>
       ${it.sold?`<span class="tiny">taken</span>`:`<button class="bx sm gold" onclick="buyItem(${i})">buy</button>`}
     </div></div>`;
@@ -1343,7 +1418,7 @@ function winHTML(){
   clearSave();
   return `
   <div class="big">
-    ${CROWN_SVG}
+    <div class="endmed">${artImg("art/win.webp","endart")}${CROWN_SVG}</div>
     <div class="glagtitle" style="font-size:30px">ⰁⰋⰑⰃⰓⰀⰄ</div>
     <h2>The White City receives you</h2>
     <p class="fogtext">The fleet of 1125 lowers its signal flags. The fog rolls back out to sea like a tide
@@ -1370,6 +1445,7 @@ function gameoverHTML(){
   const leg=curLeg();
   return `
   <div class="big">
+    <div class="endmed fogmed">${artImg("art/fog.webp","endart")}</div>
     <div class="glagtitle" style="color:#93a6ba;text-shadow:none;font-size:30px">ⰏⰀⰃⰎⰀ</div>
     <h2 class="mut">The fog takes the car</h2>
     <p class="fogtext">Somewhere between ${leg.from} and ${leg.to}, the white comes down off the karst
@@ -1403,7 +1479,7 @@ function menuHTML(){
     It was always a loop.</p>
     <div class="menubtns">
       ${cont?`<button class="bx gold" onclick="continueRun()">continue the drive</button>`:""}
-      ${!cont&&!introSeen()?`<button class="bx gold" onclick="startIntro()">learn the road · 60 s</button>`:""}
+      ${!cont&&!introSeen()?`<button class="bx gold" onclick="startIntro()">learn the road</button>`:""}
       <button class="bx ${cont||!introSeen()?"":"gold"}" onclick="confirmNewRun()">new run</button>
       ${cont||introSeen()?`<button class="bx ghost" onclick="startIntro()">how the road works</button>`:""}
       <button class="bx ghost sm" onclick="toggleRules()">read the rules instead</button>
@@ -1443,7 +1519,7 @@ function abandonRun(){
 }
 
 /* ---- animated introduction ---- */
-let INTRO=null, _introTimer=null;
+let INTRO=null;
 const INTRO_SEEN_KEY="magistrala_intro_seen";
 function introSeen(){ if(!IS_BROWSER) return true; try{ return !!localStorage.getItem(INTRO_SEEN_KEY); }catch(e){ return true; } }
 function markIntroSeen(){ if(IS_BROWSER){ try{ localStorage.setItem(INTRO_SEEN_KEY,"1"); }catch(e){} } }
@@ -1451,8 +1527,7 @@ function markIntroSeen(){ if(IS_BROWSER){ try{ localStorage.setItem(INTRO_SEEN_K
 function itCard(rank,suit,extra){
   return `<div class="pcard it ${extra||""} suit-${suit}">
     <div class="idx"><b>${RANK_LABEL[rank]}</b>${pipSVG(suit,"ip")}</div>
-    ${rank===14?`<div class="a1">A1</div>`:rank>=11?`<div class="face">${GLAG[rank]}</div>`:`<div class="bigpip">${pipSVG(suit)}</div>`}
-    <div class="gn">${GLAG[rank]}</div></div>`;
+    ${cardFace({rank, suit, faceDown:false})}</div>`;
 }
 function itRow(cards){ return `<div class="itrow">${cards}</div>`; }
 function itCon(bons, cls){ // connector between intro cards
@@ -1573,23 +1648,20 @@ const INTRO_SCENES = [
 
 function startIntro(){
   INTRO={i:0};
-  scheduleIntro();
   render();
-}
-function scheduleIntro(){
-  clearTimeout(_introTimer);
-  const sc=INTRO_SCENES[INTRO.i];
-  if(sc.dur>0) _introTimer=setTimeout(nextIntro, sc.dur);
 }
 function nextIntro(){
   if(!INTRO) return;
-  if(INTRO.i>=INTRO_SCENES.length-1) return; // last scene waits for buttons
+  if(INTRO.i>=INTRO_SCENES.length-1) return; // last scene has its own buttons
   INTRO.i++;
-  scheduleIntro();
+  render();
+}
+function prevIntro(){
+  if(!INTRO || INTRO.i===0) return;
+  INTRO.i--;
   render();
 }
 function endIntro(){
-  clearTimeout(_introTimer);
   INTRO=null;
   markIntroSeen();
   render();
@@ -1602,8 +1674,13 @@ function introHTML(){
       <button class="bx sm ghost" onclick="event.stopPropagation();endIntro()">skip</button>
     </div>
     <div class="grow itbody">${sc.html()}</div>
-    <div class="itdots">${INTRO_SCENES.map((_,k)=>`<i class="${k===INTRO.i?"on":k<INTRO.i?"done":""}"></i>`).join("")}</div>
-    <p class="tiny" style="text-align:center;margin-top:6px">${INTRO.i<INTRO_SCENES.length-1?"tap to continue":""}</p>
+    <div class="itnav">
+      <button class="bx sm ghost" onclick="event.stopPropagation();prevIntro()" ${INTRO.i===0?"disabled":""}>‹ back</button>
+      <div class="itdots">${INTRO_SCENES.map((_,k)=>`<i class="${k===INTRO.i?"on":k<INTRO.i?"done":""}"></i>`).join("")}</div>
+      ${INTRO.i<INTRO_SCENES.length-1
+        ? `<button class="bx sm gold" onclick="event.stopPropagation();nextIntro()">next ›</button>`
+        : `<span style="width:74px"></span>`}
+    </div>
   </div>`;
 }
 
@@ -1668,7 +1745,7 @@ if(typeof module!=="undefined" && module.exports){
   module.exports = {get S(){return S;}, set S(v){S=v;}, newRun, startBlind, skipBlind,
     playSelected, discardSelected, useOmen, sellJoker, buyItem, rerollShop, toShop,
     leaveShop, afterBossOrRound, scoreHand, toggleCard, selectedCards, reverseSel,
-    showInfo, hideInfo, setSort, toMenu, startIntro, nextIntro, endIntro,
+    showInfo, hideInfo, setSort, toMenu, startIntro, nextIntro, prevIntro, endIntro,
     MOVES, MOVE_KEYS, JOKERS, OMENS, LEGS, newCard, blindTarget, JBY, OBY, maneuversForRound};
 }
 </script>

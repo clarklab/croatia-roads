@@ -54,9 +54,20 @@ Istrian dawn, Učka forest dark, bura storm-grey over Senj, the Zadar sunset Hit
 rated, Biograd night-gold — over layered karst silhouettes, drifting fog, and a sea
 with a sun-glint that follows the sun. The score is an odometer, progress is a little
 car on a dashed road, legs are highway direction signs, bosses are warning triangles,
-and the payout screen is a thermal kiosk receipt. Cards carry hand-drawn SVG pips
-(wave, kažun, gust, switchback road) and true Glagolitic letterforms from a 4.6 KB
-embedded font subset, so nothing renders as tofu on a phone in airplane mode.
+and the payout screen is a thermal kiosk receipt. Cards are properly drawn: fading
+sea swells, a corbelled kažun with capstone and arched doorway, curled bura gusts, a
+perspective road with dashed centerline — each in a dotted cartouche on suit-tinted
+paper, with mirrored corner indices, framed Glagolitic faces, and a motorway-shield
+A1, all from a 4.6 KB embedded font subset and inline SVG, so nothing renders as
+tofu on a phone in airplane mode.
+
+Above the suit system sits the etched-art program: 44 antique copperplate
+engravings with watercolor wash, in the manner of old banknotes — a cameo portrait
+for every passenger (the Konoba Grandmother with her spoon-scepter, the Dead Wasp
+lying in state), a vignette for every omen, court portraits for the Galeb, the Teta
+and the Kralj on the face cards, a medallion for every boss, and end-screen art for
+the crown and the fog. The whole program is 150 KB of WebP in `art/`, and the game
+falls back to letter monograms if the folder is missing.
 
 ## Playing
 
@@ -64,8 +75,8 @@ First visit offers **Learn the Road** — a 60-second fully animated introductio
 teaches the grammar by driving it: the car covers a stretch, the deck deals itself,
 LINK/SHIFT/ECHO each demonstrate on live cards, three cards visibly rearrange to show
 that order is everything, a five-card line lights up into a FULL SEND over the Zadar
-sunset, and the Bura kills a card mid-chain to show what breaking rhythm costs. Tap to
-advance, skip anytime, rewatch from the menu.
+sunset, and the Bura kills a card mid-chain to show what breaking rhythm costs. Fully
+self-paced — back and next buttons, tap to advance, skip anytime, rewatch from the menu.
 
 Open `index.html` on a phone. No build, no dependencies, no network. The run sleeps
 in `localStorage` between bursts of play, so it survives the actual five-hour drive
