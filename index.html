@@ -213,6 +213,21 @@
   .pztotal.ghost{opacity:.55; text-shadow:none; animation:none;}
   .pz.preview .pzmath{animation:none;}
   .pz.noanim *{animation:none !important;}
+  .con{display:inline-flex; flex-direction:column; gap:1px; align-self:center; margin:0 1px; min-width:13px;
+    font-family:var(--disp); font-weight:700; font-size:10px; text-align:center; animation:fadeup .3s ease both;}
+  .con.none{color:#5d718566; font-size:13px;}
+  .con i{font-style:normal; line-height:1.1;}
+  .b-link{color:#8fd9a8; font-style:normal;} .b-shift{color:#6fb9e2; font-style:normal;} .b-echo{color:#ef9075; font-style:normal;}
+  .pzmoves{font-family:var(--disp); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;}
+  .pzmoves span{color:var(--faint);}
+  .pz.fs{border-color:rgba(216,181,74,.55); box-shadow:0 0 22px rgba(216,181,74,.22) inset, 0 0 18px rgba(216,181,74,.12);}
+  .pz.fs .pzname{text-shadow:0 0 14px rgba(216,181,74,.8);}
+  .pzhint{font-family:var(--disp); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--dim); line-height:1.9; margin-bottom:4px;}
+  .pcard .ord{position:absolute; top:-9px; right:-6px; width:20px; height:20px; border-radius:50%;
+    background:linear-gradient(180deg,var(--gold2),#b08f2e); color:#241c04; font-family:var(--disp);
+    font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 6px rgba(0,0,0,.5); border:1px solid #f8ecc0;}
   .pzdeb{font-size:11px; color:var(--bad); font-family:var(--disp); letter-spacing:.1em; text-transform:uppercase;}
   @keyframes zpop{from{transform:scale(.4) rotate(-6deg); opacity:0} to{transform:scale(1) rotate(0); opacity:1}}
   @keyframes chipfloat{from{opacity:0; transform:translate(-50%,8px)} 35%{opacity:1} to{opacity:1; transform:translate(-50%,0)}}
@@ -397,27 +412,43 @@ const GLAG = {2:"Ⰱ",3:"Ⰲ",4:"Ⰳ",5:"Ⰴ",6:"Ⰵ",7:"Ⰶ",8:"Ⰷ",9:"Ⰸ",10
 function chipVal(c){ return c.rank<=10 ? c.rank : (c.rank===14 ? 11 : 10); }
 function isFace(c){ return c.rank>=11 && c.rank<=13; }
 
-/* Maneuvers (poker hands). km = chips, tempo = mult. l* = gain per level. */
-const HANDS = {
-  high:    {name:"Pointing Out the Window", km:5,  tempo:1,  lkm:10, ltempo:1},
-  pair:    {name:"Overtake",                km:15, tempo:2,  lkm:15, ltempo:1},
-  twopair: {name:"Double Overtake",         km:25, tempo:2,  lkm:20, ltempo:1},
-  three:   {name:"Convoy",                  km:35, tempo:3,  lkm:20, ltempo:2},
-  straight:{name:"The Magistrala",          km:30, tempo:4,  lkm:30, ltempo:3},
-  flush:   {name:"Full Bura",               km:35, tempo:4,  lkm:15, ltempo:2},
-  full:    {name:"Konoba Lunch",            km:40, tempo:4,  lkm:25, ltempo:2},
-  four:    {name:"The Roundabout",          km:60, tempo:7,  lkm:30, ltempo:3},
-  sflush:  {name:"The Serpentine",          km:100,tempo:8,  lkm:40, ltempo:4},
-  royal:   {name:"Coronation Road",         km:100,tempo:10, lkm:50, ltempo:5},
+/* The Drive — an original rhythm grammar. Cards are driven left to right:
+   LINK  — same element as the previous card     (+1 Tempo, levels up)
+   SHIFT — value exactly one off the previous    (+2 Tempo, levels up)
+   ECHO  — same value as the previous card       (+2 Tempo, levels up)
+   FULL SEND — a 5-card drive where every step earns a bonus (×2 Tempo)
+   Debuffed cards score nothing and break the rhythm. */
+const MOVES = {
+  base:    {name:"Engine",    base:10, per:15},
+  link:    {name:"LINK",      base:1,  per:1},
+  shift:   {name:"SHIFT",     base:2,  per:1},
+  echo:    {name:"ECHO",      base:2,  per:1},
+  fullsend:{name:"FULL SEND", base:2,  per:0.5},
 };
-const HAND_KEYS = Object.keys(HANDS);
-
+const MOVE_KEYS = Object.keys(MOVES);
 const RADIO_NAMES = {
-  high:"Radio Fog 0.0 FM", pair:"Radio Istra 96.9", twopair:"Radio Rijeka 104.7",
-  three:"Otvoreni Radio 89.7", straight:"Narodni Radio 107.2",
-  flush:"Radio Bura — frequency unknown", full:"Radio Konoba AM",
-  four:"Radio Velebit 92.1", sflush:"Radio Maestral 105.6", royal:"Glas Kralja — long wave",
+  base:"Radio Konoba AM", link:"Radio Istra 96.9", shift:"Narodni Radio 107.2",
+  echo:"Radio Rijeka 104.7", fullsend:"Glas Kralja — long wave",
 };
+const RADIO_DESCS = {
+  base:"A bigger engine hum. +15 base KM on every drive.",
+  link:"Hold the line. Every LINK gives +1 more Tempo.",
+  shift:"Up through the gears. Every SHIFT gives +1 more Tempo.",
+  echo:"The chorus comes around again. Every ECHO gives +1 more Tempo.",
+  fullsend:"The dead king clears the road. FULL SEND grows ×0.5 stronger.",
+};
+function moveLvl(k){ return S.moveLevels[k]||1; }
+function moveVal(k){ const m=MOVES[k]; return m.base + (moveLvl(k)-1)*m.per; }
+function driveName(ctx){
+  if(ctx.fullsend) return "FULL SEND";
+  const n = ctx.moves.link + ctx.moves.shift + ctx.moves.echo;
+  if(ctx.played.length===1) return "Roll Forward";
+  if(n===0) return "Sunday Drive";
+  if(n===1) return "Cruise";
+  if(n===2) return "Flow";
+  if(n===3) return "Serpentine";
+  return "Thread the Coast";
+}
 
 /* Passengers (jokers). Hooks:
    perCard(ctx,card,j) — per scored card, after its chips are added
@@ -454,8 +485,8 @@ const JOKERS = [
    desc:"×3 Tempo, but −1 maneuver per round. It died for this.",
    mult:(ctx)=>{ ctx.tempo*=3; }},
   {id:"socks", name:"Socks & Sandals", cost:4,
-   desc:"Overtakes (Pairs) get ×2.5 Tempo. The uniform of the unbothered.",
-   mult:(ctx)=>{ if(ctx.type==="pair") ctx.tempo*=2.5; }},
+   desc:"×2.5 Tempo if the drive earns no LINK, SHIFT or ECHO at all. The uniform of the unbothered.",
+   mult:(ctx)=>{ if(ctx.moves.link+ctx.moves.shift+ctx.moves.echo===0) ctx.tempo*=2.5; }},
   {id:"zimmer", name:"ZIMMER FREI Sign", cost:5,
    desc:"+4 kn at the end of each round. The rooms are always free. No one has ever seen them.",
    onRoundEnd:()=>{ S.kuna+=4; }},
@@ -473,8 +504,8 @@ const JOKERS = [
    add:(ctx,j)=>{ ctx.tempo+=(j.state.tempo||0); },
    tag:(j)=>"+"+(j.state.tempo||0)+" Tempo"},
   {id:"klapa", name:"Klapa CD (Stuck in the Player)", cost:5,
-   desc:"Maneuvers containing a Magistrala (straight) get +100 KM. Track 4. Always track 4.",
-   add:(ctx)=>{ if(ctx.type==="straight"||ctx.type==="sflush"||ctx.type==="royal") ctx.km+=100; }},
+   desc:"+30 KM for every SHIFT in the drive. Track 4. Always track 4. It knows the gears.",
+   add:(ctx)=>{ ctx.km += 30*ctx.moves.shift; }},
   {id:"sunglasses", name:"The Driver's Sunglasses", cost:6,
    desc:"×2 Tempo if you haven't discarded this round. The driver sees nothing. The driver sees everything.",
    mult:(ctx)=>{ if(ctx.noDiscards) ctx.tempo*=2; }},
@@ -491,8 +522,8 @@ const JOKERS = [
    desc:"+1 kn per maneuver played. It beeps once for yes, once for no.",
    onPlay:()=>{ S.kuna+=1; }},
   {id:"baka", name:"Konoba Grandmother", cost:5,
-   desc:"Konoba Lunch (Full House) gets ×3 Tempo. You will eat. This is not a question.",
-   mult:(ctx)=>{ if(ctx.type==="full") ctx.tempo*=3; }},
+   desc:"×2 Tempo if the drive contains two or more ECHOes. Seconds are mandatory.",
+   mult:(ctx)=>{ if(ctx.moves.echo>=2) ctx.tempo*=2; }},
 ];
 const JBY = {}; JOKERS.forEach(j=>JBY[j.id]=j);
 
@@ -528,49 +559,49 @@ const OMENS = [
    use:()=>{ S.kuna+=8; }},
   {id:"seaorgan", name:"The Sea Organ", targets:0,
    desc:"A random maneuver gains a level. The sea plays a chord it has been holding since 2005.",
-   use:()=>{ const k=HAND_KEYS[rnd(HAND_KEYS.length)]; S.handLevels[k]++;
-     toast(HANDS[k].name+" is now level "+S.handLevels[k]); }},
+   use:()=>{ const k=MOVE_KEYS[rnd(MOVE_KEYS.length)]; S.moveLevels[k]++;
+     toast(MOVES[k].name+" rises to level "+S.moveLevels[k]); }},
 ];
 const OBY = {}; OMENS.forEach(o=>OBY[o.id]=o);
 
 /* The route. Boss target multiplier defaults to 2 unless given. */
 const LEGS = [
-  {from:"PULA", to:"VODNJAN", target:200,
+  {from:"PULA", to:"VODNJAN", target:550,
    flavor:"The amphitheater is behind you. It has watched two thousand years of departures and finds yours unremarkable. The kažuni stand in the red fields — stone huts with no doors, built to be left.",
    boss:{id:"mummies", name:"The Mummies of Vodnjan", mult:1.8,
      desc:"Face cards score nothing. The incorrupt saints do not approve of royalty.",
      flavor:"In the church of St. Blaise lie six saints who refused to rot. They have opinions about your face cards."}},
-  {from:"VODNJAN", to:"UČKA", target:500,
+  {from:"VODNJAN", to:"UČKA", target:1700,
    flavor:"Istria narrows. The mountain ahead has a hole in it, and the hole costs money. Truffle country sleeps under the oaks to your left, sniffed at by secret dogs.",
    boss:{id:"tunnel", name:"The Učka Tunnel", mult:1.5,
      desc:"Cards are drawn face-down. Inside the mountain, you play by feel.",
      flavor:"Five kilometers of rock above your head. The radio dies first. Then the light. Do not say the word."}},
-  {from:"UČKA", to:"RIJEKA", target:1100,
+  {from:"UČKA", to:"RIJEKA", target:4000,
    flavor:"You fall out of the mountain into Kvarner Bay. Rijeka spreads below — port cranes, torpedo factories, a corridor city that has belonged to seven countries without ever moving.",
    boss:{id:"toll", name:"The Toll Gantry", mult:1.8,
      desc:"Every maneuver costs 3 kn. The gantry reads your soul and finds it billable.",
      flavor:"ENC lane. Cash lane. A third lane, unmarked, for those who owe something older than money."}},
-  {from:"RIJEKA", to:"SENJ", target:1800,
+  {from:"RIJEKA", to:"SENJ", target:7000,
    flavor:"The Magistrala clings to the coast. Somewhere above Senj the air is deciding. The windsocks stand horizontal. They close this road when the wind learns your number.",
    boss:{id:"bura", name:"THE BURA", mult:1.5,
      desc:"After every maneuver, 2 random cards are blown out of your hand.",
      flavor:"The wind is born on Velebit and comes down to the sea to break things. Today it has chosen your hand."}},
-  {from:"SENJ", to:"VELEBIT", target:2200,
+  {from:"SENJ", to:"VELEBIT", target:9500,
    flavor:"The mountain runs beside you for a hundred kilometers, grey and certain. Shepherds' paths cross it. Wolves cross it. The Vila of Velebit watches from the karst and does not blink.",
    boss:{id:"wall", name:"The Velebit Wall", mult:1.8,
      desc:"An enormous target. The mountain does not negotiate.",
      flavor:"You cannot go around Velebit. No one has ever gone around Velebit. You go through, or you stay."}},
-  {from:"VELEBIT", to:"MASLENICA", target:3500,
+  {from:"VELEBIT", to:"MASLENICA", target:15000,
    flavor:"The land drops to the Novsko Ždrilo strait, where the bura once blew a truck clean off the bridge. There are two bridges now. Both of them remember the war.",
    boss:{id:"needle", name:"The Bridge Inspector", mult:0.9,
      desc:"You get exactly 2 maneuvers — one for each bridge.",
      flavor:"He stands at the apex with a clipboard. One crossing. One gesture. He has seen everything and rated most of it poorly."}},
-  {from:"MASLENICA", to:"ZADAR", target:5500,
+  {from:"MASLENICA", to:"ZADAR", target:20000,
    flavor:"Zadar: a Roman grid wearing a Venetian coat. On the waterfront the Sea Organ plays the tide, and the Greeting to the Sun applauds the sunset. Hitchcock said it was the best sunset in the world. He was right, and it's worse than that.",
    boss:{id:"psychic", name:"The Sunset Applause", mult:1.4,
      desc:"Every maneuver must be exactly 5 cards. The crowd accepts only full gestures.",
      flavor:"The whole city has gathered on the riva to clap for the sun. They will clap for you too — but only for the complete performance."}},
-  {from:"ZADAR", to:"BIOGRAD", target:7000,
+  {from:"ZADAR", to:"BIOGRAD", target:20000,
    flavor:"The White City. Kings of Croatia were crowned here until Venice burned it in 1125 out of sheer administrative spite. The throne is still warm. The fleet is still angry.",
    boss:{id:"venice", name:"VENICE, 1125", mult:1.8,
      desc:"After every maneuver, a different suit is forbidden and scores nothing.",
@@ -614,7 +645,7 @@ function newRun(){
     screen:"preview", leg:0, blind:0,           // blind: 0 open, 1 heavy, 2 boss
     kuna:6, master:buildDeck(),
     jokers:[], omens:[],
-    handLevels:Object.fromEntries(HAND_KEYS.map(k=>[k,1])),
+    moveLevels:Object.fromEntries(MOVE_KEYS.map(k=>[k,1])),
     drawPile:[], hand:[], sel:[],
     score:0, target:0, maneuvers:0, discards:0,
     playsThisRound:0, discardsThisRound:0,
@@ -694,57 +725,20 @@ function isDebuffed(c){
   return false;
 }
 
-function evaluate(cards){
-  const byRank = {};
-  cards.forEach(c=>{ (byRank[c.rank]=byRank[c.rank]||[]).push(c); });
-  const groups = Object.values(byRank).sort((a,b)=> b.length-a.length || b[0].rank-a[0].rank);
-  const isFlush = cards.length===5 && cards.every(c=>c.suit===cards[0].suit);
-  let isStraight=false, aceLow=false;
-  if(cards.length===5){
-    const rs=[...new Set(cards.map(c=>c.rank))].sort((a,b)=>a-b);
-    if(rs.length===5){
-      if(rs[4]-rs[0]===4) isStraight=true;
-      else if(rs.join(",")==="2,3,4,5,14"){ isStraight=true; aceLow=true; }
-    }
-  }
-  if(isStraight && isFlush){
-    const low = Math.min(...cards.map(c=>c.rank));
-    return {type:(!aceLow && low===10) ? "royal" : "sflush", scored:[...cards]};
-  }
-  if(groups[0].length===4) return {type:"four", scored:groups[0]};
-  if(groups[0].length===3 && groups[1] && groups[1].length===2) return {type:"full", scored:[...cards]};
-  if(isFlush) return {type:"flush", scored:[...cards]};
-  if(isStraight) return {type:"straight", scored:[...cards]};
-  if(groups[0].length===3) return {type:"three", scored:groups[0]};
-  if(groups[0].length===2 && groups[1] && groups[1].length===2)
-    return {type:"twopair", scored:[...groups[0],...groups[1]]};
-  if(groups[0].length===2) return {type:"pair", scored:groups[0]};
-  const top=[...cards].sort((a,b)=>b.rank-a.rank)[0];
-  return {type:"high", scored:[top]};
-}
-
 function scoreHand(played){
-  const ev = evaluate(played);
-  const set = new Set(ev.scored.map(c=>c.id));
-  const scored = played.filter(c=>set.has(c.id));
-  const def = HANDS[ev.type], lvl = S.handLevels[ev.type];
   const ctx = {
-    km: def.km + def.lkm*(lvl-1),
-    tempo: def.tempo + def.ltempo*(lvl-1),
-    type: ev.type, lvl, played, scored,
+    km: moveVal("base"), tempo: 1, played,
     first: S.playsThisRound===0,
     noDiscards: S.discardsThisRound===0,
-    debuffed: [],
+    debuffed: [], breakdown: [],
+    moves: {link:0, shift:0, echo:0}, fullsend:false, type:null,
   };
-  ctx.breakdown = [];
+  let prev=null, broke=false;
   for(const c of played){
-    if(!set.has(c.id)){
-      ctx.breakdown.push({rank:c.rank, suit:c.suit, enh:c.enh, off:true, dkm:0, dt:0});
-      continue;
-    }
     if(isDebuffed(c)){
       ctx.debuffed.push(c.id);
-      ctx.breakdown.push({rank:c.rank, suit:c.suit, enh:c.enh, deb:true, dkm:0, dt:0});
+      ctx.breakdown.push({rank:c.rank, suit:c.suit, enh:c.enh, deb:true, dkm:0, dt:0, bon:[]});
+      prev=null; broke=true;
       continue;
     }
     const km0=ctx.km, t0=ctx.tempo;
@@ -754,9 +748,22 @@ function scoreHand(played){
       if(c.enh==="saint") ctx.km += 30;
       for(const j of S.jokers){ const d=JBY[j.id]; if(d.perCard) d.perCard(ctx,c,j); }
     }
-    ctx.breakdown.push({rank:c.rank, suit:c.suit, enh:c.enh,
+    const bon=[];
+    if(prev){
+      if(c.suit===prev.suit){ ctx.tempo += moveVal("link"); ctx.moves.link++; bon.push("link"); }
+      if(Math.abs(c.rank-prev.rank)===1){ ctx.tempo += moveVal("shift"); ctx.moves.shift++; bon.push("shift"); }
+      if(c.rank===prev.rank){ ctx.tempo += moveVal("echo"); ctx.moves.echo++; bon.push("echo"); }
+      if(!bon.length) broke=true;
+    }
+    ctx.breakdown.push({rank:c.rank, suit:c.suit, enh:c.enh, bon,
       dkm:Math.round((ctx.km-km0)*100)/100, dt:Math.round((ctx.tempo-t0)*100)/100});
+    prev=c;
   }
+  if(played.length===5 && !broke && !ctx.debuffed.length){
+    ctx.fullsend=true;
+    ctx.tempo *= moveVal("fullsend");
+  }
+  ctx.type = driveName(ctx);
   for(const j of S.jokers){ const d=JBY[j.id]; if(d.add) d.add(ctx,j); }
   for(const j of S.jokers){ const d=JBY[j.id]; if(d.mult) d.mult(ctx,j); }
   ctx.km = Math.round(ctx.km*100)/100;
@@ -765,7 +772,11 @@ function scoreHand(played){
   return ctx;
 }
 
-function selectedCards(){ return S.hand.filter(c=>S.sel.includes(c.id)); }
+function selectedCards(){
+  // tap order IS drive order — never return hand order
+  const by={}; S.hand.forEach(c=>by[c.id]=c);
+  return S.sel.map(id=>by[id]).filter(Boolean);
+}
 
 function toggleCard(id){
   const i = S.sel.indexOf(id);
@@ -880,7 +891,7 @@ function genShop(){
       if(pool.length){ const d=pick(pool); items.push({kind:"joker", id:d.id, price:d.cost, sold:false}); continue; }
     }
     if(r<0.8){
-      items.push({kind:"radio", hand:pick(HAND_KEYS), price:COSTS.radio, sold:false});
+      items.push({kind:"radio", move:pick(MOVE_KEYS), price:COSTS.radio, sold:false});
     } else {
       items.push({kind:"omen", id:pick(OMENS).id, price:COSTS.omen, sold:false});
     }
@@ -904,8 +915,8 @@ function buyItem(i){
     S.omens.push({id:it.id});
   } else if(it.kind==="radio"){
     S.kuna -= it.price;
-    S.handLevels[it.hand]++;
-    toast(RADIO_NAMES[it.hand]+" comes in clear. "+HANDS[it.hand].name+" is now level "+S.handLevels[it.hand]+".");
+    S.moveLevels[it.move]++;
+    toast(RADIO_NAMES[it.move]+" comes in clear. "+MOVES[it.move].name+" is now level "+S.moveLevels[it.move]+".");
   }
   it.sold = true;
   save(); render();
@@ -941,7 +952,7 @@ function afterBossOrRound(){ // leaving the cash screen
 /* ============================================================
    PERSISTENCE
    ============================================================ */
-const SAVE_KEY = "magistrala_run_v1";
+const SAVE_KEY = "magistrala_run_v2";
 function save(){
   if(!IS_BROWSER || !S) return;
   try{ localStorage.setItem(SAVE_KEY, JSON.stringify({S, _uid})); }catch(e){}
@@ -1018,7 +1029,8 @@ function warnSign(boss, withFlavor){
 
 /* ---- cards ---- */
 function cardHTML(c, rot, ty){
-  const sel=S.sel.includes(c.id);
+  const ord=S.sel.indexOf(c.id);
+  const sel=ord>=0;
   const cls=`pcard suit-${c.suit}${sel?" sel":""}${isDebuffed(c)?" deb":""}${c.faceDown?" back":""}${c.enh==="saint"?" saint":""}`;
   const center = c.faceDown ? "" :
     c.rank===14 ? `<div class="a1">A1</div>` :
@@ -1026,6 +1038,7 @@ function cardHTML(c, rot, ty){
                   `<div class="bigpip">${pipSVG(c.suit)}</div>`;
   return `<div class="${cls}" data-id="${c.id}" style="--rot:${rot||0}deg;--ty:${ty||0}px" onclick="toggleCard(${c.id})">
     <div class="idx"><b>${RANK_LABEL[c.rank]}</b>${pipSVG(c.suit,"ip")}</div>${center}
+    ${sel?`<span class="ord">${ord+1}</span>`:""}
     ${c.faceDown?"":`<div class="gn">${GLAG[c.rank]}</div>`}</div>`;
 }
 function miniCard(b){
@@ -1095,32 +1108,55 @@ function infoHTML(sellable){
 }
 
 /* ---- playzone ---- */
+const BON_LABEL = {link:"L", shift:"S", echo:"E"};
+function conHTML(bon, delay){
+  if(!bon || !bon.length) return `<span class="con none"${delay!==undefined?` style="animation-delay:${delay}ms"`:""}>·</span>`;
+  return `<span class="con"${delay!==undefined?` style="animation-delay:${delay}ms"`:""}>${bon.map(b=>`<i class="b-${b}">${BON_LABEL[b]}</i>`).join("")}</span>`;
+}
+function seqHTML(breakdown, animate){
+  return breakdown.map((b,i)=>{
+    const d = animate ? i*110 : undefined;
+    const card = `<div class="zc suit-${b.suit}${b.deb?" zdeb":""}"${d!==undefined?` style="animation-delay:${d}ms"`:""}>
+      ${miniCard(b)}${(!b.deb && b.dkm) ? `<span class="zk"${d!==undefined?` style="animation-delay:${d+170}ms"`:""}>+${fmt(b.dkm)}${b.dt?`<i>+${fmt(b.dt)}t</i>`:""}</span>`:""}</div>`;
+    return (i>0 ? conHTML(b.deb?[]:b.bon, d) : "") + card;
+  }).join("");
+}
+function movesLine(ctx){
+  const parts=[];
+  if(ctx.moves.link)  parts.push(`<i class="b-link">${ctx.moves.link} LINK</i>`);
+  if(ctx.moves.shift) parts.push(`<i class="b-shift">${ctx.moves.shift} SHIFT</i>`);
+  if(ctx.moves.echo)  parts.push(`<i class="b-echo">${ctx.moves.echo} ECHO</i>`);
+  return parts.length ? `<div class="pzmoves">${parts.join("<span> · </span>")}</div>` : "";
+}
 function playzoneHTML(){
   const lp=S.lastPlay;
   if(lp){
     const an=lp.seen?" noanim":"";
     const bd=lp.breakdown||[];
-    const cards=bd.map((b,i)=>`<div class="zc suit-${b.suit}${b.deb?" zdeb":""}${b.off?" zoff":""}" style="animation-delay:${i*90}ms">
-        ${miniCard(b)}${(!b.deb&&!b.off)?`<span class="zk" style="animation-delay:${i*90+170}ms">+${fmt(b.dkm)}${b.dt?`<i>+${fmt(b.dt)}t</i>`:""}</span>`:""}</div>`).join("");
-    const dly=bd.length*90+240;
-    return `<div class="pz${an}">
-      <div class="pzname">${esc(HANDS[lp.type].name)} <i>lvl ${lp.lvl}</i></div>
-      <div class="pzcards">${cards}</div>
+    const dly=bd.length*110+240;
+    return `<div class="pz${an}${lp.fullsend?" fs":""}">
+      <div class="pzname">${esc(lp.type)}</div>${movesLine(lp)}
+      <div class="pzcards">${seqHTML(bd,true)}</div>
       <div class="pzmath" style="animation-delay:${dly}ms"><b class="km">${fmt(lp.km)}</b><span>km</span><em>×</em><b class="tm">${fmt(lp.tempo)}</b><span>tempo</span></div>
       <div class="pztotal" style="animation-delay:${dly+200}ms">+${fmt(lp.total)} <span>km</span></div>
-      ${lp.debuffed.length?`<div class="pzdeb">${lp.debuffed.length} card${lp.debuffed.length>1?"s":""} scored nothing</div>`:""}
+      ${lp.debuffed.length?`<div class="pzdeb">${lp.debuffed.length} card${lp.debuffed.length>1?"s":""} scored nothing — rhythm broken</div>`:""}
     </div>`;
   }
   const sel=selectedCards();
   if(sel.length){
     const r=scoreHand(sel);
-    return `<div class="pz preview"><div class="pzname">${esc(HANDS[r.type].name)} <i>lvl ${r.lvl}</i></div>
+    return `<div class="pz preview${r.fullsend?" fs":""}"><div class="pzname">${esc(r.type)}</div>${movesLine(r)}
+      <div class="pzcards">${seqHTML(r.breakdown,false)}</div>
       <div class="pzmath"><b class="km">${fmt(r.km)}</b><span>km</span><em>×</em><b class="tm">${fmt(r.tempo)}</b><span>tempo</span></div>
       <div class="pztotal ghost">+${fmt(r.total)} <span>km</span></div>
-      ${r.debuffed.length?`<div class="pzdeb">${r.debuffed.length} card${r.debuffed.length>1?"s":""} would score nothing</div>`:""}</div>`;
+      ${r.debuffed.length?`<div class="pzdeb">${r.debuffed.length} card${r.debuffed.length>1?"s":""} would break the rhythm</div>`:""}</div>`;
   }
-  return `<div class="pz idle"><p>${esc(S.prophecy)}</p></div>`;
+  return `<div class="pz idle">
+    <p class="pzhint"><i class="b-link">LINK</i> same element · <i class="b-shift">SHIFT</i> neighbor value · <i class="b-echo">ECHO</i> twin value<br>
+    drive 5 without breaking rhythm: <b style="color:var(--gold2)">FULL SEND ×${fmt(moveVal("fullsend"))}</b></p>
+    <p>${esc(S.prophecy)}</p></div>`;
 }
+function reverseSel(){ S.sel.reverse(); render(); }
 
 /* ---- screens ---- */
 function roundHTML(){
@@ -1133,7 +1169,7 @@ function roundHTML(){
     <div class="odorow"><span class="odo" id="odo">${fmt(S.score)}</span><span class="odotarget">of <b>${fmt(S.target)}</b> km<br>${esc(curLeg().to)} ahead</span></div>
     <div class="roadtrack" style="--pct:${pct}%"><div class="dashes"></div><div class="gone"></div><div class="car">${CAR_SVG}</div></div>
     <div class="meters">
-      <div class="meter"><b>${S.maneuvers}</b><label>maneuvers</label></div>
+      <div class="meter"><b>${S.maneuvers}</b><label>drives</label></div>
       <div class="meter"><b>${S.discards}</b><label>glances</label></div>
       <div class="meter kn"><b>${S.kuna}</b><label>kuna</label></div>
       <div class="meter"><b>${S.drawPile.length}</b><label>deck</label></div>
@@ -1143,15 +1179,18 @@ function roundHTML(){
   <div class="grow">${playzoneHTML()}</div>
   <div class="fanbar">
     <button class="bx sm ghost" onclick="abandonRun()">abandon</button>
-    <span class="seg">
-      <button class="${(S.sortMode||"rank")==="rank"?"on":""}" onclick="setSort('rank')">rank</button>
-      <button class="${S.sortMode==="suit"?"on":""}" onclick="setSort('suit')">suit</button>
+    <span style="display:flex;gap:7px;align-items:center">
+      ${S.sel.length>1?`<button class="bx sm" onclick="reverseSel()">⇄ reverse</button>`:""}
+      <span class="seg">
+        <button class="${(S.sortMode||"rank")==="rank"?"on":""}" onclick="setSort('rank')">value</button>
+        <button class="${S.sortMode==="suit"?"on":""}" onclick="setSort('suit')">element</button>
+      </span>
     </span>
   </div>
   ${handHTML()}
   <div class="actionbar">
     <button class="bx" onclick="discardSelected()" ${S.sel.length&&S.discards>0?"":"disabled"}>glance · ${S.discards}</button>
-    <button class="bx gold" onclick="playSelected()" ${S.sel.length?"":"disabled"}>play maneuver</button>
+    <button class="bx gold" onclick="playSelected()" ${S.sel.length?"":"disabled"}>drive it</button>
   </div>`;
 }
 
@@ -1165,7 +1204,7 @@ function previewHTML(){
     <div class="spread">${blindChip()}<span class="tiny">reward <span class="kn">${blindReward()} kn</span> + leftovers + interest</span></div>
     ${boss?warnSign(leg.boss,true):""}
     <div class="odorow" style="margin-top:10px"><span class="odo" style="font-size:24px">${fmt(target)}<small>km to cover</small></span></div>
-    <div class="tiny" style="margin-top:5px">${maneuversForRound()} maneuvers · 3 scenic glances</div>
+    <div class="tiny" style="margin-top:5px">${maneuversForRound()} drives · 3 scenic glances</div>
     <div style="display:flex;gap:9px;margin-top:13px">
       <button class="bx gold" style="flex:1.6" onclick="startBlind();render()">drive</button>
       ${!boss?`<button class="bx" style="flex:1" onclick="skipBlind()">wave through</button>`:""}
@@ -1190,7 +1229,7 @@ function cashHTML(){
       <div class="rsub">OIB 11250000001125 · ${esc(curLeg().from)}—${esc(curLeg().to)}</div>
       <hr class="rdiv">
       <div class="rl"><span>stretch cleared</span><span>${c.base} kn</span></div>
-      <div class="rl"><span>maneuvers unspent ×${c.perHand}</span><span>${c.perHand} kn</span></div>
+      <div class="rl"><span>drives unspent ×${c.perHand}</span><span>${c.perHand} kn</span></div>
       <div class="rl"><span>interest (1/5 kn, max 5)</span><span>${c.interest} kn</span></div>
       <hr class="rdiv">
       <div class="rl rtotal"><span>WALLET</span><span>${S.kuna} kn</span></div>
@@ -1207,8 +1246,8 @@ function shopItemHTML(it, i){
   if(it.kind==="joker"){ const d=JBY[it.id]; kind="putnik · passenger"; name=d.name; desc=fmtDesc(d.desc); }
   else if(it.kind==="omen"){ const d=OBY[it.id]; kind="omen"; name=d.name; desc=fmtDesc(d.desc); }
   else { kind="radio";
-    name=RADIO_NAMES[it.hand];
-    desc=`Levels up <b style="color:var(--gold2)">${esc(HANDS[it.hand].name)}</b> — +${HANDS[it.hand].lkm} KM, +${HANDS[it.hand].ltempo} Tempo. Now lvl ${S.handLevels[it.hand]}.`; }
+    name=RADIO_NAMES[it.move];
+    desc=`${esc(RADIO_DESCS[it.move])} <b style="color:var(--gold2)">${esc(MOVES[it.move].name)}</b> is lvl ${S.moveLevels[it.move]}.`; }
   return `<div class="shopitem${it.sold?" sold":""}">
     <div><div class="skind">${kind}</div><div class="sname">${esc(name)}</div><div class="sdesc">${desc}</div></div>
     <div class="pricetag"><span class="pt">${it.price} kn</span><br>
@@ -1246,8 +1285,8 @@ function winHTML(){
     <div class="receiptwrap"><div class="receipt">
       <h3>CORONATION LEDGER</h3><hr class="rdiv">
       <div class="rl"><span>stretches cleared</span><span>${S.stats.rounds}</span></div>
-      <div class="rl"><span>maneuvers played</span><span>${S.stats.hands}</span></div>
-      <div class="rl"><span>best single maneuver</span><span>${fmt(S.stats.bestHand)} km</span></div>
+      <div class="rl"><span>drives played</span><span>${S.stats.hands}</span></div>
+      <div class="rl"><span>best single drive</span><span>${fmt(S.stats.bestHand)} km</span></div>
       <div class="rl"><span>stretches waved through</span><span>${S.stats.skips}</span></div>
       <hr class="rdiv"><div class="rfoot">KRUNA SE NE VRAĆA · THE CROWN IS NOT RETURNED</div>
     </div></div>
@@ -1272,7 +1311,7 @@ function gameoverHTML(){
       <h3>INCIDENT REPORT</h3><hr class="rdiv">
       <div class="rl"><span>fell short by</span><span>${fmt(Math.max(0,S.target-S.score))} km</span></div>
       <div class="rl"><span>stretches cleared</span><span>${S.stats.rounds}</span></div>
-      <div class="rl"><span>best single maneuver</span><span>${fmt(S.stats.bestHand)} km</span></div>
+      <div class="rl"><span>best single drive</span><span>${fmt(S.stats.bestHand)} km</span></div>
       <hr class="rdiv"><div class="rfoot">MAGLA · NO WITNESSES</div>
     </div></div>
     <div class="menubtns">
@@ -1302,9 +1341,12 @@ function menuHTML(){
     <div class="panel rules" id="rules" style="display:none">
       <b>The loop:</b> each of the 8 legs has an Open Road, Heavy Traffic, and a named hazard
       waiting at the landmark. Cover the distance before your maneuvers run out.<br><br>
-      <b>Maneuvers</b> are poker hands: a Pair is an <b>Overtake</b>, a Straight is <b>The Magistrala</b>,
-      a Flush is a <b>Full Bura</b>, a Full House is a <b>Konoba Lunch</b>. Each scores
-      <b>KM × Tempo</b>. A <b>scenic glance</b> discards up to five cards and draws fresh ones.<br><br>
+      <b>The drive:</b> pick up to five cards <i>in order</i> — the order is the road.
+      Every card adds its KM. Each step that <b>LINKs</b> (same element), <b>SHIFTs</b>
+      (neighbor value) or <b>ECHOes</b> (twin value) the card before it adds Tempo,
+      and a five-card drive that never breaks rhythm is a <b>FULL SEND — ×2 Tempo</b>.
+      The drive scores <b>KM × Tempo</b>. A <b>scenic glance</b> discards up to five
+      cards and draws fresh ones.<br><br>
       <b>Passengers</b> ride along and bend the scoring in their favor. <b>Omens</b> are read once,
       on the road, against your selected cards. <b>Radio stations</b> level a maneuver up permanently.
       Money is in <b>kuna</b>, which no longer exists, which is why the kiosk accepts it.<br><br>
@@ -1389,9 +1431,9 @@ if(IS_BROWSER) boot();
 if(typeof module!=="undefined" && module.exports){
   module.exports = {get S(){return S;}, set S(v){S=v;}, newRun, startBlind, skipBlind,
     playSelected, discardSelected, useOmen, sellJoker, buyItem, rerollShop, toShop,
-    leaveShop, afterBossOrRound, evaluate, scoreHand, toggleCard, selectedCards,
+    leaveShop, afterBossOrRound, scoreHand, toggleCard, selectedCards, reverseSel,
     showInfo, hideInfo, setSort, toMenu,
-    HANDS, JOKERS, OMENS, LEGS, newCard, blindTarget, JBY, OBY, maneuversForRound};
+    MOVES, MOVE_KEYS, JOKERS, OMENS, LEGS, newCard, blindTarget, JBY, OBY, maneuversForRound};
 }
 </script>
 </body>

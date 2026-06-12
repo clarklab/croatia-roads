@@ -11,25 +11,28 @@ actually crowned, in the city Venice actually burned in 1125.
 ## The game
 
 You hold eight cards from a deck of four elements — 🌊 **Sea**, 🪨 **Stone**,
-🌬️ **Wind**, 🛣️ **Road** — ranked 2 through A1, with the **Galeb**, the **Teta**, and
-**Kralj Petar Krešimir IV** as faces, all numbered in Glagolitic. Poker hands are
-driving maneuvers:
+🌬️ **Wind**, 🛣️ **Road** — valued 2 through A1, with the **Galeb**, the **Teta**, and
+**Kralj Petar Krešimir IV** as faces, all numbered in Glagolitic.
 
-| hand | maneuver |
-|---|---|
-| Pair | Overtake |
-| Straight | The Magistrala |
-| Flush | Full Bura |
-| Full House | Konoba Lunch |
-| Four of a Kind | The Roundabout |
-| Royal Flush | Coronation Road |
+There are no poker hands. You **lay a stretch of road**: pick up to five cards *in
+order* — tap order is drive order — and drive them left to right. Every card adds its
+KM. Every step keeps or breaks the rhythm:
 
-Each maneuver scores **KM × TEMPO**. Cover each stretch's distance before your
-maneuvers run out. Between stretches: the kiosk at the edge of the road, which sells
-**passengers** (a dead wasp in the vents, a Pag cheese wheel, Uncle Branko, a bottle
-of Maraschino that evaporates one Tempo per round), **omens** (read once, against
-your selected cards), and **radio stations** (which permanently level up a maneuver).
-Money is in **kuna**, which no longer exists, which is why the kiosk accepts it.
+| move | meaning | reward |
+|---|---|---|
+| **LINK** | same element as the card before | +1 Tempo |
+| **SHIFT** | value exactly one off the card before | +2 Tempo |
+| **ECHO** | same value as the card before | +2 Tempo |
+| **FULL SEND** | five cards, rhythm never breaks | ×2 Tempo |
+
+One card can LINK *and* SHIFT in the same step (6🌊 after 5🌊 — the dream line). A
+drive scores **KM × TEMPO**; cover each stretch's distance before your drives run
+out. Debuffed cards score nothing *and break the rhythm* — which is what makes the
+bosses cruel. Between stretches: the kiosk, selling **passengers** (a dead wasp in
+the vents, Uncle Branko, a bottle of Maraschino that evaporates), **omens** (read
+once, against your selected cards), and **radio stations** — each station strengthens
+one move permanently. Money is in **kuna**, which no longer exists, which is why the
+kiosk accepts it.
 
 ## The bosses are the actual road
 
@@ -61,8 +64,9 @@ Open `index.html` on a phone. No build, no dependencies, no network. The run sle
 in `localStorage` between bursts of play, so it survives the actual five-hour drive
 it is about.
 
-A full run takes 30–60 minutes. Balance was tuned by simulation: a greedy bot that
-plays the best available hand and shops without taste wins about 25% of runs; you,
-who can plan a flush economy and know when to sell the Maraschino, should do better.
+A full run takes 30–60 minutes. Balance was tuned by simulation: a solver that
+enumerates every ordering of every playable line wins 58% of runs; you, with eight
+cards, a thumb, and the sun in your eyes, will not be that solver. The game is fair
+anyway.
 
 The driver may watch. The driver may never play. The driver is the sacrifice.
