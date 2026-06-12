@@ -358,6 +358,74 @@
   .rules{font-size:13.5px; color:#bccadb; line-height:1.65; text-align:left;}
   .rules b{color:var(--gold2); font-family:var(--disp); letter-spacing:.06em; text-transform:uppercase; font-size:12.5px;}
 
+  /* ================= INTRO ================= */
+  .intro{flex:1; display:flex; flex-direction:column; min-height:92dvh; cursor:pointer;}
+  .ithead{display:flex; justify-content:space-between; align-items:center; padding:6px 2px;}
+  .ittitle{font-family:var(--disp); font-weight:700; text-transform:uppercase; letter-spacing:.3em;
+    color:var(--gold2); font-size:16px; text-shadow:0 0 16px rgba(216,181,74,.45);
+    animation:fadeup .5s ease both;}
+  .itbody{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:10px 4px;}
+  .itstage{display:flex; flex-direction:column; align-items:center; gap:14px; min-height:190px; justify-content:center;}
+  .itrow{display:flex; align-items:center; justify-content:center; gap:7px;}
+  .itcap{font-family:var(--serif); font-style:italic; color:#c2cfde; font-size:14.5px; line-height:1.75;
+    text-align:center; max-width:352px; text-shadow:0 1px 3px rgba(2,6,12,.9);
+    animation:fadeup .6s ease .25s both; background:rgba(7,14,23,.55); border:1px solid rgba(160,190,215,.1);
+    border-radius:14px; padding:12px 16px; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);}
+  .itcap b{color:var(--ink); font-style:normal;}
+  .pcard.it{margin:0; cursor:default; transform:none;}
+  .pcard.it.sm{width:52px; height:74px;}
+  .pcard.it.sm .idx b{font-size:13px;} .pcard.it.sm .bigpip svg{width:26px;height:26px;}
+  .pcard.it.sm .face{font-size:22px; inset:13px 8px 11px;}
+  .itd{display:inline-flex; flex-direction:column; align-items:center; gap:6px;
+    animation:itdeal .55s cubic-bezier(.2,1.25,.35,1) both;}
+  @keyframes itdeal{from{opacity:0; transform:translateY(34px) rotate(7deg) scale(.7);}
+    to{opacity:1; transform:translateY(0) rotate(0) scale(1);}}
+  .itkm{font-family:var(--mono); font-size:12.5px; color:#9fd9ef; animation:itfloat .5s ease both;
+    text-shadow:0 1px 4px #000;}
+  @keyframes itfloat{from{opacity:0; transform:translateY(7px);} to{opacity:1; transform:translateY(0);}}
+  .con.icon{font-size:13px; min-width:16px;}
+  .con.icon i{font-size:12px;}
+  .itcd{animation:conpop .4s cubic-bezier(.2,1.5,.4,1) 1.2s both;}
+  .itcd.d1{animation-delay:.55s;} .itcd.d2{animation-delay:.95s;}
+  .itcd.d3{animation-delay:1.35s;} .itcd.d4{animation-delay:1.75s;}
+  @keyframes conpop{from{opacity:0; transform:scale(.2);} to{opacity:1; transform:scale(1);}}
+  .ittempo{font-family:var(--disp); font-weight:700; letter-spacing:.18em; font-size:21px;
+    text-transform:uppercase;}
+  .ittempo.gold{color:var(--gold2); text-shadow:0 0 18px rgba(216,181,74,.75);}
+  .itslam{animation:slam .4s cubic-bezier(.2,1.5,.4,1) both;}
+  /* scene 0: the car drives the track */
+  .itroad{width:min(320px,80vw); align-self:center;}
+  .itdrive{animation:itdrive 3.2s cubic-bezier(.45,.05,.55,.95) .4s both;}
+  @keyframes itdrive{from{left:4%;} to{left:96%;}}
+  .itpop{animation:itdeal .5s cubic-bezier(.2,1.25,.35,1) both;}
+  /* scene 5: the swap */
+  .itswapwrap{position:relative; display:flex; gap:7px; align-items:center;}
+  .itswapwrap .itsw{display:inline-block; animation:itdeal .5s cubic-bezier(.2,1.25,.35,1) both;}
+  .itswapwrap .itsw.b{animation-name:itdeal,itswapB; animation-duration:.5s,.9s;
+    animation-delay:.2s,3.1s; animation-fill-mode:both,forwards;
+    animation-timing-function:cubic-bezier(.2,1.25,.35,1),cubic-bezier(.5,1.4,.4,1);}
+  .itswapwrap .itsw.c{animation-name:itdeal,itswapC; animation-duration:.5s,.9s;
+    animation-delay:.4s,3.1s; animation-fill-mode:both,forwards;
+    animation-timing-function:cubic-bezier(.2,1.25,.35,1),cubic-bezier(.5,1.4,.4,1);}
+  @keyframes itswapB{from{transform:translate(0,0);} 50%{transform:translate(35px,-46px);} to{transform:translate(69px,0);}}
+  @keyframes itswapC{from{transform:translate(0,0);} 50%{transform:translate(-35px,46px);} to{transform:translate(-69px,0);}}
+  .itx1{animation:itx1 .4s cubic-bezier(.2,1.5,.4,1) 1.4s both; color:var(--dim);}
+  @keyframes itx1{0%{opacity:0; transform:scale(1.6);} 100%{opacity:1; transform:scale(1);}}
+  .itx2{animation:itx2 .5s cubic-bezier(.2,1.5,.4,1) 4.2s both; position:relative; margin-top:-29px;}
+  @keyframes itx2{from{opacity:0; transform:scale(1.8);} to{opacity:1; transform:scale(1);}}
+  .intro .itx1{animation-name:itx1,itxout; animation-duration:.4s,.3s; animation-delay:1.4s,4.1s;
+    animation-fill-mode:both,forwards;}
+  @keyframes itxout{from{opacity:1;} to{opacity:0;}}
+  /* scene 7: the kill */
+  .itkill{animation:itdeal .55s cubic-bezier(.2,1.25,.35,1) both, itkill .6s ease 1.6s forwards;}
+  @keyframes itkill{from{filter:none;} to{filter:grayscale(1) brightness(.45);}}
+  .itdie{animation:itdiecon .4s ease both; color:var(--bad) !important; font-size:15px;}
+  @keyframes itdiecon{from{opacity:0;} to{opacity:1;}}
+  .itdots{display:flex; gap:7px; justify-content:center; padding:8px 0 2px;}
+  .itdots i{width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.16); transition:all .3s;}
+  .itdots i.on{background:var(--gold2); box-shadow:0 0 8px rgba(216,181,74,.7); transform:scale(1.25);}
+  .itdots i.done{background:rgba(216,181,74,.45);}
+
   /* ================= MISC ================= */
   .spread{display:flex; justify-content:space-between; align-items:center; gap:8px;}
   .hudtop{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; padding:2px 0;}
@@ -1335,8 +1403,10 @@ function menuHTML(){
     It was always a loop.</p>
     <div class="menubtns">
       ${cont?`<button class="bx gold" onclick="continueRun()">continue the drive</button>`:""}
-      <button class="bx ${cont?"":"gold"}" onclick="confirmNewRun()">new run</button>
-      <button class="bx ghost" onclick="toggleRules()">how the road works</button>
+      ${!cont&&!introSeen()?`<button class="bx gold" onclick="startIntro()">learn the road · 60 s</button>`:""}
+      <button class="bx ${cont||!introSeen()?"":"gold"}" onclick="confirmNewRun()">new run</button>
+      ${cont||introSeen()?`<button class="bx ghost" onclick="startIntro()">how the road works</button>`:""}
+      <button class="bx ghost sm" onclick="toggleRules()">read the rules instead</button>
     </div>
     <div class="panel rules" id="rules" style="display:none">
       <b>The loop:</b> each of the 8 legs has an Open Road, Heavy Traffic, and a named hazard
@@ -1372,17 +1442,183 @@ function abandonRun(){
   clearSave(); toMenu();
 }
 
+/* ---- animated introduction ---- */
+let INTRO=null, _introTimer=null;
+const INTRO_SEEN_KEY="magistrala_intro_seen";
+function introSeen(){ if(!IS_BROWSER) return true; try{ return !!localStorage.getItem(INTRO_SEEN_KEY); }catch(e){ return true; } }
+function markIntroSeen(){ if(IS_BROWSER){ try{ localStorage.setItem(INTRO_SEEN_KEY,"1"); }catch(e){} } }
+
+function itCard(rank,suit,extra){
+  return `<div class="pcard it ${extra||""} suit-${suit}">
+    <div class="idx"><b>${RANK_LABEL[rank]}</b>${pipSVG(suit,"ip")}</div>
+    ${rank===14?`<div class="a1">A1</div>`:rank>=11?`<div class="face">${GLAG[rank]}</div>`:`<div class="bigpip">${pipSVG(suit)}</div>`}
+    <div class="gn">${GLAG[rank]}</div></div>`;
+}
+function itRow(cards){ return `<div class="itrow">${cards}</div>`; }
+function itCon(bons, cls){ // connector between intro cards
+  if(!bons.length) return `<span class="con icon none ${cls||""}">·</span>`;
+  return `<span class="con icon ${cls||""}">${bons.map(b=>`<i class="b-${b}">${BON_LABEL[b]}</i>`).join("")}</span>`;
+}
+
+const INTRO_SCENES = [
+ {dur:5200, leg:0, title:"THE ROAD", html:()=>`
+   <div class="itstage">
+     <div class="roadsign itpop">PULA <span class="arr">→</span> BIOGRAD <span class="legno">8 LEGS</span></div>
+     <div class="roadtrack itroad"><div class="dashes"></div><div class="car itdrive">${CAR_SVG}</div></div>
+   </div>
+   <p class="itcap">Eight legs of coast road. Each stretch has a distance.<br>
+   <b>Cover it before your drives run out.</b></p>`},
+ {dur:5600, leg:1, title:"THE DECK", html:()=>`
+   <div class="itstage">
+     ${itRow(`
+       <span class="itd" style="animation-delay:.1s">${itCard(5,"sea")}<span class="itkm" style="animation-delay:.5s">+5 km</span></span>
+       <span class="itd" style="animation-delay:.45s">${itCard(9,"stone")}<span class="itkm" style="animation-delay:.85s">+9 km</span></span>
+       <span class="itd" style="animation-delay:.8s">${itCard(12,"wind")}<span class="itkm" style="animation-delay:1.2s">+10 km</span></span>
+       <span class="itd" style="animation-delay:1.15s">${itCard(14,"road")}<span class="itkm" style="animation-delay:1.55s">+11 km</span></span>`)}
+   </div>
+   <p class="itcap">Four elements — <span class="sw sea">${pipSVG("sea")} Sea</span>,
+   <span class="sw stone">${pipSVG("stone")} Stone</span>, <span class="sw wind">${pipSVG("wind")} Wind</span>,
+   <span class="sw road">${pipSVG("road")} Road</span>.<br><b>Every card you drive adds its KM.</b></p>`},
+ {dur:5200, leg:2, title:"LINK", html:()=>`
+   <div class="itstage">
+     ${itRow(`
+       <span class="itd" style="animation-delay:.1s">${itCard(4,"sea")}</span>
+       ${itCon(["link"],"itcd")}
+       <span class="itd" style="animation-delay:.6s">${itCard(9,"sea")}</span>`)}
+     <div class="ittempo itslam b-link" style="animation-delay:1.5s">+1 TEMPO</div>
+   </div>
+   <p class="itcap"><b class="b-link">LINK</b> — same element as the card before.<br>You hold the line.</p>`},
+ {dur:5200, leg:3, title:"SHIFT", html:()=>`
+   <div class="itstage">
+     ${itRow(`
+       <span class="itd" style="animation-delay:.1s">${itCard(5,"stone")}</span>
+       ${itCon(["shift"],"itcd")}
+       <span class="itd" style="animation-delay:.6s">${itCard(6,"wind")}</span>`)}
+     <div class="ittempo itslam b-shift" style="animation-delay:1.5s">+2 TEMPO</div>
+   </div>
+   <p class="itcap"><b class="b-shift">SHIFT</b> — value exactly one off the card before.<br>Up through the gears. Down works too.</p>`},
+ {dur:5200, leg:4, title:"ECHO", html:()=>`
+   <div class="itstage">
+     ${itRow(`
+       <span class="itd" style="animation-delay:.1s">${itCard(7,"sea")}</span>
+       ${itCon(["echo"],"itcd")}
+       <span class="itd" style="animation-delay:.6s">${itCard(7,"road")}</span>`)}
+     <div class="ittempo itslam b-echo" style="animation-delay:1.5s">+2 TEMPO</div>
+   </div>
+   <p class="itcap"><b class="b-echo">ECHO</b> — same value as the card before.<br>The coast repeats itself.</p>`},
+ {dur:7000, leg:5, title:"ORDER IS EVERYTHING", html:()=>`
+   <div class="itstage">
+     <div class="itswapwrap">
+       <span class="itsw a">${itCard(9,"wind")}</span>
+       <span class="itsw b">${itCard(5,"sea")}</span>
+       <span class="itsw c">${itCard(9,"sea")}</span>
+     </div>
+     <div class="ittempo itx1">× 3</div>
+     <div class="ittempo itx2 b-link">× 4</div>
+   </div>
+   <p class="itcap">The order you tap is the order you drive.<br>
+   <b>Same cards, new line, more Tempo.</b> There is a reverse button.</p>`},
+ {dur:6400, leg:6, title:"FULL SEND", html:()=>`
+   <div class="itstage">
+     ${itRow(`
+       <span class="itd" style="animation-delay:.1s">${itCard(5,"sea","sm")}</span>
+       ${itCon(["link","shift"],"itcd d1")}
+       <span class="itd" style="animation-delay:.5s">${itCard(6,"sea","sm")}</span>
+       ${itCon(["link","shift"],"itcd d2")}
+       <span class="itd" style="animation-delay:.9s">${itCard(7,"sea","sm")}</span>
+       ${itCon(["echo"],"itcd d3")}
+       <span class="itd" style="animation-delay:1.3s">${itCard(7,"wind","sm")}</span>
+       ${itCon(["echo"],"itcd d4")}
+       <span class="itd" style="animation-delay:1.7s">${itCard(7,"road","sm")}</span>`)}
+     <div class="ittempo itslam gold" style="animation-delay:2.5s">FULL SEND — ×2 TEMPO</div>
+   </div>
+   <p class="itcap">Drive <b>five</b> cards and never break the rhythm.<br>
+   A step can LINK <i>and</i> SHIFT at once. Stack everything.</p>`},
+ {dur:5800, leg:3, title:"THE ROAD FIGHTS BACK", html:()=>`
+   <div class="itstage">
+     ${itRow(`
+       <span class="itd" style="animation-delay:.1s">${itCard(5,"sea","sm")}</span>
+       ${itCon(["link","shift"],"itcd d1")}
+       <span class="itd" style="animation-delay:.5s">${itCard(6,"sea","sm")}</span>
+       <span class="con icon itdie" style="animation-delay:1.6s">·</span>
+       <span class="itd itkill" style="animation-delay:.9s">${itCard(7,"sea","sm")}</span>
+       <span class="con icon itdie" style="animation-delay:1.6s">·</span>
+       <span class="itd" style="animation-delay:1.3s">${itCard(7,"wind","sm")}</span>`)}
+     <div class="ittempo itslam" style="animation-delay:2.3s;color:var(--bad)">RHYTHM BROKEN</div>
+   </div>
+   <p class="itcap">Every leg ends at a hazard — the Bura, the Tunnel, the fleet of 1125.<br>
+   <b>A killed card scores nothing and breaks the line.</b></p>`},
+ {dur:5800, leg:7, title:"THE KIOSK", html:()=>`
+   <div class="itstage">
+     <div class="itrow">
+       <div class="ctile itd" style="animation-delay:.15s;width:92px"><div class="cg">D</div><div class="cn">Dead Wasp in the Vents</div></div>
+       <div class="ctile itd" style="animation-delay:.5s;width:92px"><div class="cg">R</div><div class="cn">Radio Istra 96.9</div></div>
+       <div class="ctile omen itd" style="animation-delay:.85s;width:92px"><div class="cg">☽</div><div class="cn">The Windsock</div></div>
+     </div>
+   </div>
+   <p class="itcap">Between stretches, spend dead kuna on <b>passengers</b> who bend the scoring,<br>
+   <b>radio stations</b> that strengthen your moves, and <b>omens</b> read once, on the road.</p>`},
+ {dur:0, leg:7, title:"BIOGRAD IS WAITING", html:()=>`
+   <div class="itstage">
+     <span class="itd" style="animation-delay:.2s">${CROWN_SVG}</span>
+     <div class="glagtitle itd" style="font-size:26px;animation-delay:.5s">ⰁⰋⰑⰃⰓⰀⰄ</div>
+   </div>
+   <p class="itcap">Out-drive all eight legs and the White City crowns you.<br>
+   Fall short, and the fog returns you to the Pula car park. <b>It is a loop.</b></p>
+   <div class="menubtns" style="margin-top:14px">
+     <button class="bx gold" onclick="event.stopPropagation();endIntro();confirmNewRun()">drive</button>
+     <button class="bx ghost" onclick="event.stopPropagation();endIntro()">back</button>
+   </div>`},
+];
+
+function startIntro(){
+  INTRO={i:0};
+  scheduleIntro();
+  render();
+}
+function scheduleIntro(){
+  clearTimeout(_introTimer);
+  const sc=INTRO_SCENES[INTRO.i];
+  if(sc.dur>0) _introTimer=setTimeout(nextIntro, sc.dur);
+}
+function nextIntro(){
+  if(!INTRO) return;
+  if(INTRO.i>=INTRO_SCENES.length-1) return; // last scene waits for buttons
+  INTRO.i++;
+  scheduleIntro();
+  render();
+}
+function endIntro(){
+  clearTimeout(_introTimer);
+  INTRO=null;
+  markIntroSeen();
+  render();
+}
+function introHTML(){
+  const sc=INTRO_SCENES[INTRO.i];
+  return `<div class="intro" onclick="nextIntro()">
+    <div class="ithead">
+      <span class="ittitle">${sc.title}</span>
+      <button class="bx sm ghost" onclick="event.stopPropagation();endIntro()">skip</button>
+    </div>
+    <div class="grow itbody">${sc.html()}</div>
+    <div class="itdots">${INTRO_SCENES.map((_,k)=>`<i class="${k===INTRO.i?"on":k<INTRO.i?"done":""}"></i>`).join("")}</div>
+    <p class="tiny" style="text-align:center;margin-top:6px">${INTRO.i<INTRO_SCENES.length-1?"tap to continue":""}</p>
+  </div>`;
+}
+
 /* ---- master render + post effects ---- */
 let _lastScreen=null, _odoShown=null, _lastHandIds=[];
 function render(){
   if(!IS_BROWSER) return;
-  const scr = S ? S.screen : "menu";
+  const scr = INTRO ? "intro" : (S ? S.screen : "menu");
   document.body.dataset.screen = scr;
-  document.body.dataset.leg = S ? S.leg : 6;
+  document.body.dataset.leg = INTRO ? INTRO_SCENES[INTRO.i].leg : (S ? S.leg : 6);
   document.body.dataset.boss = (S && scr==="round" && isBossBlind()) ? curLeg().boss.id : "";
   const app=document.getElementById("app");
   let html="";
-  if(!S) html=menuHTML();
+  if(INTRO) html=introHTML();
+  else if(!S) html=menuHTML();
   else switch(scr){
     case "preview": html=previewHTML(); break;
     case "round":   html=roundHTML(); break;
@@ -1432,7 +1668,7 @@ if(typeof module!=="undefined" && module.exports){
   module.exports = {get S(){return S;}, set S(v){S=v;}, newRun, startBlind, skipBlind,
     playSelected, discardSelected, useOmen, sellJoker, buyItem, rerollShop, toShop,
     leaveShop, afterBossOrRound, scoreHand, toggleCard, selectedCards, reverseSel,
-    showInfo, hideInfo, setSort, toMenu,
+    showInfo, hideInfo, setSort, toMenu, startIntro, nextIntro, endIntro,
     MOVES, MOVE_KEYS, JOKERS, OMENS, LEGS, newCard, blindTarget, JBY, OBY, maneuversForRound};
 }
 </script>

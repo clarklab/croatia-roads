@@ -60,6 +60,13 @@ embedded font subset, so nothing renders as tofu on a phone in airplane mode.
 
 ## Playing
 
+First visit offers **Learn the Road** — a 60-second fully animated introduction that
+teaches the grammar by driving it: the car covers a stretch, the deck deals itself,
+LINK/SHIFT/ECHO each demonstrate on live cards, three cards visibly rearrange to show
+that order is everything, a five-card line lights up into a FULL SEND over the Zadar
+sunset, and the Bura kills a card mid-chain to show what breaking rhythm costs. Tap to
+advance, skip anytime, rewatch from the menu.
+
 Open `index.html` on a phone. No build, no dependencies, no network. The run sleeps
 in `localStorage` between bursts of play, so it survives the actual five-hour drive
 it is about.
