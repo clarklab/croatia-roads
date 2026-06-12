@@ -1,32 +1,57 @@
-# ⰀⰐⰕⰅⰐⰀ — Antenna of the Bura
+# ⰏⰀⰃⰋⰔⰕⰓⰀⰎⰀ — MAGISTRALA
 
-A short, deeply odd passenger game for the road between **Pula** and **Biograd na Moru**.
+*The drive from Pula to Biograd, remembered wrong.*
 
-The drive takes five hours. **The game does not.** You play it in bursts: tell the
-Oracle which stretch of the corridor you're on, it deals you a hand of seven omens —
-real things you can actually spot out the window (a kažun, the Maslenica bridge, a
-windsock at full horizontal, a man in socks-and-sandals) — each with a small ritual
-attached. Witness all seven, the round closes, you put the phone down. A round runs
-about fifteen minutes. Deal again whenever the road gets long.
+A single-file roguelike deckbuilder in the Balatro family, except the run **is** the
+road trip: eight legs of Croatian coast, Pula → Biograd na Moru, and the score is
+kilometers. Lose, and the fog returns you to the Pula amphitheater car park, engine
+already running. Win, and you are crowned at Biograd, where Croatian kings were
+actually crowned, in the city Venice actually burned in 1125.
 
-Fog-denari accumulate across rounds. When you actually reach Biograd — the White City,
-where Croatian kings were genuinely crowned and which Venice genuinely burned in 1125
-for the audacity — you press **WE HAVE ARRIVED** and receive your coronation verdict,
-ranging from *The Uncrowned Fog* to *Petar Krešimir IV, Returned*.
+## The game
 
-Also included:
+You hold eight cards from a deck of four elements — 🌊 **Sea**, 🪨 **Stone**,
+🌬️ **Wind**, 🛣️ **Road** — ranked 2 through A1, with the **Galeb**, the **Teta**, and
+**Kralj Petar Krešimir IV** as faces, all numbered in Glagolitic. Poker hands are
+driving maneuvers:
 
-- **Glagolitic travel-names** for every soul aboard (your real name stays in Pula)
-- **The Oracle of the Oleander Median** — tap anytime for a road prophecy
-- **The Bura Meter** — fills as omens are witnessed; when full, all souls must hum
-  one shared note for ten seconds (the note chooses itself)
-- **The Five Eternal Laws**, including the Law of the Mountain (the word "tunnel"
-  is forbidden inside tunnels; violators owe the mountain one true secret)
+| hand | maneuver |
+|---|---|
+| Pair | Overtake |
+| Straight | The Magistrala |
+| Flush | Full Bura |
+| Full House | Konoba Lunch |
+| Four of a Kind | The Roundabout |
+| Royal Flush | Coronation Road |
+
+Each maneuver scores **KM × TEMPO**. Cover each stretch's distance before your
+maneuvers run out. Between stretches: the kiosk at the edge of the road, which sells
+**passengers** (a dead wasp in the vents, a Pag cheese wheel, Uncle Branko, a bottle
+of Maraschino that evaporates one Tempo per round), **omens** (read once, against
+your selected cards), and **radio stations** (which permanently level up a maneuver).
+Money is in **kuna**, which no longer exists, which is why the kiosk accepts it.
+
+## The bosses are the actual road
+
+Every leg ends at a real hazard of the real route:
+
+- **The Mummies of Vodnjan** — face cards score nothing (the incorrupt saints disapprove of royalty)
+- **The Učka Tunnel** — cards are drawn face-down; you play by feel
+- **The Toll Gantry** — every maneuver costs 3 kn
+- **THE BURA** — after every maneuver, 2 cards are blown out of your hand (this wind genuinely closes this road)
+- **The Velebit Wall** — an enormous target; the mountain does not negotiate
+- **The Bridge Inspector** — exactly 2 maneuvers, one for each Maslenica bridge
+- **The Sunset Applause** — Zadar's riva accepts only full five-card gestures
+- **VENICE, 1125** — the final boss; after every maneuver, a different suit is forbidden
 
 ## Playing
 
-Open `index.html` on a phone. No build, no dependencies, no network. State persists
-in `localStorage`, so the phone can sleep between rounds.
+Open `index.html` on a phone. No build, no dependencies, no network. The run sleeps
+in `localStorage` between bursts of play, so it survives the actual five-hour drive
+it is about.
 
-The driver may witness omens but may never operate the Antenna. The driver is the
-sacrifice. Treat the driver kindly.
+A full run takes 30–60 minutes. Balance was tuned by simulation: a greedy bot that
+plays the best available hand and shops without taste wins about 25% of runs; you,
+who can plan a flush economy and know when to sell the Maraschino, should do better.
+
+The driver may watch. The driver may never play. The driver is the sacrifice.
