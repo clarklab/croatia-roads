@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a1420">
 <title>MAGISTRALA — a fog-deck coronation run</title>
+<meta name="description" content="A single-file roguelike deckbuilder: eight legs of Croatian coast road from Pula to Biograd, scored in kilometres. The Bura is real and it is waiting above Senj.">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MAGISTRALA">
+<meta property="og:title" content="MAGISTRALA — the drive from Pula to Biograd, remembered wrong">
+<meta property="og:description" content="A roguelike deckbuilder where the run is the road trip: eight legs of Croatian coast, scored in kilometres. Out-drive the Bura, the Tunnel, and the fleet of 1125 — or the fog returns you to the Pula car park.">
+<meta property="og:url" content="https://croatia-roads.netlify.app/">
+<meta property="og:image" content="https://croatia-roads.netlify.app/share.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="MAGISTRALA — a fan of playing cards over a Croatian coast sunset, road sign reading Pula to Biograd, 8 legs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MAGISTRALA — the drive from Pula to Biograd, remembered wrong">
+<meta name="twitter:description" content="A roguelike deckbuilder where the run is the road trip: eight legs of Croatian coast, scored in kilometres.">
+<meta name="twitter:image" content="https://croatia-roads.netlify.app/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Public+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
@@ -408,6 +426,45 @@
   .crown{width:54px; height:38px; margin:0 auto 6px; filter:drop-shadow(0 0 14px rgba(216,181,74,.6));}
   .menubtns{display:flex; flex-direction:column; gap:9px; align-items:stretch; max-width:280px;
     width:100%; margin:12px auto 0;}
+  /* ---- main menu: tagline, carousel, signage grid ---- */
+  .mtag{font-family:var(--serif); font-style:italic; font-size:18.5px; line-height:1.42; color:#f3e8d4;
+    margin:12px auto 0; text-shadow:0 2px 10px rgba(2,6,12,.9);}
+  .mcar{position:relative; flex:0 0 auto; width:min(340px,100%); margin:15px auto 0; cursor:pointer;
+    background:var(--glass); border:1px solid var(--glassbrd); border-radius:14px; padding:13px 16px 9px;
+    backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px); min-height:128px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);}
+  .mslide{display:flex; flex-direction:column; gap:8px; align-items:center; animation:fadeup .45s ease both;}
+  .mslide p{font-family:var(--serif); font-style:italic; font-size:13.5px; line-height:1.5; color:#cdd9e5; text-align:center;}
+  .mslide p b{color:var(--ink);}
+  .mico{display:flex; gap:9px; align-items:center; justify-content:center; height:26px;}
+  .mico .mi, .mico svg{width:23px; height:23px;}
+  .mico.gold{color:var(--gold2);}
+  .mico.wind{color:#74d4bc;}
+  .mico.fog{color:#b3c2d3;}
+  .mico .crown{width:34px; height:24px; margin:0;}
+  .mdots{display:flex; gap:7px; justify-content:center; padding-top:10px;}
+  .mdots i{width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,.22); cursor:pointer; transition:all .3s;}
+  .mdots i.on{background:var(--gold2); box-shadow:0 0 7px rgba(216,181,74,.8); transform:scale(1.25);}
+  .menugrid{display:grid; grid-template-columns:1fr 1fr; gap:9px; width:min(340px,100%); margin:15px auto 0; flex:0 0 auto;}
+  .mtile{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+    font-family:var(--disp); font-weight:800; text-transform:uppercase; letter-spacing:.06em; font-size:11px;
+    color:#e9f0f7; padding:12px 8px 11px; border-radius:13px; cursor:pointer;
+    background:linear-gradient(180deg,#2a3b55,#1b2940); border:1.5px solid #51678a;
+    box-shadow:0 6px 16px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.14), 0 0 0 2px rgba(8,16,28,.5);
+    transition:transform .1s, filter .15s;}
+  .mtile:active{transform:scale(.96);}
+  .mtile .mi{width:21px; height:21px; opacity:.95;}
+  .mtile.wide{grid-column:1/-1; flex-direction:row; gap:10px; font-size:13.5px; letter-spacing:.1em; padding:14px 10px;}
+  .mtile.wide .mi{width:19px; height:19px;}
+  .mtile.gold{background:linear-gradient(180deg,#b08c28,#73561a); border-color:#ecd07a; color:#fff7da;
+    text-shadow:0 1px 2px rgba(60,40,0,.5); position:relative; overflow:hidden;}
+  .mtile.gold::after{content:""; position:absolute; top:0; bottom:0; width:46%; left:-60%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.28), transparent);
+    animation:shine 3.2s ease-in-out infinite;}
+  .mtile.green{background:linear-gradient(180deg,#1b7c4d,#0f5634); border-color:#9fcdb0;}
+  .mtile.blue{background:linear-gradient(180deg,#1c5286,#143c64); border-color:#9fc0e0;}
+
   /* rules open as their own scrollable sheet */
   .ruleswrap{position:fixed; inset:0; z-index:52; background:rgba(3,8,15,.6); display:flex;
     align-items:flex-end; justify-content:center;}
@@ -1327,6 +1384,11 @@ function pipSVG(suit, cls){ return `<svg class="${cls||""}" viewBox="0 0 24 24" 
 const CAR_SVG = '<svg viewBox="0 0 26 12" aria-hidden="true"><path fill="#f3d878" d="M1 8c0-2 1.5-3 4-3.4L8 2.4C8.6 1.6 9.6 1 10.8 1h6.4c1.6 0 3 .8 3.8 2.1L22.6 6C24.5 6.4 25 7.2 25 8.4c0 .9-.7 1.6-1.6 1.6H22a2.4 2.4 0 0 1-4.7 0h-8.6a2.4 2.4 0 0 1-4.7 0H2.6C1.7 10 1 9.1 1 8Z"/><circle cx="6.5" cy="9.6" r="1.7" fill="#2b2418"/><circle cx="19.6" cy="9.6" r="1.7" fill="#2b2418"/></svg>';
 /* Material Symbols (Apache 2.0): "speed" = the km gauge, "toll" = the kuna coins */
 const ICON_KM = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M418-340q25 25 63 23.5t55-27.5l169-253q9-14-2.5-25.5T677-625L424-456q-26 18-28.5 54.5T418-340ZM204-160q-22 0-40.5-9.5T134-198q-26-47-40-97.5T80-400q0-83 31.5-156T197-683q54-54 127-85.5T480-800q82 0 154 31t126 84.5q54 53.5 86 125T879-406q1 55-12.5 107.5T825-198q-11 19-29.5 28.5T755-160H204Z"/></svg>';
+const ICON_CAR = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M240-200v20q0 25-17.5 42.5T180-120q-25 0-42.5-17.5T120-180v-286q0-7 1-14t3-13l75-213q8-24 29-39t47-15h410q26 0 47 15t29 39l75 213q2 6 3 13t1 14v286q0 25-17.5 42.5T780-120q-25 0-42.5-17.5T720-180v-20H240Zm-8-360h496l-42-120H274l-42 120Zm68 240q25 0 42.5-17.5T360-380q0-25-17.5-42.5T300-440q-25 0-42.5 17.5T240-380q0 25 17.5 42.5T300-320Zm360 0q25 0 42.5-17.5T720-380q0-25-17.5-42.5T660-440q-25 0-42.5 17.5T600-380q0 25 17.5 42.5T660-320Z"/></svg>';
+const ICON_SIGN = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M440-120v-120H273q-16 0-30.5-6T217-263l-69-69q-12-12-12-28t12-28l69-69q11-11 25.5-17t30.5-6h167v-80H200q-17 0-28.5-11.5T160-600v-160q0-17 11.5-28.5T200-800h240v-40q0-17 11.5-28.5T480-880q17 0 28.5 11.5T520-840v40h167q16 0 30.5 6t25.5 17l69 69q12 12 12 28t-12 28l-69 69q-11 11-25.5 17t-30.5 6H520v80h240q17 0 28.5 11.5T800-440v160q0 17-11.5 28.5T760-240H520v120q0 17-11.5 28.5T480-80q-17 0-28.5-11.5T440-120Z"/></svg>';
+const ICON_BOOK = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M520-278q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 97q-14 0-26.5-3.5T430-194q-39-23-82-34.5T260-240q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q47-23 96.5-35.5T260-800q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 101.5 12.5T898-752q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-45 0-88 11.5T530-194q-11 6-23.5 9.5T480-181Zm80-428q0-9 6.5-18.5T581-640q29-10 58-15t61-5q20 0 39.5 2.5T778-651q9 2 15.5 10t6.5 18q0 17-11 25t-28 4q-14-3-29.5-4.5T700-600q-26 0-51 5t-48 13q-18 7-29.5-1T560-609Zm0 220q0-9 6.5-18.5T581-420q29-10 58-15t61-5q20 0 39.5 2.5T778-431q9 2 15.5 10t6.5 18q0 17-11 25t-28 4q-14-3-29.5-4.5T700-380q-26 0-51 4.5T601-363q-18 7-29.5-.5T560-389Zm0-110q0-9 6.5-18.5T581-530q29-10 58-15t61-5q20 0 39.5 2.5T778-541q9 2 15.5 10t6.5 18q0 17-11 25t-28 4q-14-3-29.5-4.5T700-490q-26 0-51 5t-48 13q-18 7-29.5-1T560-499Z"/></svg>';
+const ICON_REPLAY = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M480-80q-75 0-140.5-28.5t-114-77q-48.5-48.5-77-114T120-440q0-17 11.5-28.5T160-480q17 0 28.5 11.5T200-440q0 117 81.5 198.5T480-160q117 0 198.5-81.5T760-440q0-117-81.5-198.5T480-720h-6l34 34q12 12 11.5 28T508-630q-12 12-28.5 12.5T451-629L348-732q-12-12-12-28t12-28l103-103q12-12 28.5-11.5T508-890q11 12 11.5 28T508-834l-34 34h6q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-440q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-80Z"/></svg>';
+const ICON_FOG = '<svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7.5h16"/><path d="M2.5 12.5h19" opacity=".65"/><path d="M5 17.5h14" opacity=".35"/></svg>';
 const ICON_SOUND = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M760-481q0-83-44-151.5T598-735q-15-7-22-21.5t-2-29.5q6-16 21.5-23t31.5 0q97 43 155 131.5T840-481q0 108-58 196.5T627-153q-16 7-31.5 0T574-176q-5-15 2-29.5t22-21.5q74-34 118-102.5T760-481ZM280-360H160q-17 0-28.5-11.5T120-400v-160q0-17 11.5-28.5T160-600h120l132-132q19-19 43.5-8.5T480-703v446q0 27-24.5 37.5T412-228L280-360Zm380-120q0 42-19 79.5T591-339q-10 6-20.5.5T560-356v-250q0-12 10.5-17.5t20.5.5q31 25 50 63t19 80Z"/></svg>';
 const ICON_MUTE = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M671-177q-11 7-22 13t-23 11q-15 7-30.5 0T574-176q-6-15 1.5-29.5T598-227q7-3 13-6.5t12-7.5L480-368v111q0 27-24.5 37.5T412-228L280-360H160q-17 0-28.5-11.5T120-400v-160q0-17 11.5-28.5T160-600h88L84-764q-11-11-11-28t11-28q11-11 28-11t28 11l680 680q11 11 11 28t-11 28q-11 11-28 11t-28-11l-93-93Zm89-304q0-83-44-151.5T598-735q-15-7-22-21.5t-2-29.5q6-16 21.5-23t31.5 0q97 43 155 131t58 197q0 33-6 65.5T817-353q-8 22-24.5 27.5t-30.5.5q-14-5-22.5-18t-.5-30q11-26 16-52.5t5-55.5ZM591-623q33 21 51 63t18 80v10q0 5-1 10-2 13-14 17t-22-6l-51-51q-6-6-9-13.5t-3-15.5v-77q0-12 10.5-17.5t20.5.5Zm-201-59q-6-6-6-14t6-14l22-22q19-19 43.5-8.5T480-703v63q0 14-12 19t-22-5l-56-56Z"/></svg>';
 const ICON_KN = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M600-160q-134 0-227-93t-93-227q0-134 93-227t227-93q134 0 227 93t93 227q0 134-93 227t-227 93Zm-320-10q-106-28-173-114T40-480q0-110 67-196t173-114v84q-72 25-116 87t-44 139q0 77 44 139t116 87v84Zm320-310Zm0 240q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70Z"/></svg>';
@@ -1679,26 +1741,70 @@ function gameoverHTML(){
 }
 
 let RULES=false;
+
+/* the fog paragraph, broken into a slow carousel */
+const MENU_SLIDES=[
+  {ico:()=>`<span class="mico gold">${ICON_KM}</span>`,
+   txt:`<b>Eight legs of coast road</b>, Pula to Biograd. Cover each stretch's distance before your drives run out.`},
+  {ico:()=>`<span class="mico"><i class="sw sea">${pipSVG("sea")}</i><i class="sw stone">${pipSVG("stone")}</i><i class="sw wind">${pipSVG("wind")}</i><i class="sw road">${pipSVG("road")}</i></span>`,
+   txt:`A deck of <b>Sea, Stone, Wind and Asphalt</b>. The order you play is the road you drive.`},
+  {ico:()=>`<span class="mico wind">${pipSVG("wind")}</span>`,
+   txt:`<b>The Bura is real</b> and it is waiting above Senj. Every leg ends at a hazard of the actual road.`},
+  {ico:()=>`<span class="mico">${CROWN_SVG}</span>`,
+   txt:`Out-drive all eight legs and <b>crown yourself at Biograd</b>, where kings of Croatia were actually crowned.`},
+  {ico:()=>`<span class="mico fog">${ICON_FOG}</span>`,
+   txt:`Fall short, and the fog returns you to the Pula car park. <b>It is a loop. It was always a loop.</b>`},
+];
+const MCAR={i:0, timer:null};
+function carInner(){
+  const sl=MENU_SLIDES[MCAR.i];
+  return `<div class="mslide">${sl.ico()}<p>${sl.txt}</p></div>
+    <div class="mdots">${MENU_SLIDES.map((_,k)=>
+      `<i class="${k===MCAR.i?"on":""}" onclick="event.stopPropagation();carGo(${k})"></i>`).join("")}</div>`;
+}
+function paintCar(){ const el=document.getElementById("mcar"); if(el) el.innerHTML=carInner(); }
+function carGo(k){ MCAR.i=k; paintCar(); armCar(); }
+function carNext(user){
+  MCAR.i=(MCAR.i+1)%MENU_SLIDES.length; paintCar();
+  if(user){ SFX.click(); armCar(); }
+}
+function armCar(){
+  if(!IS_BROWSER) return;
+  clearInterval(MCAR.timer);
+  MCAR.timer=setInterval(()=>{
+    if(!document.getElementById("mcar")){ clearInterval(MCAR.timer); MCAR.timer=null; return; }
+    carNext(false);
+  }, 4500);
+}
+function stopCar(){ if(MCAR.timer){ clearInterval(MCAR.timer); MCAR.timer=null; } }
+
 function menuHTML(){
   const cont = hasSave();
+  const tile=(cls,onclick,icon,label)=>`<button class="mtile ${cls}" onclick="${onclick}">${icon}<span>${label}</span></button>`;
+  let primary, rest=[];
+  if(cont){
+    primary = tile("wide gold","continueRun()",ICON_CAR,"continue the drive");
+    rest = [
+      tile("green","confirmNewRun()",ICON_REPLAY,"new run"),
+      tile("blue","startIntro()",ICON_SIGN,"how the road works"),
+    ];
+  } else if(!introSeen()){
+    primary = tile("wide gold","startIntro()",ICON_SIGN,"learn the road");
+    rest = [ tile("wide green","confirmNewRun()",ICON_CAR,"new run") ];
+  } else {
+    primary = tile("wide gold","confirmNewRun()",ICON_CAR,"new run");
+    rest = [ tile("wide blue","startIntro()",ICON_SIGN,"how the road works") ];
+  }
+  rest.push(tile("","showRules()",ICON_BOOK,"the rules"));
+  rest.push(tile("","toggleSound()",SFX.muted()?ICON_MUTE:ICON_SOUND,"sound "+(SFX.muted()?"off":"on")));
   return `
   <div class="big">
-    <div class="grow" style="min-height:4vh"></div>
+    <div class="grow" style="min-height:2vh"></div>
     <div class="glagtitle">ⰏⰀⰃⰋⰔⰕⰓⰀⰎⰀ</div>
     <div class="latintitle">Magistrala</div>
-    <div class="subtitle">the drive from Pula to Biograd, remembered wrong</div>
-    <p class="fogtext" style="margin-top:16px">Eight legs of coast road. A deck of Sea, Stone, Wind and Asphalt.
-    The Bura is real and it is waiting above Senj. Out-drive the road's hazards and crown yourself
-    at Biograd — or the fog returns you to the Pula car park to begin again. It is a loop.
-    It was always a loop.</p>
-    <div class="menubtns">
-      ${cont?`<button class="bx gold" onclick="continueRun()">continue the drive</button>`:""}
-      ${!cont&&!introSeen()?`<button class="bx gold" onclick="startIntro()">learn the road</button>`:""}
-      <button class="bx ${cont||!introSeen()?"":"gold"}" onclick="confirmNewRun()">new run</button>
-      ${cont||introSeen()?`<button class="bx ghost" onclick="startIntro()">how the road works</button>`:""}
-      <button class="bx ghost sm" onclick="showRules()">read the rules instead</button>
-      <button class="bx ghost sm" onclick="toggleSound()">${SFX.muted()?ICON_MUTE:ICON_SOUND} sound ${SFX.muted()?"off":"on"}</button>
-    </div>
+    <p class="mtag">the drive from Pula to Biograd,<br>remembered wrong</p>
+    <div class="mcar" id="mcar" onclick="carNext(true)">${carInner()}</div>
+    <div class="menugrid">${primary}${rest.join("")}</div>
     <div class="grow"></div>
   </div>
   ${RULES?rulesHTML():""}`;
@@ -1939,6 +2045,7 @@ function render(){
     default: html=menuHTML();
   }
   app.innerHTML=html;
+  if(scr==="menu") armCar(); else stopCar();
   if(scr!==_lastScreen){
     if(_lastScreen){
       if(scr==="gameover") SFX.gameover();
@@ -2000,7 +2107,7 @@ if(IS_BROWSER){
   boot();
   document.addEventListener("pointerdown",(e)=>{
     SFX.unlock();
-    if(e.target.closest && e.target.closest(".bx,.seg button,.ctile")) SFX.click();
+    if(e.target.closest && e.target.closest(".bx,.seg button,.ctile,.mtile")) SFX.click();
   }, true);
 }
 
