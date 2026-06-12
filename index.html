@@ -1,396 +1,992 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0b0b14">
-<title>ANTENNA OF THE BURA — a short rite for the Pula→Biograd corridor</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a1420">
+<title>MAGISTRALA — a fog-deck coronation run</title>
 <style>
   :root{
-    --void:#0b0b14; --bone:#e8dfc8; --terra:#a83a2a; --salt:#7fd4c1;
-    --gold:#c9a227; --fog:#5b5b73; --blood:#6e1423;
+    --bg:#0a1420; --bg2:#0e1c2e; --panel:#122438; --panel2:#16304a;
+    --ink:#e8e2d4; --dim:#8fa3b8; --gold:#d4af37; --gold2:#f0d060;
+    --sea:#5db8e8; --stone:#cfc9ba; --wind:#9fe8d8; --road:#e8806f;
+    --bad:#e85d5d; --good:#7fd49a;
   }
-  *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
-  html,body{background:var(--void); color:var(--bone); font-family:Georgia,'Times New Roman',serif; min-height:100%;}
-  body{padding:14px 14px 90px; max-width:560px; margin:0 auto; line-height:1.45;}
-  h1{font-size:1.5rem; letter-spacing:.12em; text-align:center; color:var(--gold);
-     text-transform:uppercase; margin:10px 0 2px; font-weight:normal;}
-  .sub{text-align:center; font-style:italic; color:var(--fog); font-size:.85rem; margin-bottom:14px;}
-  .glag{font-size:1.6rem; letter-spacing:.25em; color:var(--salt); text-align:center; display:block;}
-  .card{border:1px solid var(--fog); border-radius:6px; padding:12px 14px; margin:10px 0;
-        background:linear-gradient(160deg, rgba(201,162,39,.06), rgba(0,0,0,0));}
-  .card.fulfilled{opacity:.38; border-style:dashed;}
-  .card.fulfilled .title::after{content:" ✶ WITNESSED"; color:var(--gold); font-size:.7rem; letter-spacing:.2em;}
-  .card .title{color:var(--bone); font-variant:small-caps; letter-spacing:.08em; font-size:1.05rem;}
-  .card .rite{color:#bfb6a0; font-size:.9rem; margin-top:4px; font-style:italic;}
-  .card .denari{float:right; color:var(--gold); font-size:.85rem;}
-  button{font-family:inherit; background:transparent; color:var(--bone); border:1px solid var(--gold);
-         border-radius:4px; padding:12px 18px; font-size:1rem; letter-spacing:.1em; cursor:pointer; width:100%;}
-  button:active{background:var(--gold); color:var(--void);}
-  .small-btn{width:auto; padding:6px 12px; font-size:.8rem; border-color:var(--fog); color:var(--fog);}
-  .stationpick{display:grid; gap:8px; margin:10px 0;}
-  .stationpick button{text-align:left; font-size:.9rem; border-color:var(--fog);}
-  .stationpick button.sel{border-color:var(--salt); color:var(--salt);}
-  .stationpick .sdesc{display:block; font-size:.72rem; color:var(--fog); font-style:italic; letter-spacing:0;}
-  .hourbanner{border-top:1px solid var(--gold); border-bottom:1px solid var(--gold);
-              text-align:center; padding:10px 4px; margin:18px 0 8px;}
-  .hourbanner .hname{font-variant:small-caps; letter-spacing:.15em; color:var(--gold);}
-  .hourbanner .hspan{color:var(--fog); font-size:.78rem; font-style:italic;}
-  #burawrap{position:fixed; bottom:0; left:0; right:0; background:var(--void);
-            border-top:1px solid var(--fog); padding:8px 14px 10px; max-width:560px; margin:0 auto;}
-  #burabar{height:10px; background:#1c1c2b; border:1px solid var(--fog); border-radius:5px; overflow:hidden;}
-  #burafill{height:100%; width:0%; background:linear-gradient(90deg,var(--salt),var(--terra)); transition:width .6s;}
-  #buralabel{display:flex; justify-content:space-between; font-size:.72rem; color:var(--fog);
-             letter-spacing:.15em; margin-top:3px;}
-  #toast{position:fixed; top:14px; left:14px; right:14px; max-width:532px; margin:0 auto;
-         background:var(--blood); color:var(--bone); border:1px solid var(--gold); border-radius:6px;
-         padding:12px 16px; font-style:italic; text-align:center; display:none; z-index:9;
-         box-shadow:0 0 30px rgba(0,0,0,.8);}
-  .rule{border:none; border-top:1px dashed var(--fog); margin:18px 0;}
-  .lawlist{font-size:.88rem; color:#bfb6a0; padding-left:18px;}
-  .lawlist li{margin:8px 0;}
-  .pname{display:flex; align-items:center; gap:10px; border:1px dashed var(--fog);
-         border-radius:4px; padding:8px 10px; margin:6px 0;}
-  .pname .pg{font-size:1.5rem; color:var(--salt); letter-spacing:.15em; flex:1;}
-  .pname .plat{font-size:.75rem; color:var(--fog);}
-  .stat{display:flex; justify-content:space-between; font-size:.9rem; padding:2px 0; color:#bfb6a0;}
-  .stat b{color:var(--gold); font-weight:normal;}
-  #oraclebtn{margin:14px 0; border-color:var(--salt); color:var(--salt);}
-  #arrivebtn{border-color:var(--terra); color:var(--terra); margin-top:18px;}
-  .verdict{text-align:center; padding:20px 8px;}
-  .verdict h2{color:var(--gold); font-variant:small-caps; letter-spacing:.2em; font-weight:normal; margin:14px 0 8px;}
-  .crown{font-size:3rem;}
-  .fineprint{color:var(--fog); font-size:.72rem; text-align:center; margin-top:24px; font-style:italic;}
-  .hidden{display:none;}
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
+    font-family:Georgia,'Times New Roman',serif; min-height:100%;}
+  body{background:radial-gradient(120% 90% at 50% 0%, #13283e 0%, var(--bg) 60%);}
+  #app{max-width:540px; margin:0 auto; padding:10px 10px calc(24px + env(safe-area-inset-bottom)); min-height:100vh;}
+  h1,h2,h3{font-weight:normal; margin:0;}
+  .glagtitle{font-size:34px; letter-spacing:2px; color:var(--gold); text-align:center; text-shadow:0 0 18px rgba(212,175,55,.35);}
+  .subtitle{text-align:center; color:var(--dim); font-style:italic; font-size:14px; margin-top:4px;}
+  .oracle{font-style:italic; color:#b9c6d6; font-size:14px; line-height:1.5;}
+  .panel{background:linear-gradient(180deg,var(--panel),var(--bg2)); border:1px solid #1f3a55;
+    border-radius:12px; padding:12px; margin:10px 0;}
+  .btn{display:inline-block; background:linear-gradient(180deg,#1d3a58,#16304a);
+    color:var(--ink); border:1px solid #2c5278; border-radius:10px; padding:12px 16px;
+    font-family:inherit; font-size:16px; cursor:pointer; margin:4px 2px;}
+  .btn:active{transform:translateY(1px);}
+  .btn.gold{background:linear-gradient(180deg,#7a651e,#5a4a14); border-color:var(--gold); color:#ffe9a8;}
+  .btn.danger{border-color:#7a3030; color:#f0b0b0;}
+  .btn.small{padding:7px 10px; font-size:13px; border-radius:8px;}
+  .btn:disabled{opacity:.35; pointer-events:none;}
+  .row{display:flex; gap:6px; flex-wrap:wrap; align-items:center;}
+  .spread{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+
+  /* top bar */
+  .topbar{display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center;}
+  .legname{font-size:12px; letter-spacing:1.5px; color:var(--dim); text-transform:uppercase;}
+  .blindname{font-size:19px; color:var(--gold2);}
+  .stat{font-size:13px; color:var(--dim);}
+  .stat b{color:var(--ink); font-size:15px;}
+  .kn{color:var(--gold2);}
+  .progress{height:10px; background:#0c1828; border:1px solid #1f3a55; border-radius:6px; overflow:hidden; margin-top:6px;}
+  .progress>div{height:100%; background:linear-gradient(90deg,#3b7bb8,var(--gold)); transition:width .5s ease;}
+  .targetline{display:flex; justify-content:space-between; font-size:13px; color:var(--dim); margin-top:3px;}
+  .targetline b{color:var(--ink);}
+
+  /* cards */
+  .hand{display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin:10px 0;}
+  .card{width:58px; height:82px; background:linear-gradient(165deg,#f7f1e3,#e6dcc4); border-radius:8px;
+    border:2px solid #c9bda0; position:relative; cursor:pointer; user-select:none;
+    box-shadow:0 3px 8px rgba(0,0,0,.45); transition:transform .12s ease, box-shadow .12s; color:#222;}
+  .card.sel{transform:translateY(-12px); border-color:var(--gold); box-shadow:0 8px 16px rgba(212,175,55,.35);}
+  .card .rank{position:absolute; top:4px; left:6px; font-size:20px; font-weight:bold;}
+  .card .glag{position:absolute; top:26px; left:7px; font-size:11px; opacity:.55;}
+  .card .suit{position:absolute; bottom:4px; right:5px; font-size:20px;}
+  .card.debuffed{filter:grayscale(1) brightness(.55);}
+  .card.back{background:repeating-linear-gradient(45deg,#16304a,#16304a 6px,#122438 6px,#122438 12px);
+    border-color:#2c5278; color:var(--dim);}
+  .card.back .rank,.card.back .glag,.card.back .suit{visibility:hidden;}
+  .card.back::after{content:"Ⱅ"; position:absolute; inset:0; display:flex; align-items:center;
+    justify-content:center; font-size:26px; color:#3b6a96;}
+
+  /* jokers + omens */
+  .jrow{display:flex; gap:6px; flex-wrap:wrap; margin:6px 0;}
+  .joker{background:linear-gradient(170deg,#23344c,#17273b); border:1px solid #34557c; border-radius:10px;
+    padding:7px 9px; font-size:12px; max-width:160px; cursor:default; position:relative;}
+  .joker .jname{color:var(--gold2); font-size:13px;}
+  .joker .jdesc{color:var(--dim); margin-top:2px; line-height:1.35;}
+  .joker.omen{border-color:#5a7a5a;}
+  .joker.omen .jname{color:#a8e0a8;}
+  .slotnote{font-size:11px; color:#54708c; letter-spacing:1px; text-transform:uppercase; margin-top:8px;}
+
+  /* last play */
+  .lastplay{text-align:center; animation:pop .35s ease;}
+  .lastplay .hname{font-size:18px; color:var(--gold2); letter-spacing:1px;}
+  .lastplay .math{font-size:22px; margin-top:4px;}
+  .lastplay .math .km{color:var(--sea);} .lastplay .math .tm{color:var(--road);}
+  .lastplay .total{color:var(--gold); font-size:26px;}
+  @keyframes pop{from{transform:scale(.92); opacity:.3;} to{transform:scale(1); opacity:1;}}
+
+  .bossbanner{background:linear-gradient(180deg,#3a1828,#241020); border:1px solid #7a3050;
+    border-radius:10px; padding:9px 12px; font-size:13px; color:#e8b8c8; margin:8px 0;}
+  .bossbanner b{color:#ffd0e0; letter-spacing:1px;}
+
+  .shopitem{display:flex; justify-content:space-between; gap:10px; align-items:center;
+    border:1px solid #2a4a6e; border-radius:10px; padding:10px; margin:8px 0;
+    background:linear-gradient(180deg,#152a42,#10202f);}
+  .shopitem .sname{color:var(--gold2); font-size:15px;}
+  .shopitem .sdesc{color:var(--dim); font-size:12.5px; margin-top:3px; line-height:1.35;}
+  .price{color:var(--gold2); white-space:nowrap; font-size:15px;}
+  .sold{opacity:.35;}
+
+  .bigscreen{text-align:center; padding:40px 10px;}
+  .bigscreen h2{font-size:30px; color:var(--gold); margin:14px 0;}
+  .fogtext{color:#9fb0c4; font-style:italic; line-height:1.7;}
+  .statline{color:var(--dim); font-size:14px; margin:4px 0; overflow:hidden;}
+  .statline b{color:var(--ink);}
+
+  #toast{position:fixed; left:50%; bottom:90px; transform:translateX(-50%);
+    background:#1d3a58; border:1px solid var(--gold); color:var(--ink); border-radius:10px;
+    padding:10px 16px; font-size:14px; opacity:0; pointer-events:none; transition:opacity .25s;
+    max-width:88vw; text-align:center; z-index:50;}
+  #toast.show{opacity:1;}
+
+  .controls{position:sticky; bottom:0; background:linear-gradient(0deg,var(--bg) 70%,transparent);
+    padding:10px 0 4px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;}
+  .rules{font-size:13.5px; color:#b9c6d6; line-height:1.6;}
+  .rules b{color:var(--gold2);}
+  hr{border:0; border-top:1px solid #1f3a55; margin:12px 0;}
+  .tiny{font-size:11.5px; color:#54708c;}
 </style>
 </head>
 <body>
-
-<h1>Antenna of the Bura</h1>
-<div class="sub">a short rite for the corridor between the Arena of Pula<br>
-and the White City of Kings · one round ≈ fifteen minutes<br>
-<span class="glag">ⰀⰐⰕⰅⰐⰀ</span></div>
-
-<div id="toast" onclick="this.style.display='none'"></div>
-
-<!-- ════════ SCREEN: VESTIBULE ════════ -->
-<div id="screen-vestibule">
-  <div class="card">
-    <p style="font-size:.92rem">You are traversing a wire of land strung between two dead
-    empires. Rome ends at Pula. The Kingdom of the Croats waits at Biograd, where kings were
-    crowned and the city was burned for it. The road takes five hours. <em>This rite does
-    not.</em> You play it in short bursts, whenever the mood strikes: tell the Oracle where
-    you are, it deals you seven omens, you hunt them out the window. Fifteen minutes, give
-    or take. Then put the phone down and watch the sea. The Bura — the white wind that falls
-    off the Velebit and capsizes trucks out of principle — will wait. It is very old.</p>
-  </div>
-
-  <hr class="rule">
-  <p style="font-variant:small-caps; letter-spacing:.12em; color:var(--gold)">The Eternal Laws</p>
-  <ol class="lawlist">
-    <li><b>The Law of the Mountain.</b> Inside any tunnel, the word “tunnel” is forbidden.
-        A violator must immediately confess one (1) true secret, aloud, to the mountain.
-        This law is in effect even when the game is not.</li>
-    <li><b>The Law of the Witness.</b> An omen counts only if seen with the eyes. Phones
-        showing pictures of omens are mirrors, and mirrors lie.</li>
-    <li><b>The Law of the Driver.</b> The driver may witness omens but may never operate
-        the Antenna. The driver is the sacrifice. Treat the driver kindly.</li>
-    <li><b>The Law of Roadkill.</b> All roadkill receives four (4) seconds of silence.
-        This is not optional. The Bura counts.</li>
-    <li><b>The Law of the Hum.</b> When the Bura Meter fills, all souls aboard must hum
-        a single shared note for ten seconds. The note will choose itself.</li>
-  </ol>
-
-  <hr class="rule">
-  <p style="font-variant:small-caps; letter-spacing:.12em; color:var(--gold)">Incorporation of Souls</p>
-  <p style="font-size:.85rem; color:var(--fog); font-style:italic">Each traveler presses the
-  bone once and receives a Liburnian travel-name in the old Glagolitic script. Your real name
-  stays in Pula. You retrieve it on the way back, probably.</p>
-  <div id="souls"></div>
-  <button class="small-btn" style="width:100%; margin-top:6px" onclick="addSoul()">☩ press the bone — receive a travel-name</button>
-
-  <hr class="rule">
-  <p style="font-variant:small-caps; letter-spacing:.12em; color:var(--gold)">Where on the wire are you?</p>
-  <div class="stationpick" id="stations"></div>
-
-  <button id="dealbtn" onclick="deal()" style="margin-top:14px">⚓ DEAL THE SEVEN OMENS</button>
-  <button id="arrivebtn" onclick="arrive()">⛵ WE HAVE ARRIVED AT THE WHITE CITY (final verdict)</button>
-  <p class="fineprint">Treasury so far: <span id="vest-denari">0</span> fog-denari ·
-  rounds played: <span id="vest-rounds">0</span></p>
-</div>
-
-<!-- ════════ SCREEN: ROUND ════════ -->
-<div id="screen-round" class="hidden">
-  <div class="card">
-    <div class="stat"><span>this round</span><b id="round-progress">0 / 7 witnessed</b></div>
-    <div class="stat"><span>treasury (all rounds)</span><b id="denari">0</b></div>
-    <div class="stat"><span>bura events survived</span><b id="huracount">0</b></div>
-  </div>
-
-  <button id="oraclebtn" onclick="consultOracle()">◉ CONSULT THE ORACLE OF THE OLEANDER MEDIAN</button>
-
-  <div id="handzone"></div>
-
-  <button class="small-btn" style="width:100%; margin-top:14px" onclick="endRound(false)">
-    ⟲ fold the hand — return to the vestibule (omens witnessed are kept)</button>
-</div>
-
-<!-- ════════ SCREEN: CORONATION ════════ -->
-<div id="screen-verdict" class="hidden"></div>
-
-<div id="burawrap">
-  <div id="burabar"><div id="burafill"></div></div>
-  <div id="buralabel"><span>BURA METER</span><span id="burapct">0 / 100</span></div>
-</div>
-
+<div id="app"></div>
+<div id="toast"></div>
 <script>
-/* ══════════════════════════════════════════════════════════════
-   ANTENNA OF THE BURA — a rite of minutes for a road of hours
-   ══════════════════════════════════════════════════════════════ */
+"use strict";
+const IS_BROWSER = (typeof document !== "undefined");
 
-const GLAG = ["Ⰰ","Ⰱ","Ⰲ","Ⰳ","Ⰴ","Ⰵ","Ⰶ","Ⰷ","Ⰸ","Ⰹ","Ⰺ","Ⰻ","Ⰼ","Ⰽ","Ⰾ","Ⰿ","Ⱀ","Ⱁ","Ⱂ","Ⱃ","Ⱄ","Ⱅ","Ⱆ","Ⱇ","Ⱈ","Ⱉ","Ⱋ","Ⱌ","Ⱍ","Ⱎ","Ⱏ","Ⱐ","Ⱑ","Ⱖ","Ⱓ"];
-const SYLL = ["Vol","Tar","Sen","Aen","Kur","Lib","Osor","Ven","Rav","Bur","Mas","Kre","Zvo","Tes","Pul","Bio","Vel","Ucka","Rok","Jad"];
-const TAIL = ["ica","na","ar","imir","slav","ona","issa","entum","ka","ša"];
+/* ============================================================
+   DATA — the road, the deck, the passengers, the omens
+   ============================================================ */
 
-const STATIONS = [
- {name:"The Arena's Shadow", span:"Pula → the foot of Učka · Rome lets go of your ankle",
-  omens:[
-   ["A roadside stand selling MED (honey)","Salute it with the left hand only. The right hand is for Rome.",12],
-   ["A field of red Istrian earth (terra rossa)","Say aloud: “the redness is administrative.” Do not explain.",9],
-   ["A kažun — a small round stone hut alone in a field","It is not empty. Wave anyway.",18],
-   ["Any olive tree older than your bloodline (i.e., any olive tree)","Whisper: “Vespasian forgives nothing.”",11],
-   ["A tractor","The tractor is a chronovore — it eats minutes. Do not make eye contact with its driver.",15],
-   ["A sign for VODNJAN or BALE or SVETVINČENAT","Pronounce it confidently and entirely wrong, as an offering.",8],
-  ]},
- {name:"The Long Swallowing", span:"Učka tunnel → Rijeka → Bakar · the mountain eats you and is sorry",
-  omens:[
-   ["The mouth of the Učka tunnel","All aboard inhale together as you enter. The mountain will hold your breath for you. (Law 1 is in effect.)",20],
-   ["The iron herons of Rijeka (port cranes)","Count them aloud in a whisper. If you lose count, that number is now yours.",14],
-   ["A container ship or ferry on the water","Name it something it would hate. e.g. “Susan.”",13],
-   ["Graffiti containing the letter Ž","Ž is the youngest letter and must be encouraged. Say “bravo.”",10],
-   ["The Bakar bay industrial shore","Once they made coke fuel here. The bay remembers fire. Hold your breath for 5 seconds in solidarity.",16],
-   ["A toll booth or toll gantry","The toll booth is a psychopomp. It ferries you between fiscal worlds. Thank it by name (its name is on the receipt).",12],
-  ]},
- {name:"The Bura's Teeth", span:"the Kvarner ledge / the A1 spine · the white wind tests the antenna",
-  omens:[
-   ["A windsock at full horizontal","The Bura is showing you its tongue. Show it yours.",22],
-   ["A road sign warning of wind (VJETAR) or a wind-closed lane","Applaud briefly. The wind likes recognition. It is, after all, performing.",15],
-   ["An island visible across the water (Krk, Rab, Pag — any will do)","Point at it and state how much salt it contains. Confidence matters; accuracy does not.",12],
-   ["A bus overtaking your vehicle","A bus is a reliquary of knees. Lower your eyes as it passes.",9],
-   ["A wind farm or single turbine","Each blade is rowing the sky somewhere. Wish them a good catch.",13],
-   ["The bare white stone flanks of the Velebit","The mountain is a god that decided to stop apologizing. Nod once.",17],
-  ]},
- {name:"The Lightning Saint", span:"Sveti Rok → Smiljan's reach → Maslenica · electricity remembers where it was born",
-  omens:[
-   ["The Sveti Rok tunnel (the long one — 5.7 km)","Each soul holds a single sung note as long as comfortable. The tunnel keeps the harmonies. (Law 1 applies, fiercely.)",25],
-   ["A sign for GOSPIĆ or SMILJAN","Tesla was born off this exit during a lightning storm. Touch the nearest plastic object and apologize to it for everything.",21],
-   ["The Maslenica bridge","All aboard exhale crossing it. The bridge is structurally held up by exhalations. This is not in the engineering report but it is true.",24],
-   ["A lone horse (konj) in a field","The horse has been expecting a different car. Apologize with your eyes.",14],
-   ["A power line crossing the road","You have been read. Sit up straight.",8],
-   ["Any rest stop (odmorište)","Rest stops are embassies of no nation. If you stop at one, you must each eat something or be in debt to nowhere.",10],
-  ]},
- {name:"The White City of Kings", span:"Zadar's pull → Biograd na Moru · where Croat kings were crowned, and one of you is owed a coronation",
-  omens:[
-   ["A sign for ZADAR","Somewhere beyond it the Sea Organ is playing chords for drowned emperors. Hum one note in its direction.",13],
-   ["First glimpse of the open sea after the inland stretch","Everyone must say a word they have never said in a car before. Any word. The sea collects them.",19],
-   ["A marina forest of sailboat masts","Each mast is a needle and the sky is the haystack. Find nothing. Be satisfied.",11],
-   ["A sign for BIOGRAD NA MORU","The White City. King Petar Krešimir IV's royal seat; Coloman crowned here in 1102; Venice burned it for the honor. Sit in silence for the length of one breath.",26],
-   ["An oleander hedge in the median, blooming or not","The oleander is poisonous and decorative, like history. Wink at it.",9],
-   ["A man wearing socks WITH sandals","THE PILGRIM OF COMFORT. The road's highest omen. He has transcended. Award yourselves the full bounty and speak of him forever.",40],
-  ]},
+const SUITS = {
+  sea:   {name:"Sea",   glyph:"🌊", color:"#2a7ab0"},
+  stone: {name:"Stone", glyph:"🪨", color:"#6e6552"},
+  wind:  {name:"Wind",  glyph:"🌬️", color:"#2e8a78"},
+  road:  {name:"Road",  glyph:"🛣️", color:"#b04a38"},
+};
+const SUIT_KEYS = ["sea","stone","wind","road"];
+
+const RANK_LABEL = {2:"2",3:"3",4:"4",5:"5",6:"6",7:"7",8:"8",9:"9",10:"10",
+  11:"G",12:"T",13:"K",14:"A"};
+/* Glagolitic letters carry numeric value; faces get Glagolitic initials. */
+const GLAG = {2:"Ⰱ",3:"Ⰲ",4:"Ⰳ",5:"Ⰴ",6:"Ⰵ",7:"Ⰶ",8:"Ⰷ",9:"Ⰸ",10:"Ⰹ",
+  11:"Ⰳ",12:"Ⱅ",13:"Ⰽ",14:"Ⰰ"};
+
+function chipVal(c){ return c.rank<=10 ? c.rank : (c.rank===14 ? 11 : 10); }
+function isFace(c){ return c.rank>=11 && c.rank<=13; }
+
+/* Maneuvers (poker hands). km = chips, tempo = mult. l* = gain per level. */
+const HANDS = {
+  high:    {name:"Pointing Out the Window", km:5,  tempo:1,  lkm:10, ltempo:1},
+  pair:    {name:"Overtake",                km:15, tempo:2,  lkm:15, ltempo:1},
+  twopair: {name:"Double Overtake",         km:25, tempo:2,  lkm:20, ltempo:1},
+  three:   {name:"Convoy",                  km:35, tempo:3,  lkm:20, ltempo:2},
+  straight:{name:"The Magistrala",          km:30, tempo:4,  lkm:30, ltempo:3},
+  flush:   {name:"Full Bura",               km:35, tempo:4,  lkm:15, ltempo:2},
+  full:    {name:"Konoba Lunch",            km:40, tempo:4,  lkm:25, ltempo:2},
+  four:    {name:"The Roundabout",          km:60, tempo:7,  lkm:30, ltempo:3},
+  sflush:  {name:"The Serpentine",          km:100,tempo:8,  lkm:40, ltempo:4},
+  royal:   {name:"Coronation Road",         km:100,tempo:10, lkm:50, ltempo:5},
+};
+const HAND_KEYS = Object.keys(HANDS);
+
+const RADIO_NAMES = {
+  high:"Radio Fog 0.0 FM", pair:"Radio Istra 96.9", twopair:"Radio Rijeka 104.7",
+  three:"Otvoreni Radio 89.7", straight:"Narodni Radio 107.2",
+  flush:"Radio Bura — frequency unknown", full:"Radio Konoba AM",
+  four:"Radio Velebit 92.1", sflush:"Radio Maestral 105.6", royal:"Glas Kralja — long wave",
+};
+
+/* Passengers (jokers). Hooks:
+   perCard(ctx,card,j) — per scored card, after its chips are added
+   add(ctx,j)          — flat +KM/+Tempo phase
+   mult(ctx,j)         — ×Tempo phase, always after all adds
+   onDiscard(j) / onPlay(j) / onRoundEnd(j) / init(j)
+*/
+const JOKERS = [
+  {id:"medallion", name:"Sv. Kristofor Medallion", cost:3,
+   desc:"+4 Tempo. The patron of travellers swings from the mirror.",
+   add:(ctx)=>{ctx.tempo+=4;}},
+  {id:"pine", name:"Pine Air Freshener", cost:3,
+   desc:"+40 KM. It stopped smelling of pine in 2019. It smells of time.",
+   add:(ctx)=>{ctx.km+=40;}},
+  {id:"galeb", name:"The Galeb", cost:5,
+   desc:"Scored face cards each give +4 Tempo. He winks at the rear-view mirror.",
+   perCard:(ctx,c)=>{ if(isFace(c)) ctx.tempo+=4; }},
+  {id:"pag", name:"Pag Cheese Wheel", cost:4,
+   desc:"Scored 🪨 Stone cards each give +20 KM. It is older than the customs union.",
+   perCard:(ctx,c)=>{ if(c.suit==="stone") ctx.km+=20; }},
+  {id:"oleander", name:"The Oleander Median", cost:4,
+   desc:"Scored 🌊 Sea cards each give +20 KM. Pink, poisonous, government-planted.",
+   perCard:(ctx,c)=>{ if(c.suit==="sea") ctx.km+=20; }},
+  {id:"asphalt", name:"Hot Asphalt", cost:4,
+   desc:"Scored 🛣️ Road cards each give +3 Tempo. The shimmer is not a mirage. It is a door.",
+   perCard:(ctx,c)=>{ if(c.suit==="road") ctx.tempo+=3; }},
+  {id:"burabottle", name:"Bura in a Bottle", cost:6,
+   desc:"Scored 🌬️ Wind cards trigger twice. Do not open near Senj."
+   /* handled in the scoring loop */},
+  {id:"branko", name:"Uncle Branko's Shortcut", cost:6,
+   desc:"×2 Tempo on the first maneuver of each round. He knows a guy. The guy is a road.",
+   mult:(ctx)=>{ if(ctx.first) ctx.tempo*=2; }},
+  {id:"wasp", name:"Dead Wasp in the Vents", cost:7,
+   desc:"×3 Tempo, but −1 maneuver per round. It died for this.",
+   mult:(ctx)=>{ ctx.tempo*=3; }},
+  {id:"socks", name:"Socks & Sandals", cost:4,
+   desc:"Overtakes (Pairs) get ×2.5 Tempo. The uniform of the unbothered.",
+   mult:(ctx)=>{ if(ctx.type==="pair") ctx.tempo*=2.5; }},
+  {id:"zimmer", name:"ZIMMER FREI Sign", cost:5,
+   desc:"+4 kn at the end of each round. The rooms are always free. No one has ever seen them.",
+   onRoundEnd:()=>{ S.kuna+=4; }},
+  {id:"truffle", name:"Truffle Dog", cost:4,
+   desc:"+1 kn each time you discard. She digs in the footwell. She finds things.",
+   onDiscard:()=>{ S.kuna+=1; }},
+  {id:"fig", name:"Roadside Fig Stand", cost:5,
+   desc:"Gains +10 KM permanently each time you discard. Unattended. Honesty box.",
+   onDiscard:(j)=>{ j.state.km=(j.state.km||0)+10; },
+   add:(ctx,j)=>{ ctx.km+=(j.state.km||0); },
+   tag:(j)=>"+"+(j.state.km||0)+" KM"},
+  {id:"stones", name:"A Stone From Every Beach", cost:6,
+   desc:"Gains +1 Tempo at the end of every round. The boot gets heavier. So does the past.",
+   onRoundEnd:(j)=>{ j.state.tempo=(j.state.tempo||0)+1; },
+   add:(ctx,j)=>{ ctx.tempo+=(j.state.tempo||0); },
+   tag:(j)=>"+"+(j.state.tempo||0)+" Tempo"},
+  {id:"klapa", name:"Klapa CD (Stuck in the Player)", cost:5,
+   desc:"Maneuvers containing a Magistrala (straight) get +100 KM. Track 4. Always track 4.",
+   add:(ctx)=>{ if(ctx.type==="straight"||ctx.type==="sflush"||ctx.type==="royal") ctx.km+=100; }},
+  {id:"sunglasses", name:"The Driver's Sunglasses", cost:6,
+   desc:"×2 Tempo if you haven't discarded this round. The driver sees nothing. The driver sees everything.",
+   mult:(ctx)=>{ if(ctx.noDiscards) ctx.tempo*=2; }},
+  {id:"burek", name:"Petrol Station Burek", cost:4,
+   desc:"+80 KM if the maneuver is exactly 3 cards. Sir or meso. There is no third path.",
+   add:(ctx)=>{ if(ctx.played.length===3) ctx.km+=80; }},
+  {id:"maraschino", name:"Bottle of Maraschino", cost:4,
+   desc:"+10 Tempo, evaporating by 1 each round. From Zadar. Sell it before it turns to vinegar.",
+   init:(j)=>{ j.state.tempo=10; },
+   add:(ctx,j)=>{ ctx.tempo+=(j.state.tempo||0); },
+   onRoundEnd:(j)=>{ j.state.tempo=(j.state.tempo||0)-1; },
+   tag:(j)=>"+"+(j.state.tempo||0)+" Tempo"},
+  {id:"enc", name:"ENC Transponder", cost:4,
+   desc:"+1 kn per maneuver played. It beeps once for yes, once for no.",
+   onPlay:()=>{ S.kuna+=1; }},
+  {id:"baka", name:"Konoba Grandmother", cost:5,
+   desc:"Konoba Lunch (Full House) gets ×3 Tempo. You will eat. This is not a question.",
+   mult:(ctx)=>{ if(ctx.type==="full") ctx.tempo*=3; }},
+];
+const JBY = {}; JOKERS.forEach(j=>JBY[j.id]=j);
+
+/* Omens (consumables). targets = how many selected cards they want (0 = none). */
+const OMENS = [
+  {id:"windsock", name:"The Windsock", targets:2,
+   desc:"Convert up to 2 selected cards to 🌬️ Wind. It points where the day will go.",
+   use:(cards)=>{ cards.forEach(c=>c.suit="wind"); }},
+  {id:"kazun", name:"The Kažun", targets:2,
+   desc:"Convert up to 2 selected cards to 🪨 Stone. A hut with no door faces you anyway.",
+   use:(cards)=>{ cards.forEach(c=>c.suit="stone"); }},
+  {id:"oleanderomen", name:"The Oleander", targets:2,
+   desc:"Convert up to 2 selected cards to 🌊 Sea. Pink flowers in the median, miles from any garden.",
+   use:(cards)=>{ cards.forEach(c=>c.suit="sea"); }},
+  {id:"hottar", name:"The Hot Tar", targets:2,
+   desc:"Convert up to 2 selected cards to 🛣️ Road. The new patch is darker. It remembers being liquid.",
+   use:(cards)=>{ cards.forEach(c=>c.suit="road"); }},
+  {id:"maslenica", name:"The Maslenica", targets:2,
+   desc:"Destroy up to 2 selected cards. The bridge takes a toll the booth never sees.",
+   use:(cards)=>{ destroyCards(cards); }},
+  {id:"fog", name:"The Fog", targets:1,
+   desc:"Create a permanent copy of 1 selected card. In the fog, everything happens twice.",
+   use:(cards)=>{ const c=cards[0]; const n=newCard(c.rank,c.suit); n.enh=c.enh;
+     S.master.push(n); S.hand.push(n); }},
+  {id:"saint", name:"The Saint of Vodnjan", targets:1,
+   desc:"Bless 1 selected card: permanently +30 KM when scored. Incorrupt. Unhurried.",
+   use:(cards)=>{ cards[0].enh="saint"; }},
+  {id:"galebeye", name:"The Galeb's Eye", targets:1,
+   desc:"Turn 1 selected card into a Galeb (face card, same suit). He was watching the whole time.",
+   use:(cards)=>{ cards[0].rank=11; }},
+  {id:"tollbooth", name:"The Toll Booth", targets:0,
+   desc:"Gain 8 kn. The barrier rises for you, this once, in this life.",
+   use:()=>{ S.kuna+=8; }},
+  {id:"seaorgan", name:"The Sea Organ", targets:0,
+   desc:"A random maneuver gains a level. The sea plays a chord it has been holding since 2005.",
+   use:()=>{ const k=HAND_KEYS[rnd(HAND_KEYS.length)]; S.handLevels[k]++;
+     toast(HANDS[k].name+" is now level "+S.handLevels[k]); }},
+];
+const OBY = {}; OMENS.forEach(o=>OBY[o.id]=o);
+
+/* The route. Boss target multiplier defaults to 2 unless given. */
+const LEGS = [
+  {from:"PULA", to:"VODNJAN", target:200,
+   flavor:"The amphitheater is behind you. It has watched two thousand years of departures and finds yours unremarkable. The kažuni stand in the red fields — stone huts with no doors, built to be left.",
+   boss:{id:"mummies", name:"The Mummies of Vodnjan", mult:1.8,
+     desc:"Face cards score nothing. The incorrupt saints do not approve of royalty.",
+     flavor:"In the church of St. Blaise lie six saints who refused to rot. They have opinions about your face cards."}},
+  {from:"VODNJAN", to:"UČKA", target:500,
+   flavor:"Istria narrows. The mountain ahead has a hole in it, and the hole costs money. Truffle country sleeps under the oaks to your left, sniffed at by secret dogs.",
+   boss:{id:"tunnel", name:"The Učka Tunnel", mult:1.5,
+     desc:"Cards are drawn face-down. Inside the mountain, you play by feel.",
+     flavor:"Five kilometers of rock above your head. The radio dies first. Then the light. Do not say the word."}},
+  {from:"UČKA", to:"RIJEKA", target:1100,
+   flavor:"You fall out of the mountain into Kvarner Bay. Rijeka spreads below — port cranes, torpedo factories, a corridor city that has belonged to seven countries without ever moving.",
+   boss:{id:"toll", name:"The Toll Gantry", mult:1.8,
+     desc:"Every maneuver costs 3 kn. The gantry reads your soul and finds it billable.",
+     flavor:"ENC lane. Cash lane. A third lane, unmarked, for those who owe something older than money."}},
+  {from:"RIJEKA", to:"SENJ", target:1800,
+   flavor:"The Magistrala clings to the coast. Somewhere above Senj the air is deciding. The windsocks stand horizontal. They close this road when the wind learns your number.",
+   boss:{id:"bura", name:"THE BURA", mult:1.5,
+     desc:"After every maneuver, 2 random cards are blown out of your hand.",
+     flavor:"The wind is born on Velebit and comes down to the sea to break things. Today it has chosen your hand."}},
+  {from:"SENJ", to:"VELEBIT", target:2200,
+   flavor:"The mountain runs beside you for a hundred kilometers, grey and certain. Shepherds' paths cross it. Wolves cross it. The Vila of Velebit watches from the karst and does not blink.",
+   boss:{id:"wall", name:"The Velebit Wall", mult:1.8,
+     desc:"An enormous target. The mountain does not negotiate.",
+     flavor:"You cannot go around Velebit. No one has ever gone around Velebit. You go through, or you stay."}},
+  {from:"VELEBIT", to:"MASLENICA", target:3500,
+   flavor:"The land drops to the Novsko Ždrilo strait, where the bura once blew a truck clean off the bridge. There are two bridges now. Both of them remember the war.",
+   boss:{id:"needle", name:"The Bridge Inspector", mult:0.9,
+     desc:"You get exactly 2 maneuvers — one for each bridge.",
+     flavor:"He stands at the apex with a clipboard. One crossing. One gesture. He has seen everything and rated most of it poorly."}},
+  {from:"MASLENICA", to:"ZADAR", target:5500,
+   flavor:"Zadar: a Roman grid wearing a Venetian coat. On the waterfront the Sea Organ plays the tide, and the Greeting to the Sun applauds the sunset. Hitchcock said it was the best sunset in the world. He was right, and it's worse than that.",
+   boss:{id:"psychic", name:"The Sunset Applause", mult:1.4,
+     desc:"Every maneuver must be exactly 5 cards. The crowd accepts only full gestures.",
+     flavor:"The whole city has gathered on the riva to clap for the sun. They will clap for you too — but only for the complete performance."}},
+  {from:"ZADAR", to:"BIOGRAD", target:7000,
+   flavor:"The White City. Kings of Croatia were crowned here until Venice burned it in 1125 out of sheer administrative spite. The throne is still warm. The fleet is still angry.",
+   boss:{id:"venice", name:"VENICE, 1125", mult:1.8,
+     desc:"After every maneuver, a different suit is forbidden and scores nothing.",
+     flavor:"The Doge's fleet stands off the shore of history, signalling: NOTHING OF YOURS WILL BE COUNTED. Prove the ledger wrong."}},
 ];
 
-const UNIVERSAL = [
- ["A German license plate (D)","Quietly say “gute Fahrt” and accept that it is funny.",6],
- ["An Austrian license plate (A)","The Habsburgs still send observers. Wave like you know.",6],
- ["A Konzum, Lidl, or Studenac","A granary-temple of the corridor. Touch your sternum.",5],
- ["A fig tree growing somewhere it shouldn't","Figs are escape artists. Say “well done” and mean it.",8],
- ["A person eating burek in any context","Witness them. Say nothing. Some rites are private.",10],
- ["Roadkill","Four seconds of silence. Mandatory. (Law 4.) The Bura counts with you.",7],
- ["A stone wall with no mortar, older than your country","It is held together by stubbornness, the national binder.",9],
- ["A car going truly, insultingly slowly","It is carrying something fragile: perhaps eggs, perhaps a promise.",5],
- ["A church on a hill that no road appears to reach","It is reached by intention alone. Squint at it respectfully.",11],
- ["A dog riding in another car, head out the window","A fellow antenna, better tuned. Defer to it.",8],
-];
+const BLIND_NAMES = ["Open Road", "Heavy Traffic"];
+const COSTS = {radio:4, omen:3, reroll:5};
+const MAX_JOKERS = 5, MAX_OMENS = 2, HAND_SIZE = 8;
 
 const PROPHECIES = [
- "Before the {n}th oleander, {who} will crave something salted and will not say so.",
- "The Bura has counted your tires and finds the number {mood}.",
- "{who} is sitting on the seam between two ancient dioceses. Shift slightly left.",
- "A truck carrying {cargo} will pass. It will not know what it has done.",
- "The next tunnel already knows {who}'s secret. Entering it is forgiveness.",
- "In {n} kilometers, a smell. Do not investigate. It is the {cargo} of the old world.",
- "{who} will see the sea first, but will say nothing, hoarding it like a coin.",
- "The radio, on or off, is playing the same song. The song is about {cargo}.",
- "Somewhere on this road a kažun is thinking about {who}. It thinks fondly.",
- "The number {n} will appear three times before Biograd. Once on a sign, once on a plate, once in your heart.",
- "A toll is coming that cannot be paid in kuna, euro, or denari. Pay it in {cargo}.",
- "The Velebit has noticed your vehicle and rated it: {mood}. This is its highest score.",
- "{who} must open and close one window before the next bridge, to let the old air finish its journey.",
- "Biograd was burned in 1125 and is fine now. So will be the thing {who} is worrying about.",
-];
-const CARGO = ["unlabeled honey","retired church bells","one thousand windsocks","Roman administrative regret","sheep with opinions","the concept of Tuesday","decommissioned lighthouse light","mineral water and dread","figs of unusual ambition","the Bura's spare teeth"];
-const MOODS = ["acceptable","auspicious","liturgically sound","suspiciously even","beloved","prime, and therefore dangerous","the same as in 1102","adequate for coronation"];
-
-const KINGS = [
- [0,  "👻","The Uncrowned Fog","You arrive, technically. The Bura barely noticed you. The White City grants you the rank of Weather. Walk to the sea immediately and stand in it to the ankle; this is remedial coronation."],
- [80, "🐐","Duke of the Island Goats","A solid, honest transmission. The goats of Pag — who answer to no king — accept you as one of their own. Your crown is invisible and smells faintly of cheese. Wear it proudly."],
- [180,"⚡","Elector of the Lightning Saint","Tesla's exit acknowledges you. You may, for one evening in Biograd, point at any electrical device and say 'I understand you' — and be, briefly, correct."],
- [300,"🌬️","Voivode of the White Wind","The Bura itself escorts you the last kilometer, which is why the car shook. You are now entitled to refer to weather forecasts as 'the family news.'"],
- [420,"👑","PETAR KREŠIMIR IV, RETURNED","Total transmission. The antenna sang. By the authority of the omens witnessed, the party is crowned in Biograd na Moru as the old kings were — quietly, by the sea, with Venice seething somewhere over the horizon. First round of ice cream is a state function."],
+  "The median oleander blooms for no one, which is to say: for you.",
+  "A windsock at full horizontal is the road's way of underlining a sentence.",
+  "Somewhere ahead a konoba is grilling fish for a table that hasn't arrived yet. It is your table.",
+  "The kuna is dead. The marten it was named for does not know, and is doing fine.",
+  "Every tunnel is the same tunnel. Do not say its name inside it.",
+  "The Galeb has no plan. The Galeb has never needed one.",
+  "What Venice burned, the deck remembers.",
+  "The driver is the sacrifice. Treat the driver kindly.",
 ];
 
-/* ── state ── */
-let S = JSON.parse(localStorage.getItem("antenna") || "null") || {
-  souls:[], denari:0, hura:0, bura:0, rounds:0, station:0,
-  hand:null,            // array of {title, rite, val, done} or null when in vestibule
-  arrived:false
-};
-function save(){ localStorage.setItem("antenna", JSON.stringify(S)); }
+/* ============================================================
+   STATE
+   ============================================================ */
+let S = null;
+let _uid = 1;
+function rnd(n){ return Math.floor(Math.random()*n); }
+function pick(a){ return a[rnd(a.length)]; }
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){const k=rnd(i+1);[b[i],b[k]]=[b[k],b[i]];} return b; }
+function newCard(rank,suit){ return {id:_uid++, rank, suit, enh:null, faceDown:false}; }
 
-/* ── souls ── */
-function makeName(){
-  const g = () => GLAG[Math.floor(Math.random()*GLAG.length)];
-  const glag = g()+g()+g()+g();
-  const latin = SYLL[Math.floor(Math.random()*SYLL.length)] + TAIL[Math.floor(Math.random()*TAIL.length)];
-  return {glag, latin};
-}
-function addSoul(){ S.souls.push(makeName()); save(); renderSouls(); }
-function renderSouls(){
-  document.getElementById("souls").innerHTML = S.souls.map(s =>
-    `<div class="pname"><span class="pg">${s.glag}</span><span class="plat">spoken: “${s.latin}”</span></div>`
-  ).join("") || `<p class="fineprint">no souls incorporated yet — the car is, legally, empty</p>`;
+function buildDeck(){
+  const d=[];
+  for(const s of SUIT_KEYS) for(let r=2;r<=14;r++) d.push(newCard(r,s));
+  return d;
 }
 
-/* ── station picker ── */
-function pickStation(i){ S.station = i; save(); renderStations(); }
-function renderStations(){
-  document.getElementById("stations").innerHTML = STATIONS.map((st,i)=>
-    `<button class="${S.station===i?'sel':''}" onclick="pickStation(${i})">
-      ${i+1}. ${st.name}<span class="sdesc">${st.span}</span></button>`
-  ).join("");
-}
-
-/* ── dealing: 4 station omens + 3 universal, shuffled ── */
-function draw(arr, n){
-  const pool = arr.slice();
-  const out = [];
-  while(out.length < n && pool.length) out.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
-  return out;
-}
-function deal(){
-  if(S.souls.length === 0) addSoul();
-  const cards = draw(STATIONS[S.station].omens, 4).concat(draw(UNIVERSAL, 3));
-  cards.sort(()=>Math.random()-.5);
-  S.hand = cards.map(o => ({title:o[0], rite:o[1], val:o[2], done:false}));
-  save(); render();
-  toast(`The Oracle deals seven omens for “${STATIONS[S.station].name}.” Hunt them out the window. The antenna is live.`);
-}
-
-/* ── witnessing ── */
-function witness(i){
-  const c = S.hand[i];
-  if(c.done) return;
-  c.done = true;
-  S.denari += c.val;
-  S.bura = Math.min(100, S.bura + 10 + Math.floor(Math.random()*16));
-  let msg = `✶ WITNESSED: ${c.title} — ${c.val} fog-denari enter the treasury.`;
-  if(S.bura >= 100){
-    S.hura++; S.bura = 0; S.denari += 30;
-    msg += " ⚠ THE BURA METER IS FULL. ALL SOULS HUM ONE SHARED NOTE FOR TEN SECONDS. NOW. (+30 denari for surviving)";
-  }
+function newRun(){
+  _uid = 1;
+  S = {
+    screen:"preview", leg:0, blind:0,           // blind: 0 open, 1 heavy, 2 boss
+    kuna:6, master:buildDeck(),
+    jokers:[], omens:[],
+    handLevels:Object.fromEntries(HAND_KEYS.map(k=>[k,1])),
+    drawPile:[], hand:[], sel:[],
+    score:0, target:0, maneuvers:0, discards:0,
+    playsThisRound:0, discardsThisRound:0,
+    venSuit:null, lastPlay:null,
+    shop:null, cash:null, sortMode:"rank",
+    stats:{rounds:0, bestHand:0, hands:0, skips:0},
+    prophecy:pick(PROPHECIES),
+  };
   save();
-  if(S.hand.every(x=>x.done)){
-    toast(msg + " — The hand is complete. The round closes itself like a sea anemone.");
-    setTimeout(()=>endRound(true), 1500);
-  } else { toast(msg); render(); }
-}
-function endRound(complete){
-  if(S.hand){ S.rounds++; S.hand = null; }
-  save(); render();
-  if(complete) toast("Round complete. Put the phone down. Watch the water. Deal again whenever the road gets long.");
 }
 
-/* ── oracle ── */
-function consultOracle(){
-  const p = PROPHECIES[Math.floor(Math.random()*PROPHECIES.length)];
-  const who = S.souls.length ? "“"+S.souls[Math.floor(Math.random()*S.souls.length)].latin+"”" : "the driver";
-  const txt = p.replace("{who}", who)
-               .replace("{n}", 2+Math.floor(Math.random()*11))
-               .replace("{cargo}", CARGO[Math.floor(Math.random()*CARGO.length)])
-               .replace("{mood}", MOODS[Math.floor(Math.random()*MOODS.length)]);
-  toast("◉ THE ORACLE SPEAKS: " + txt);
+/* ============================================================
+   CORE LOGIC
+   ============================================================ */
+function curLeg(){ return LEGS[S.leg]; }
+function isBossBlind(){ return S.blind===2; }
+function bossIs(id){ return S.screen==="round" && isBossBlind() && curLeg().boss.id===id; }
+function hasJoker(id){ return S.jokers.some(j=>j.id===id); }
+
+function blindTarget(leg, blind){
+  const base = LEGS[leg].target;
+  const m = blind===0 ? 1 : blind===1 ? 1.4 : LEGS[leg].boss.mult;
+  return Math.round(base*m);
+}
+function blindName(){ return isBossBlind() ? curLeg().boss.name : BLIND_NAMES[S.blind]; }
+function blindReward(){ return 4+S.blind; }
+
+function maneuversForRound(){
+  let m = 4;
+  if(hasJoker("wasp")) m -= 1;
+  if(S.blind===2 && curLeg().boss.id==="needle") m = 2;
+  return Math.max(1,m);
 }
 
-/* ── arrival & verdict ── */
-function arrive(){ S.arrived = true; save(); render(); }
-function reset(){ localStorage.removeItem("antenna"); location.reload(); }
+function startBlind(){
+  S.target = blindTarget(S.leg, S.blind);
+  S.score = 0;
+  S.maneuvers = maneuversForRound();
+  S.discards = 3;
+  S.playsThisRound = 0; S.discardsThisRound = 0;
+  S.lastPlay = null; S.sel = [];
+  S.master.forEach(c=>c.faceDown=false);
+  S.drawPile = shuffle(S.master);
+  S.hand = [];
+  S.screen = "round";
+  S.venSuit = bossIs("venice") ? SUIT_KEYS[rnd(4)] : null;
+  drawTo(HAND_SIZE);
+  save();
+}
 
-/* ── render ── */
-function render(){
-  document.getElementById("screen-vestibule").classList.toggle("hidden", !!S.hand || S.arrived);
-  document.getElementById("screen-round").classList.toggle("hidden", !S.hand || S.arrived);
-  document.getElementById("screen-verdict").classList.toggle("hidden", !S.arrived);
-
-  document.getElementById("burafill").style.width = S.bura+"%";
-  document.getElementById("burapct").textContent = S.bura+" / 100";
-
-  if(S.arrived){ renderVerdict(); return; }
-
-  if(!S.hand){
-    renderSouls(); renderStations();
-    document.getElementById("vest-denari").textContent = S.denari;
-    document.getElementById("vest-rounds").textContent = S.rounds;
-    return;
+function drawTo(n){
+  while(S.hand.length<n && S.drawPile.length){
+    const c = S.drawPile.pop();
+    c.faceDown = bossIs("tunnel");
+    S.hand.push(c);
   }
-
-  const done = S.hand.filter(c=>c.done).length;
-  document.getElementById("round-progress").textContent = done+" / "+S.hand.length+" witnessed";
-  document.getElementById("denari").textContent = S.denari+" ℱ";
-  document.getElementById("huracount").textContent = S.hura;
-  document.getElementById("handzone").innerHTML =
-    `<div class="hourbanner">
-       <div class="hname">${STATIONS[S.station].name}</div>
-       <div class="hspan">${STATIONS[S.station].span}</div>
-     </div>` +
-    S.hand.map((c,i)=>
-      `<div class="card ${c.done?'fulfilled':''}" onclick="witness(${i})">
-        <span class="denari">${c.val} ℱ</span>
-        <div class="title">${c.title}</div>
-        <div class="rite">${c.rite}</div>
-      </div>`).join("");
-}
-function renderVerdict(){
-  let k = KINGS[0];
-  for(const c of KINGS) if(S.denari >= c[0]) k = c;
-  document.getElementById("screen-verdict").innerHTML = `
-    <div class="verdict">
-      <div class="crown">${k[1]}</div>
-      <h2>${k[2]}</h2>
-      <p style="font-size:.95rem">${k[3]}</p>
-      <hr class="rule">
-      <div class="stat"><span>final treasury</span><b>${S.denari} fog-denari</b></div>
-      <div class="stat"><span>rounds played</span><b>${S.rounds}</b></div>
-      <div class="stat"><span>bura events survived</span><b>${S.hura}</b></div>
-      <div class="stat"><span>souls aboard</span><b>${S.souls.length}</b></div>
-      <hr class="rule">
-      <p class="fineprint">Biograd na Moru — “the White City on the Sea” — crowned its kings
-      and was burned by Venice in 1125 for the audacity. It rebuilt. So does everyone.
-      Go stand in the sea to the ankle. That part is real and you should do it.</p>
-      <button class="small-btn" style="margin-top:18px" onclick="reset()">⟲ dissolve the liturgy (new journey)</button>
-    </div>`;
 }
 
-/* ── toast ── */
-let toastTimer;
+function skipBlind(){
+  if(isBossBlind()) return;
+  S.stats.skips++;
+  if(S.omens.length<MAX_OMENS && Math.random()<0.6){
+    const o = pick(OMENS);
+    S.omens.push({id:o.id});
+    toast("Waved through. Something on the seat: "+o.name+".");
+  } else {
+    S.kuna += 4;
+    toast("Waved through. 4 kn folded under the wiper.");
+  }
+  advanceBlind(); // no shop after a skip
+  save(); render();
+}
+
+function isDebuffed(c){
+  if(bossIs("mummies") && isFace(c)) return true;
+  if(bossIs("venice") && S.venSuit && c.suit===S.venSuit) return true;
+  return false;
+}
+
+function evaluate(cards){
+  const byRank = {};
+  cards.forEach(c=>{ (byRank[c.rank]=byRank[c.rank]||[]).push(c); });
+  const groups = Object.values(byRank).sort((a,b)=> b.length-a.length || b[0].rank-a[0].rank);
+  const isFlush = cards.length===5 && cards.every(c=>c.suit===cards[0].suit);
+  let isStraight=false, aceLow=false;
+  if(cards.length===5){
+    const rs=[...new Set(cards.map(c=>c.rank))].sort((a,b)=>a-b);
+    if(rs.length===5){
+      if(rs[4]-rs[0]===4) isStraight=true;
+      else if(rs.join(",")==="2,3,4,5,14"){ isStraight=true; aceLow=true; }
+    }
+  }
+  if(isStraight && isFlush){
+    const low = Math.min(...cards.map(c=>c.rank));
+    return {type:(!aceLow && low===10) ? "royal" : "sflush", scored:[...cards]};
+  }
+  if(groups[0].length===4) return {type:"four", scored:groups[0]};
+  if(groups[0].length===3 && groups[1] && groups[1].length===2) return {type:"full", scored:[...cards]};
+  if(isFlush) return {type:"flush", scored:[...cards]};
+  if(isStraight) return {type:"straight", scored:[...cards]};
+  if(groups[0].length===3) return {type:"three", scored:groups[0]};
+  if(groups[0].length===2 && groups[1] && groups[1].length===2)
+    return {type:"twopair", scored:[...groups[0],...groups[1]]};
+  if(groups[0].length===2) return {type:"pair", scored:groups[0]};
+  const top=[...cards].sort((a,b)=>b.rank-a.rank)[0];
+  return {type:"high", scored:[top]};
+}
+
+function scoreHand(played){
+  const ev = evaluate(played);
+  const set = new Set(ev.scored.map(c=>c.id));
+  const scored = played.filter(c=>set.has(c.id));
+  const def = HANDS[ev.type], lvl = S.handLevels[ev.type];
+  const ctx = {
+    km: def.km + def.lkm*(lvl-1),
+    tempo: def.tempo + def.ltempo*(lvl-1),
+    type: ev.type, lvl, played, scored,
+    first: S.playsThisRound===0,
+    noDiscards: S.discardsThisRound===0,
+    debuffed: [],
+  };
+  for(const c of scored){
+    if(isDebuffed(c)){ ctx.debuffed.push(c.id); continue; }
+    const triggers = (hasJoker("burabottle") && c.suit==="wind") ? 2 : 1;
+    for(let t=0;t<triggers;t++){
+      ctx.km += chipVal(c);
+      if(c.enh==="saint") ctx.km += 30;
+      for(const j of S.jokers){ const d=JBY[j.id]; if(d.perCard) d.perCard(ctx,c,j); }
+    }
+  }
+  for(const j of S.jokers){ const d=JBY[j.id]; if(d.add) d.add(ctx,j); }
+  for(const j of S.jokers){ const d=JBY[j.id]; if(d.mult) d.mult(ctx,j); }
+  ctx.km = Math.round(ctx.km*100)/100;
+  ctx.tempo = Math.round(ctx.tempo*100)/100;
+  ctx.total = Math.round(ctx.km*ctx.tempo);
+  return ctx;
+}
+
+function selectedCards(){ return S.hand.filter(c=>S.sel.includes(c.id)); }
+
+function toggleCard(id){
+  const i = S.sel.indexOf(id);
+  if(i>=0) S.sel.splice(i,1);
+  else { if(S.sel.length>=5){ toast("Five cards. The car has five seats."); return; } S.sel.push(id); }
+  render();
+}
+
+function playSelected(){
+  if(S.screen!=="round" || S.maneuvers<=0) return;
+  const sel = selectedCards();
+  if(sel.length<1 || sel.length>5) return;
+  if(bossIs("psychic") && sel.length!==5){ toast("The crowd accepts only full gestures: exactly 5 cards."); return; }
+  if(bossIs("toll")) S.kuna = Math.max(0, S.kuna-3);
+  sel.forEach(c=>c.faceDown=false);
+  const res = scoreHand(sel);
+  S.playsThisRound++; S.maneuvers--;
+  S.score += res.total;
+  S.lastPlay = res;
+  S.stats.hands++;
+  if(res.total > S.stats.bestHand) S.stats.bestHand = res.total;
+  for(const j of S.jokers){ const d=JBY[j.id]; if(d.onPlay) d.onPlay(j); }
+  S.hand = S.hand.filter(c=>!S.sel.includes(c.id));
+  S.sel = [];
+  if(S.score >= S.target){ winRound(); save(); render(); return; }
+  if(S.maneuvers<=0){ gameOver(); save(); render(); return; }
+  if(bossIs("bura")){
+    let blown=0;
+    for(let i=0;i<2 && S.hand.length;i++){ S.hand.splice(rnd(S.hand.length),1); blown++; }
+    if(blown) toast("The Bura takes "+blown+" card"+(blown>1?"s":"")+" over the guardrail.");
+  }
+  if(bossIs("venice")){ S.venSuit = SUIT_KEYS[rnd(4)]; }
+  drawTo(HAND_SIZE);
+  save(); render();
+}
+
+function discardSelected(){
+  if(S.screen!=="round" || S.discards<=0) return;
+  const sel = selectedCards();
+  if(sel.length<1 || sel.length>5) return;
+  S.discards--; S.discardsThisRound++;
+  for(const j of S.jokers){ const d=JBY[j.id]; if(d.onDiscard) d.onDiscard(j); }
+  S.hand = S.hand.filter(c=>!S.sel.includes(c.id));
+  S.sel = [];
+  drawTo(HAND_SIZE);
+  save(); render();
+}
+
+function winRound(){
+  S.stats.rounds++;
+  const base = blindReward();
+  const perHand = S.maneuvers; // maneuvers left over
+  const interest = Math.min(5, Math.floor(S.kuna/5));
+  for(const j of S.jokers){ const d=JBY[j.id]; if(d.onRoundEnd) d.onRoundEnd(j); }
+  const dead = S.jokers.filter(j=>j.id==="maraschino" && (j.state.tempo||0)<=0);
+  if(dead.length){ S.jokers = S.jokers.filter(j=>!dead.includes(j));
+    toast("The Maraschino is vinegar now. It leaves quietly."); }
+  S.kuna += base + perHand + interest;
+  S.cash = {base, perHand, interest};
+  S.screen = "cash";
+}
+
+function destroyCards(cards){
+  const ids = new Set(cards.map(c=>c.id));
+  S.master = S.master.filter(c=>!ids.has(c.id));
+  S.hand = S.hand.filter(c=>!ids.has(c.id));
+  S.drawPile = S.drawPile.filter(c=>!ids.has(c.id));
+  S.sel = S.sel.filter(id=>!ids.has(id));
+}
+
+function useOmen(i){
+  if(S.screen!=="round"){ toast("Omens are read on the road."); return; }
+  const inst = S.omens[i]; if(!inst) return;
+  const def = OBY[inst.id];
+  if(def.targets>0){
+    const sel = selectedCards();
+    if(sel.length<1 || sel.length>def.targets){
+      toast(def.name+" wants "+(def.targets===1?"exactly 1 selected card":"1–"+def.targets+" selected cards")+".");
+      return;
+    }
+    def.use(sel);
+    S.sel=[];
+  } else {
+    def.use([]);
+  }
+  S.omens.splice(i,1);
+  save(); render();
+}
+
+function sellJoker(i){
+  const j = S.jokers[i]; if(!j) return;
+  const def = JBY[j.id];
+  S.kuna += Math.max(1, Math.floor(def.cost/2));
+  S.jokers.splice(i,1);
+  toast(def.name+" gets out at the next lay-by.");
+  save(); render();
+}
+
+function gameOver(){
+  S.screen = "gameover";
+}
+
+/* ---- shop ---- */
+function genShop(){
+  const items = [];
+  for(let i=0;i<3;i++){
+    const r = Math.random();
+    if(r<0.55){
+      const taken = new Set([...S.jokers.map(j=>j.id),
+        ...items.filter(x=>x.kind==="joker").map(x=>x.id)]);
+      const pool = JOKERS.filter(j=>!taken.has(j.id));
+      if(pool.length){ const d=pick(pool); items.push({kind:"joker", id:d.id, price:d.cost, sold:false}); continue; }
+    }
+    if(r<0.8){
+      items.push({kind:"radio", hand:pick(HAND_KEYS), price:COSTS.radio, sold:false});
+    } else {
+      items.push({kind:"omen", id:pick(OMENS).id, price:COSTS.omen, sold:false});
+    }
+  }
+  S.shop = {items};
+}
+
+function buyItem(i){
+  const it = S.shop.items[i];
+  if(!it || it.sold) return;
+  if(S.kuna < it.price){ toast("The kiosk does not extend credit."); return; }
+  if(it.kind==="joker"){
+    if(S.jokers.length>=MAX_JOKERS){ toast("The car seats five passengers. Someone must get out first."); return; }
+    S.kuna -= it.price;
+    const inst = {id:it.id, state:{}};
+    if(JBY[it.id].init) JBY[it.id].init(inst);
+    S.jokers.push(inst);
+  } else if(it.kind==="omen"){
+    if(S.omens.length>=MAX_OMENS){ toast("Two omens is already too many to know."); return; }
+    S.kuna -= it.price;
+    S.omens.push({id:it.id});
+  } else if(it.kind==="radio"){
+    S.kuna -= it.price;
+    S.handLevels[it.hand]++;
+    toast(RADIO_NAMES[it.hand]+" comes in clear. "+HANDS[it.hand].name+" is now level "+S.handLevels[it.hand]+".");
+  }
+  it.sold = true;
+  save(); render();
+}
+
+function rerollShop(){
+  if(S.kuna < COSTS.reroll){ toast("The kiosk does not extend credit."); return; }
+  S.kuna -= COSTS.reroll;
+  genShop();
+  save(); render();
+}
+
+function toShop(){ genShop(); S.screen="shop"; save(); render(); }
+function leaveShop(){ advanceBlind(); save(); render(); }
+
+function advanceBlind(){
+  if(S.blind<2){ S.blind++; }
+  else {
+    if(S.leg>=LEGS.length-1){ S.screen="win"; return; }
+    S.leg++; S.blind=0;
+    S.prophecy = pick(PROPHECIES);
+  }
+  S.screen = "preview";
+}
+
+function afterBossOrRound(){ // leaving the cash screen
+  if(isBossBlind() && S.leg>=LEGS.length-1){
+    S.screen="win"; save(); render(); return;
+  }
+  toShop();
+}
+
+/* ============================================================
+   PERSISTENCE
+   ============================================================ */
+const SAVE_KEY = "magistrala_run_v1";
+function save(){
+  if(!IS_BROWSER || !S) return;
+  try{ localStorage.setItem(SAVE_KEY, JSON.stringify({S, _uid})); }catch(e){}
+}
+function load(){
+  if(!IS_BROWSER) return false;
+  try{
+    const raw = localStorage.getItem(SAVE_KEY);
+    if(!raw) return false;
+    const data = JSON.parse(raw);
+    if(!data || !data.S || data.S.screen==="win" || data.S.screen==="gameover") return false;
+    S = data.S; _uid = data._uid||1;
+    // re-link hand/drawPile refs to the master card objects
+    const byId = {}; S.master.forEach(c=>byId[c.id]=c);
+    S.hand = S.hand.map(c=>byId[c.id]||c);
+    S.drawPile = S.drawPile.map(c=>byId[c.id]||c);
+    return true;
+  }catch(e){ return false; }
+}
+function hasSave(){
+  if(!IS_BROWSER) return false;
+  try{ return !!localStorage.getItem(SAVE_KEY); }catch(e){ return false; }
+}
+function clearSave(){ if(IS_BROWSER){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} } }
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+function fmt(n){ return n.toLocaleString("en-US"); }
+
+let toastTimer=null;
 function toast(msg){
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.style.display = "block";
+  if(!IS_BROWSER) return;
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>{ t.style.display="none"; }, 9000);
+  toastTimer=setTimeout(()=>t.classList.remove("show"), 2600);
 }
 
-render();
+function cardHTML(c){
+  const deb = isDebuffed(c) ? " debuffed" : "";
+  const back = c.faceDown ? " back" : "";
+  const sel = S.sel.includes(c.id) ? " sel" : "";
+  const col = SUITS[c.suit].color;
+  const star = c.enh==="saint" ? "✦" : "";
+  return `<div class="card${sel}${deb}${back}" onclick="toggleCard(${c.id})">
+    <div class="rank" style="color:${col}">${RANK_LABEL[c.rank]}${star}</div>
+    <div class="glag">${GLAG[c.rank]}</div>
+    <div class="suit">${SUITS[c.suit].glyph}</div></div>`;
+}
+
+function jokerHTML(j, i, sellable){
+  const d = JBY[j.id];
+  const tag = d.tag ? ` <span style="color:var(--good)">[${d.tag(j)}]</span>` : "";
+  const sell = sellable ? `<button class="btn small danger" style="margin-top:5px" onclick="sellJoker(${i})">sell ${Math.max(1,Math.floor(d.cost/2))} kn</button>` : "";
+  return `<div class="joker"><div class="jname">${esc(d.name)}${tag}</div>
+    <div class="jdesc">${esc(d.desc)}</div>${sell}</div>`;
+}
+
+function omenHTML(o, i){
+  const d = OBY[o.id];
+  const usable = S.screen==="round";
+  return `<div class="joker omen"><div class="jname">${esc(d.name)}</div>
+    <div class="jdesc">${esc(d.desc)}</div>
+    ${usable?`<button class="btn small" style="margin-top:5px" onclick="useOmen(${i})">read it</button>`:""}</div>`;
+}
+
+function crewHTML(sellable){
+  if(!S.jokers.length && !S.omens.length) return "";
+  return `<div class="jrow">`
+    + S.jokers.map((j,i)=>jokerHTML(j,i,sellable)).join("")
+    + S.omens.map((o,i)=>omenHTML(o,i)).join("")
+    + `</div><div class="slotnote">passengers ${S.jokers.length}/${MAX_JOKERS} · omens ${S.omens.length}/${MAX_OMENS}</div>`;
+}
+
+function sortHand(){
+  const mode = S.sortMode||"rank";
+  S.hand.sort((a,b)=> mode==="rank"
+    ? (b.rank-a.rank || SUIT_KEYS.indexOf(a.suit)-SUIT_KEYS.indexOf(b.suit))
+    : (SUIT_KEYS.indexOf(a.suit)-SUIT_KEYS.indexOf(b.suit) || b.rank-a.rank));
+}
+function setSort(m){ S.sortMode=m; render(); }
+
+function previewHTML(){
+  const leg=curLeg(); const boss=isBossBlind();
+  const name=blindName(); const target=blindTarget(S.leg,S.blind);
+  return `
+  <div class="glagtitle" style="font-size:22px;margin-top:8px">ⰏⰀⰃⰋⰔⰕⰓⰀⰎⰀ</div>
+  <div class="panel">
+    <div class="legname">Leg ${S.leg+1} of 8 · ${leg.from} → ${leg.to}</div>
+    <p class="oracle">${esc(leg.flavor)}</p>
+    <p class="oracle tiny" style="color:#54708c">${esc(S.prophecy)}</p>
+  </div>
+  <div class="panel" style="${boss?"border-color:#7a3050":""}">
+    <div class="spread"><h2 style="color:${boss?"#ffd0e0":"var(--gold2)"};font-size:21px">${esc(name)}</h2>
+      <div class="stat">reward <b class="kn">${blindReward()} kn</b>+</div></div>
+    ${boss?`<div class="bossbanner"><b>${esc(leg.boss.desc)}</b><br><span style="color:#c890a8">${esc(leg.boss.flavor)}</span></div>`:""}
+    <div class="stat" style="margin-top:6px">distance to cover: <b>${fmt(target)} km</b></div>
+    <div class="stat">maneuvers: <b>${maneuversForRound()}</b> · scenic glances: <b>3</b></div>
+    <div style="margin-top:12px">
+      <button class="btn gold" onclick="startBlind();render()">DRIVE</button>
+      ${!boss?`<button class="btn" onclick="skipBlind()">wave it through</button>`:""}
+    </div>
+    ${!boss?`<div class="tiny" style="margin-top:6px">Waving a stretch through skips it — no shop, but the road usually leaves something on the passenger seat.</div>`:""}
+  </div>
+  ${crewHTML(true)}
+  <div class="spread" style="margin-top:14px">
+    <span class="stat kn"><b>${S.kuna} kn</b></span>
+    <button class="btn small danger" onclick="abandonRun()">abandon run</button>
+  </div>`;
+}
+
+function roundHTML(){
+  sortHand();
+  const leg=curLeg();
+  const pct=Math.min(100, Math.round(100*S.score/S.target));
+  const lp=S.lastPlay;
+  const sel=selectedCards();
+  const ev = sel.length ? evaluate(sel) : null;
+  return `
+  <div class="topbar">
+    <div>
+      <div class="legname">Leg ${S.leg+1}/8 · ${leg.from} → ${leg.to}</div>
+      <div class="blindname">${esc(blindName())}</div>
+    </div>
+    <div style="text-align:right">
+      <div class="stat">maneuvers <b>${S.maneuvers}</b> · glances <b>${S.discards}</b></div>
+      <div class="stat"><span class="kn"><b>${S.kuna} kn</b></span> · deck <b>${S.drawPile.length}</b></div>
+    </div>
+  </div>
+  <div class="progress"><div style="width:${pct}%"></div></div>
+  <div class="targetline"><span><b>${fmt(S.score)}</b> km driven</span><span>of <b>${fmt(S.target)}</b> km</span></div>
+  ${isBossBlind()?`<div class="bossbanner"><b>${esc(curLeg().boss.name)}</b> — ${esc(curLeg().boss.desc)}
+    ${bossIs("venice")&&S.venSuit?`<br>Forbidden now: <b>${SUITS[S.venSuit].glyph} ${SUITS[S.venSuit].name}</b>`:""}</div>`:""}
+  ${crewHTML(false)}
+  ${lp?`<div class="panel lastplay">
+      <div class="hname">${esc(HANDS[lp.type].name).toUpperCase()} <span class="tiny">lvl ${lp.lvl}</span></div>
+      <div class="math"><span class="km">${fmt(lp.km)} KM</span> × <span class="tm">${fmt(lp.tempo)} TEMPO</span> = <span class="total">${fmt(lp.total)} km</span></div>
+      ${lp.debuffed.length?`<div class="tiny" style="color:var(--bad)">${lp.debuffed.length} card(s) scored nothing</div>`:""}
+    </div>`:""}
+  <div class="hand">${S.hand.map(c=>cardHTML(c)).join("")}</div>
+  <div class="spread">
+    <span class="stat" style="min-height:18px">${ev?`→ <b>${esc(HANDS[ev.type].name)}</b> lvl ${S.handLevels[ev.type]}`:""}</span>
+    <span>
+      <button class="btn small" onclick="setSort('rank')">⇅ rank</button>
+      <button class="btn small" onclick="setSort('suit')">⇅ suit</button>
+    </span>
+  </div>
+  <div class="controls">
+    <button class="btn gold" onclick="playSelected()" ${sel.length?"":"disabled"}>PLAY MANEUVER</button>
+    <button class="btn" onclick="discardSelected()" ${sel.length&&S.discards>0?"":"disabled"}>scenic glance</button>
+  </div>
+  <div class="spread"><span class="tiny">${esc(S.prophecy)}</span>
+    <button class="btn small danger" onclick="abandonRun()">abandon</button></div>`;
+}
+
+function cashHTML(){
+  const c=S.cash;
+  return `
+  <div class="bigscreen">
+    <div class="legname">${esc(blindName())} — cleared</div>
+    <h2 style="font-size:24px">${fmt(S.score)} km on the clock</h2>
+    <div class="panel" style="text-align:left">
+      <div class="statline">stretch cleared <b style="float:right" class="kn">${c.base} kn</b></div>
+      <div class="statline">maneuvers unspent <b style="float:right" class="kn">${c.perHand} kn</b></div>
+      <div class="statline">interest (1 per 5 kn held, max 5) <b style="float:right" class="kn">${c.interest} kn</b></div>
+      <hr><div class="statline">wallet <b style="float:right" class="kn">${S.kuna} kn</b></div>
+    </div>
+    <button class="btn gold" onclick="afterBossOrRound()">pull in at the kiosk</button>
+  </div>`;
+}
+
+function shopItemHTML(it, i){
+  let name, desc;
+  if(it.kind==="joker"){ const d=JBY[it.id]; name=d.name; desc=d.desc; }
+  else if(it.kind==="omen"){ const d=OBY[it.id]; name="Omen: "+d.name; desc=d.desc; }
+  else { name=RADIO_NAMES[it.hand];
+    desc="Levels up "+HANDS[it.hand].name+" (+"+HANDS[it.hand].lkm+" KM, +"+HANDS[it.hand].ltempo+" Tempo). Currently lvl "+S.handLevels[it.hand]+"."; }
+  return `<div class="shopitem ${it.sold?"sold":""}">
+    <div><div class="sname">${esc(name)}</div><div class="sdesc">${esc(desc)}</div></div>
+    <div style="text-align:right">
+      <div class="price">${it.price} kn</div>
+      ${it.sold?`<div class="tiny">taken</div>`:`<button class="btn small gold" onclick="buyItem(${i})">buy</button>`}
+    </div></div>`;
+}
+
+function shopHTML(){
+  return `
+  <div class="glagtitle" style="font-size:20px;margin-top:8px">THE KIOSK AT THE EDGE OF THE ROAD</div>
+  <div class="subtitle">coffee, omens, passengers, one working radio</div>
+  <div class="panel">
+    ${S.shop.items.map((it,i)=>shopItemHTML(it,i)).join("")}
+    <div class="spread" style="margin-top:8px">
+      <button class="btn small" onclick="rerollShop()">restock shelf — ${COSTS.reroll} kn</button>
+      <span class="stat kn"><b>${S.kuna} kn</b></span>
+    </div>
+  </div>
+  ${crewHTML(true)}
+  <div class="controls"><button class="btn gold" onclick="leaveShop()">BACK ON THE ROAD</button></div>`;
+}
+
+function winHTML(){
+  clearSave();
+  return `
+  <div class="bigscreen">
+    <div class="glagtitle">ⰁⰋⰑⰃⰓⰀⰄ</div>
+    <h2>THE WHITE CITY RECEIVES YOU</h2>
+    <p class="fogtext">The fleet of 1125 lowers its signal flags. The fog rolls back out to sea like a tide
+    that has lost an argument. On the riva of Biograd somebody has set out one chair, facing the water,
+    and on the chair: a crown. It fits. It always fit.</p>
+    <h2 style="font-size:20px;color:var(--gold2)">PETAR KREŠIMIR IV, RETURNED</h2>
+    <div class="panel" style="text-align:left">
+      <div class="statline">stretches cleared <b style="float:right">${S.stats.rounds}</b></div>
+      <div class="statline">maneuvers played <b style="float:right">${S.stats.hands}</b></div>
+      <div class="statline">best single maneuver <b style="float:right">${fmt(S.stats.bestHand)} km</b></div>
+      <div class="statline">stretches waved through <b style="float:right">${S.stats.skips}</b></div>
+    </div>
+    <button class="btn gold" onclick="newRun();render()">drive it again</button>
+    <button class="btn" onclick="toMenu()">rest</button>
+  </div>`;
+}
+
+function gameoverHTML(){
+  clearSave();
+  const leg=curLeg();
+  return `
+  <div class="bigscreen">
+    <div class="glagtitle" style="color:#7f93a8">ⰏⰀⰃⰎⰀ</div>
+    <h2 style="color:#9fb0c4">THE FOG TAKES THE CAR</h2>
+    <p class="fogtext">Somewhere between ${leg.from} and ${leg.to}, the white comes down off the karst
+    and the road forgets it was going anywhere. You wake at the Pula amphitheater car park.
+    The engine is already running. It is always already running.</p>
+    <div class="panel" style="text-align:left">
+      <div class="statline">fell short by <b style="float:right">${fmt(Math.max(0,S.target-S.score))} km</b></div>
+      <div class="statline">stretches cleared <b style="float:right">${S.stats.rounds}</b></div>
+      <div class="statline">best single maneuver <b style="float:right">${fmt(S.stats.bestHand)} km</b></div>
+    </div>
+    <button class="btn gold" onclick="newRun();render()">wake up. drive.</button>
+    <button class="btn" onclick="toMenu()">stay in the fog</button>
+  </div>`;
+}
+
+function menuHTML(){
+  const cont = hasSave();
+  return `
+  <div class="bigscreen" style="padding-top:60px">
+    <div class="glagtitle">ⰏⰀⰃⰋⰔⰕⰓⰀⰎⰀ</div>
+    <div class="subtitle">MAGISTRALA — the drive from Pula to Biograd, remembered wrong</div>
+    <p class="fogtext" style="margin-top:24px">Eight legs of coast road. A deck of Sea, Stone, Wind and Asphalt.
+    The Bura is real and it is waiting above Senj. Out-drive the road's hazards and crown yourself
+    at Biograd — or the fog returns you to the Pula car park to begin again. It is a loop.
+    It was always a loop.</p>
+    <div style="margin-top:20px">
+      ${cont?`<button class="btn gold" onclick="continueRun()">continue the drive</button>`:""}
+      <button class="btn ${cont?"":"gold"}" onclick="confirmNewRun()">new run</button>
+      <button class="btn" onclick="toggleRules()">how the road works</button>
+    </div>
+    <div class="panel rules" id="rules" style="display:none;text-align:left">
+      <b>The loop:</b> each of the 8 legs has an Open Road, Heavy Traffic, and a named hazard
+      waiting at the landmark. Cover the distance before your maneuvers run out.<br><br>
+      <b>Maneuvers</b> are poker hands: a Pair is an <b>Overtake</b>, a Straight is <b>The Magistrala</b>,
+      a Flush is a <b>Full Bura</b>, a Full House is a <b>Konoba Lunch</b>. Each scores
+      <b>KM × TEMPO</b>. A <b>scenic glance</b> discards up to five cards and draws fresh ones.<br><br>
+      <b>Passengers</b> ride along and bend the scoring in their favor. <b>Omens</b> are read once,
+      on the road, against your selected cards. <b>Radio stations</b> level a maneuver up permanently.
+      Money is in <b>kuna</b>, which no longer exists, which is why the kiosk accepts it.<br><br>
+      <b>The driver may watch. The driver may never play.</b> The driver is the sacrifice.
+    </div>
+    <div class="tiny" style="margin-top:24px">no network · no build · the run sleeps in localStorage between bursts of play</div>
+  </div>`;
+}
+
+function toggleRules(){
+  const r=document.getElementById("rules");
+  r.style.display = r.style.display==="none" ? "block" : "none";
+}
+function toMenu(){ S=null; render(); }
+function continueRun(){ if(load()){ render(); } else { newRun(); render(); } }
+function confirmNewRun(){
+  if(hasSave() && IS_BROWSER && !confirm("Abandon the saved drive and start over?")) return;
+  clearSave(); newRun(); render();
+}
+function abandonRun(){
+  if(IS_BROWSER && !confirm("Pull over and let the fog have it?")) return;
+  clearSave(); toMenu();
+}
+
+function render(){
+  if(!IS_BROWSER) return;
+  const app=document.getElementById("app");
+  if(!S){ app.innerHTML=menuHTML(); return; }
+  switch(S.screen){
+    case "preview": app.innerHTML=previewHTML(); break;
+    case "round":   app.innerHTML=roundHTML(); break;
+    case "cash":    app.innerHTML=cashHTML(); break;
+    case "shop":    app.innerHTML=shopHTML(); break;
+    case "win":     app.innerHTML=winHTML(); break;
+    case "gameover":app.innerHTML=gameoverHTML(); break;
+    default: app.innerHTML=menuHTML();
+  }
+  window.scrollTo(0,0);
+}
+
+function boot(){ S=null; render(); }
+if(IS_BROWSER) boot();
+
+/* exported for harness testing in node */
+if(typeof module!=="undefined" && module.exports){
+  module.exports = {get S(){return S;}, set S(v){S=v;}, newRun, startBlind, skipBlind,
+    playSelected, discardSelected, useOmen, sellJoker, buyItem, rerollShop, toShop,
+    leaveShop, afterBossOrRound, evaluate, scoreHand, toggleCard, selectedCards,
+    HANDS, JOKERS, OMENS, LEGS, newCard, blindTarget, JBY, OBY, maneuversForRound};
+}
 </script>
 </body>
 </html>
