@@ -21,6 +21,8 @@
     --signgreen:#11603a; --signblue:#14497e;
   }
   .mi{width:1em; height:1em; vertical-align:-.13em; fill:currentColor; flex:0 0 auto;}
+  .bx .mi{width:14px; height:14px;}
+  .bx.icon{padding:7px 9px;}
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{margin:0; padding:0; min-height:100%; background:#0a1420;}
   body{font-family:var(--serif); color:var(--ink); overflow-x:hidden;}
@@ -802,6 +804,101 @@ const PROPHECIES = [
 ];
 
 /* ============================================================
+   SOUND — procedural Web Audio. No assets; every bloop, flip and
+   swipe is synthesized, so the file stays self-contained.
+   ============================================================ */
+const SND_KEY="magistrala_sound";
+const SFX=(()=>{
+  let ac=null, master=null, noiseBuf=null;
+  let muted=(()=>{ if(!IS_BROWSER) return true;
+    try{ return localStorage.getItem(SND_KEY)==="0"; }catch(e){ return false; } })();
+  function ctx(){
+    if(!IS_BROWSER) return null;
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC) return null;
+    if(!ac){ ac=new AC(); master=ac.createGain(); master.gain.value=.45; master.connect(ac.destination); }
+    if(ac.state==="suspended") ac.resume();
+    return ac;
+  }
+  function env(node,t0,vol,a,d){
+    const g=ac.createGain();
+    g.gain.setValueAtTime(.0001,t0);
+    g.gain.linearRampToValueAtTime(vol,t0+a);
+    g.gain.exponentialRampToValueAtTime(.0001,t0+a+d);
+    node.connect(g); g.connect(master);
+  }
+  function tone(o){
+    const c=ctx(); if(!c||muted) return;
+    const t0=c.currentTime+(o.at||0), a=o.a||.005, d=o.d||.12;
+    const osc=c.createOscillator(); osc.type=o.type||"sine";
+    osc.frequency.setValueAtTime(o.f||440,t0);
+    if(o.slide) osc.frequency.exponentialRampToValueAtTime(o.slide,t0+a+d);
+    env(osc,t0,o.v||.15,a,d);
+    osc.start(t0); osc.stop(t0+a+d+.05);
+  }
+  function noise(o){
+    const c=ctx(); if(!c||muted) return;
+    const t0=c.currentTime+(o.at||0), a=o.a||.01, d=o.d||.15;
+    if(!noiseBuf){ noiseBuf=c.createBuffer(1,c.sampleRate,c.sampleRate);
+      const b=noiseBuf.getChannelData(0);
+      for(let i=0;i<b.length;i++) b[i]=Math.random()*2-1; }
+    const src=c.createBufferSource(); src.buffer=noiseBuf; src.loop=true;
+    const f=c.createBiquadFilter(); f.type=o.ftype||"bandpass"; f.Q.value=o.q||1;
+    f.frequency.setValueAtTime(o.f||2000,t0);
+    if(o.slide) f.frequency.exponentialRampToValueAtTime(o.slide,t0+a+d);
+    src.connect(f); env(f,t0,o.v||.2,a,d);
+    src.start(t0); src.stop(t0+a+d+.05);
+  }
+  const X={};
+  /* taps & cards */
+  X.click   =()=>tone({f:1500,slide:900,type:"triangle",v:.06,d:.05});
+  X.select  =()=>tone({f:540,slide:700,type:"triangle",v:.11,d:.08});
+  X.deselect=()=>tone({f:700,slide:520,type:"triangle",v:.09,d:.07});
+  X.deal    =(n)=>{ for(let i=0;i<Math.min(n,10);i++)
+    noise({at:i*.065,f:2600+i*170,slide:1200,q:1.6,v:.09,a:.004,d:.09}); };
+  X.swipe   =()=>noise({f:900,slide:3400,q:1.2,v:.15,a:.02,d:.2});
+  /* the drive, beat by beat — pitches climb with the chain */
+  X.drive=(res)=>{
+    X.swipe();
+    const bd=res.breakdown||[];
+    bd.forEach((b,i)=>{
+      const at=.15+i*.11;
+      if(b.deb){ tone({at,f:150,type:"square",v:.07,d:.09}); return; }
+      tone({at,f:480*Math.pow(1.12,i),v:.1,d:.07});
+      noise({at,f:4200,q:3,v:.04,a:.003,d:.03});
+      (b.bon||[]).forEach((m,k)=>tone({at:at+.05+k*.025,
+        f:{link:659,shift:784,echo:880}[m]||659,type:"triangle",v:.07,d:.12}));
+    });
+    const at=.15+bd.length*.11+.33;
+    tone({at,f:160,slide:70,v:.28,d:.3});
+    noise({at,f:300,ftype:"lowpass",v:.1,a:.004,d:.12});
+    if(res.fullsend) [523,659,784,1047].forEach((f,i)=>tone({at:at+.07+i*.07,f,type:"triangle",v:.11,d:.22}));
+  };
+  /* events */
+  X.cleared=()=>{ tone({f:95,slide:55,v:.3,d:.35}); noise({f:500,ftype:"lowpass",v:.16,a:.004,d:.15});
+    [392,494,587,784].forEach((f,i)=>tone({at:.24+i*.09,f,type:"triangle",v:.12,d:.25})); };
+  X.coin =()=>{ tone({f:1245,type:"square",v:.06,d:.06}); tone({at:.07,f:1865,type:"square",v:.06,d:.16}); };
+  X.buy  =()=>{ X.coin(); tone({at:.16,f:330,v:.13,d:.12}); };
+  X.sell =()=>tone({f:880,slide:440,type:"triangle",v:.09,d:.16});
+  X.reroll=()=>{ for(let i=0;i<3;i++) tone({at:i*.06,f:1100+i*150,type:"square",v:.045,d:.03}); };
+  X.omen =()=>[660,830,990].forEach((f,i)=>tone({at:i*.05,f,slide:f*1.5,v:.08,d:.4}));
+  X.pop  =()=>tone({f:330,slide:392,v:.08,d:.07});
+  X.bura =()=>noise({f:400,slide:1800,q:.8,v:.18,a:.05,d:.55});
+  X.gameover=()=>{ tone({f:220,slide:65,v:.22,a:.02,d:1.1});
+    noise({f:600,slide:200,ftype:"lowpass",v:.1,a:.1,d:1.2}); };
+  X.win=()=>{ [523,659,784,1047,1319].forEach((f,i)=>tone({at:i*.12,f,type:"triangle",v:.13,d:.35}));
+    tone({at:.6,f:262,v:.18,d:.8}); };
+  X.muted=()=>muted;
+  X.toggle=()=>{ muted=!muted;
+    try{ localStorage.setItem(SND_KEY, muted?"0":"1"); }catch(e){}
+    if(!muted){ ctx(); X.pop(); }
+    return muted; };
+  X.unlock=()=>{ if(!muted) ctx(); };
+  return X;
+})();
+function toggleSound(){ SFX.toggle(); render(); }
+
+/* ============================================================
    STATE
    ============================================================ */
 let S = null;
@@ -871,6 +968,7 @@ function startBlind(){
   S.screen = "round";
   S.venSuit = bossIs("venice") ? SUIT_KEYS[rnd(4)] : null;
   drawTo(HAND_SIZE);
+  SFX.deal(S.hand.length);
   save();
 }
 
@@ -885,6 +983,7 @@ function drawTo(n){
 function skipBlind(){
   if(isBossBlind()) return;
   S.stats.skips++;
+  SFX.swipe();
   if(S.omens.length<MAX_OMENS && Math.random()<0.6){
     const o = pick(OMENS);
     S.omens.push({id:o.id});
@@ -959,8 +1058,8 @@ function selectedCards(){
 function toggleCard(id){
   if(ANIM.busy) return;
   const i = S.sel.indexOf(id);
-  if(i>=0) S.sel.splice(i,1);
-  else { if(S.sel.length>=5){ toast("Five cards. The car has five seats."); return; } S.sel.push(id); }
+  if(i>=0){ S.sel.splice(i,1); SFX.deselect(); }
+  else { if(S.sel.length>=5){ toast("Five cards. The car has five seats."); return; } S.sel.push(id); SFX.select(); }
   render();
 }
 
@@ -988,6 +1087,7 @@ function playSelected(){
   const won = S.score >= S.target;
   const lost = !won && S.maneuvers<=0;
   if(!IS_BROWSER){ afterPlayback(won, lost); return; }
+  SFX.drive(res);
   ANIM.busy = true;
   save(); render();
   clearTimeout(ANIM.timer);
@@ -996,17 +1096,19 @@ function playSelected(){
 
 function afterPlayback(won, lost){
   if(won){
-    if(IS_BROWSER){ ANIM.cleared = true; save(); render(); return; }
+    if(IS_BROWSER){ ANIM.cleared = true; SFX.cleared(); save(); render(); return; }
     winRound(); save(); render(); return;
   }
   if(lost){ gameOver(); save(); render(); return; }
   if(bossIs("bura")){
     let blown=0;
     for(let i=0;i<2 && S.hand.length;i++){ S.hand.splice(rnd(S.hand.length),1); blown++; }
-    if(blown) toast("The Bura takes "+blown+" card"+(blown>1?"s":"")+" over the guardrail.");
+    if(blown){ SFX.bura(); toast("The Bura takes "+blown+" card"+(blown>1?"s":"")+" over the guardrail."); }
   }
   if(bossIs("venice")){ S.venSuit = SUIT_KEYS[rnd(4)]; }
+  const had=S.hand.length;
   drawTo(HAND_SIZE);
+  if(S.hand.length>had) SFX.deal(S.hand.length-had);
   save(); render();
 }
 
@@ -1021,10 +1123,13 @@ function discardSelected(){
   const sel = selectedCards();
   if(sel.length<1 || sel.length>5) return;
   S.discards--; S.discardsThisRound++;
+  SFX.swipe();
   for(const j of S.jokers){ const d=JBY[j.id]; if(d.onDiscard) d.onDiscard(j); }
   S.hand = S.hand.filter(c=>!S.sel.includes(c.id));
   S.sel = [];
+  const had=S.hand.length;
   drawTo(HAND_SIZE);
+  if(S.hand.length>had) SFX.deal(S.hand.length-had);
   save(); render();
 }
 
@@ -1067,6 +1172,7 @@ function useOmen(i){
     def.use([]);
   }
   S.omens.splice(i,1);
+  SFX.omen();
   save(); render();
 }
 
@@ -1075,6 +1181,7 @@ function sellJoker(i){
   const def = JBY[j.id];
   S.kuna += Math.max(1, Math.floor(def.cost/2));
   S.jokers.splice(i,1);
+  SFX.sell();
   toast(def.name+" gets out at the next lay-by.");
   save(); render();
 }
@@ -1123,12 +1230,14 @@ function buyItem(i){
     toast(RADIO_NAMES[it.move]+" comes in clear. "+MOVES[it.move].name+" is now level "+S.moveLevels[it.move]+".");
   }
   it.sold = true;
+  SFX.buy();
   save(); render();
 }
 
 function rerollShop(){
   if(S.kuna < COSTS.reroll){ toast("The kiosk does not extend credit."); return; }
   S.kuna -= COSTS.reroll;
+  SFX.reroll();
   genShop();
   save(); render();
 }
@@ -1218,6 +1327,8 @@ function pipSVG(suit, cls){ return `<svg class="${cls||""}" viewBox="0 0 24 24" 
 const CAR_SVG = '<svg viewBox="0 0 26 12" aria-hidden="true"><path fill="#f3d878" d="M1 8c0-2 1.5-3 4-3.4L8 2.4C8.6 1.6 9.6 1 10.8 1h6.4c1.6 0 3 .8 3.8 2.1L22.6 6C24.5 6.4 25 7.2 25 8.4c0 .9-.7 1.6-1.6 1.6H22a2.4 2.4 0 0 1-4.7 0h-8.6a2.4 2.4 0 0 1-4.7 0H2.6C1.7 10 1 9.1 1 8Z"/><circle cx="6.5" cy="9.6" r="1.7" fill="#2b2418"/><circle cx="19.6" cy="9.6" r="1.7" fill="#2b2418"/></svg>';
 /* Material Symbols (Apache 2.0): "speed" = the km gauge, "toll" = the kuna coins */
 const ICON_KM = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M418-340q25 25 63 23.5t55-27.5l169-253q9-14-2.5-25.5T677-625L424-456q-26 18-28.5 54.5T418-340ZM204-160q-22 0-40.5-9.5T134-198q-26-47-40-97.5T80-400q0-83 31.5-156T197-683q54-54 127-85.5T480-800q82 0 154 31t126 84.5q54 53.5 86 125T879-406q1 55-12.5 107.5T825-198q-11 19-29.5 28.5T755-160H204Z"/></svg>';
+const ICON_SOUND = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M760-481q0-83-44-151.5T598-735q-15-7-22-21.5t-2-29.5q6-16 21.5-23t31.5 0q97 43 155 131.5T840-481q0 108-58 196.5T627-153q-16 7-31.5 0T574-176q-5-15 2-29.5t22-21.5q74-34 118-102.5T760-481ZM280-360H160q-17 0-28.5-11.5T120-400v-160q0-17 11.5-28.5T160-600h120l132-132q19-19 43.5-8.5T480-703v446q0 27-24.5 37.5T412-228L280-360Zm380-120q0 42-19 79.5T591-339q-10 6-20.5.5T560-356v-250q0-12 10.5-17.5t20.5.5q31 25 50 63t19 80Z"/></svg>';
+const ICON_MUTE = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M671-177q-11 7-22 13t-23 11q-15 7-30.5 0T574-176q-6-15 1.5-29.5T598-227q7-3 13-6.5t12-7.5L480-368v111q0 27-24.5 37.5T412-228L280-360H160q-17 0-28.5-11.5T120-400v-160q0-17 11.5-28.5T160-600h88L84-764q-11-11-11-28t11-28q11-11 28-11t28 11l680 680q11 11 11 28t-11 28q-11 11-28 11t-28-11l-93-93Zm89-304q0-83-44-151.5T598-735q-15-7-22-21.5t-2-29.5q6-16 21.5-23t31.5 0q97 43 155 131t58 197q0 33-6 65.5T817-353q-8 22-24.5 27.5t-30.5.5q-14-5-22.5-18t-.5-30q11-26 16-52.5t5-55.5ZM591-623q33 21 51 63t18 80v10q0 5-1 10-2 13-14 17t-22-6l-51-51q-6-6-9-13.5t-3-15.5v-77q0-12 10.5-17.5t20.5.5Zm-201-59q-6-6-6-14t6-14l22-22q19-19 43.5-8.5T480-703v63q0 14-12 19t-22-5l-56-56Z"/></svg>';
 const ICON_KN = '<svg class="mi" viewBox="0 -960 960 960" aria-hidden="true"><path d="M600-160q-134 0-227-93t-93-227q0-134 93-227t227-93q134 0 227 93t93 227q0 134-93 227t-227 93Zm-320-10q-106-28-173-114T40-480q0-110 67-196t173-114v84q-72 25-116 87t-44 139q0 77 44 139t116 87v84Zm320-310Zm0 240q100 0 170-70t70-170q0-100-70-170t-170-70q-100 0-170 70t-70 170q0 100 70 170t170 70Z"/></svg>';
 const TRI_SVG = '<svg class="tri" viewBox="0 0 34 31" aria-hidden="true"><path d="M17 2 32 28.5 2 28.5 Z" fill="#7e1f1b" stroke="#f4d9d2" stroke-width="2.4" stroke-linejoin="round"/><text x="17" y="24" text-anchor="middle" font-size="16" font-family="Georgia,serif" fill="#ffd9cf">!</text></svg>';
 const CROWN_SVG = '<svg class="crown" viewBox="0 0 54 38" aria-hidden="true"><path d="M4 32 2 10 14 19 27 4 40 19 52 10 50 32 Z" fill="#d8b54a" stroke="#8a6c1c" stroke-width="2" stroke-linejoin="round"/><circle cx="27" cy="22" r="3.2" fill="#7e1f1b"/><circle cx="13.5" cy="25" r="2.3" fill="#14497e"/><circle cx="40.5" cy="25" r="2.3" fill="#14497e"/></svg>';
@@ -1235,6 +1346,7 @@ function fmtDesc(t){
 let toastTimer=null;
 function toast(msg){
   if(!IS_BROWSER) return;
+  SFX.pop();
   const t=document.getElementById("toast");
   t.textContent=msg; t.classList.add("show");
   clearTimeout(toastTimer);
@@ -1415,7 +1527,10 @@ function roundHTML(){
   ${crewHTML()}${infoHTML(false)}
   <div class="grow">${playzoneHTML()}</div>
   <div class="fanbar">
-    <button class="bx sm ghost" onclick="abandonRun()">abandon</button>
+    <span style="display:flex;gap:7px;align-items:center">
+      <button class="bx sm ghost icon" onclick="toggleSound()" aria-label="toggle sound">${SFX.muted()?ICON_MUTE:ICON_SOUND}</button>
+      <button class="bx sm ghost" onclick="abandonRun()">abandon</button>
+    </span>
     <span style="display:flex;gap:7px;align-items:center">
       ${S.sel.length>1?`<button class="bx sm" onclick="reverseSel()">⇄ reverse</button>`:""}
       <span class="seg">
@@ -1451,7 +1566,10 @@ function previewHTML(){
   ${crewHTML()}${infoHTML(true)}
   <div class="grow"></div>
   <div class="spread"><span class="kn" style="font-size:16px">${ICON_KN} ${S.kuna} kn</span>
-    <button class="bx sm ghost" onclick="abandonRun()">abandon run</button></div>
+    <span style="display:flex;gap:7px">
+      <button class="bx sm ghost icon" onclick="toggleSound()" aria-label="toggle sound">${SFX.muted()?ICON_MUTE:ICON_SOUND}</button>
+      <button class="bx sm ghost" onclick="abandonRun()">abandon run</button>
+    </span></div>
   <p class="tiny" style="text-align:center;margin-top:6px;font-style:italic">${esc(S.prophecy)}</p>`;
 }
 
@@ -1579,6 +1697,7 @@ function menuHTML(){
       <button class="bx ${cont||!introSeen()?"":"gold"}" onclick="confirmNewRun()">new run</button>
       ${cont||introSeen()?`<button class="bx ghost" onclick="startIntro()">how the road works</button>`:""}
       <button class="bx ghost sm" onclick="showRules()">read the rules instead</button>
+      <button class="bx ghost sm" onclick="toggleSound()">${SFX.muted()?ICON_MUTE:ICON_SOUND} sound ${SFX.muted()?"off":"on"}</button>
     </div>
     <div class="grow"></div>
   </div>
@@ -1820,7 +1939,14 @@ function render(){
     default: html=menuHTML();
   }
   app.innerHTML=html;
-  if(scr!==_lastScreen){ window.scrollTo(0,0); _lastScreen=scr; _odoShown=null; _pctShown=null; _lastHandIds=[]; }
+  if(scr!==_lastScreen){
+    if(_lastScreen){
+      if(scr==="gameover") SFX.gameover();
+      else if(scr==="win") SFX.win();
+      else if(scr==="cash") SFX.coin();
+    }
+    window.scrollTo(0,0); _lastScreen=scr; _odoShown=null; _pctShown=null; _lastHandIds=[];
+  }
   if(S && scr==="round"){
     // a fresh play holds the odometer & road until the per-card chips have landed
     const lp=S.lastPlay;
@@ -1870,7 +1996,13 @@ function tweenOdo(el, from, to){
 }
 
 function boot(){ S=null; render(); }
-if(IS_BROWSER) boot();
+if(IS_BROWSER){
+  boot();
+  document.addEventListener("pointerdown",(e)=>{
+    SFX.unlock();
+    if(e.target.closest && e.target.closest(".bx,.seg button,.ctile")) SFX.click();
+  }, true);
+}
 
 /* exported for harness testing in node */
 if(typeof module!=="undefined" && module.exports){
