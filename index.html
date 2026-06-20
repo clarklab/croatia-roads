@@ -338,9 +338,6 @@
   .pzmoves span{color:var(--faint);}
   .pz.fs{border-color:rgba(216,181,74,.55); box-shadow:0 0 22px rgba(216,181,74,.22) inset, 0 0 18px rgba(216,181,74,.12);}
   .pz.fs .pzname{text-shadow:0 0 14px rgba(216,181,74,.8);}
-  .pzhint{font-family:var(--disp); font-weight:600; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase;
-    color:var(--dim); line-height:2; margin-bottom:2px;}
-  .pzhint .mi{color:var(--gold2);}
   .pcard .ord{position:absolute; top:-9px; right:-6px; width:20px; height:20px; border-radius:50%;
     background:linear-gradient(180deg,var(--gold2),#b08f2e); color:#241c04; font-family:var(--disp);
     font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center;
@@ -350,6 +347,35 @@
   @keyframes chipfloat{from{opacity:0; transform:translate(-50%,8px)} 35%{opacity:1} to{opacity:1; transform:translate(-50%,0)}}
   @keyframes fadeup{from{opacity:0; transform:translateY(7px)} to{opacity:1; transform:translateY(0)}}
   @keyframes slam{from{opacity:0; transform:scale(1.7)} to{opacity:1; transform:scale(1)}}
+
+  /* ---- idle playzone: the scoring legend as a tidy grid of move keys ---- */
+  .movekeys{display:grid; grid-template-columns:repeat(2,1fr); gap:6px; width:100%; max-width:344px;}
+  .mk{display:flex; align-items:center; gap:8px; padding:6px 9px; border-radius:9px;
+    background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.09);}
+  .mk i{font-style:normal; font-family:var(--disp); font-weight:700; font-size:11px; letter-spacing:.05em;
+    min-width:42px; text-align:left;}
+  .mk span{flex:1; font-family:var(--serif); font-style:normal; font-size:11px; color:#9fb2c4; text-align:left; line-height:1.2;}
+  .mk b{font-family:var(--mono); font-size:12.5px; color:var(--ink); font-variant-numeric:tabular-nums;}
+  .mk.fs{grid-column:1 / -1; border-color:rgba(216,181,74,.45); background:rgba(216,181,74,.08);}
+  .mk.fs i, .mk.fs b{color:var(--gold2);}
+  .pzform{font-family:var(--disp); font-weight:600; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--dim); margin-top:2px;}
+  .pzform b{font-family:var(--mono); font-weight:600;}
+  .pzform .km{color:#7fc3e8;} .pzform .tm{color:#f49a82;}
+
+  /* ---- stretch brief (pre-drive): one panel, target + objective squares ---- */
+  .brief{display:flex; flex-direction:column; gap:11px;}
+  .brieflavor{text-align:center; font-style:italic; font-family:var(--serif); color:#b9c6d6;
+    font-size:13px; line-height:1.45; margin:4px auto 0; max-width:330px;}
+  .brieftarget{display:flex; flex-direction:column; align-items:center; gap:1px;}
+  .brieftarget .big{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono);
+    font-size:clamp(30px,10vw,40px); color:var(--gold2); letter-spacing:1px; font-variant-numeric:tabular-nums;
+    text-shadow:0 0 18px rgba(216,181,74,.4);}
+  .brieftarget .big .mi{width:.74em; height:.74em;}
+  .brieftarget .lbl{font-family:var(--disp); font-weight:700; text-transform:uppercase; letter-spacing:.16em;
+    font-size:9.5px; color:var(--faint);}
+  .briefbtns{display:flex; gap:9px;}
+  .briefnote{text-align:center; font-family:var(--disp); font-size:11px; color:var(--faint); line-height:1.4; margin-top:-2px;}
 
   /* ================= CARDS ================= */
   .fan{display:flex; justify-content:center; align-items:flex-end; padding:26px 0 8px; min-height:120px; flex:0 0 auto;}
@@ -1719,12 +1745,16 @@ function playzoneHTML(){
       <div class="pztotal ghost">+${fmt(r.total)} <span>km</span></div>
       ${r.debuffed.length?`<div class="pzdeb">${r.debuffed.length} card${r.debuffed.length>1?"s":""} would break the rhythm</div>`:""}</div>`;
   }
-  // boss rounds carry a warning sign above, so the idle hint stays short there
+  // boss rounds carry a warning sign above, so the idle legend stays short there
   const full = !isBossBlind();
   return `<div class="pz idle">
-    <p class="pzhint">${ICON_KM} km — distance driven, your score · ${ICON_KN} kn — kuna, kiosk money<br>
-    <i class="b-link">LINK</i> same element · <i class="b-shift">SHIFT</i> value ±1 · <i class="b-echo">ECHO</i> same value — each adds tempo${full?`<br>
-    a drive scores km × tempo · 5 cards, rhythm unbroken: <b style="color:var(--gold2)">FULL SEND ×${fmt(moveVal("fullsend"))}</b>`:""}</p>
+    <div class="movekeys">
+      <div class="mk"><i class="b-link">LINK</i><span>same element</span><b>+1</b></div>
+      <div class="mk"><i class="b-shift">SHIFT</i><span>value ±1</span><b>+2</b></div>
+      <div class="mk"><i class="b-echo">ECHO</i><span>same value</span><b>+2</b></div>
+      ${full?`<div class="mk fs"><i>FULL SEND</i><span>5 cards, rhythm unbroken</span><b>×${fmt(moveVal("fullsend"))}</b></div>`:""}
+    </div>
+    <div class="pzform">a drive scores <b class="km">${ICON_KM}km</b> × <b class="tm">tempo</b></div>
     ${full?`<p>${esc(S.prophecy)}</p>`:""}</div>`;
 }
 function reverseSel(){ S.sel.reverse(); render(); }
@@ -1773,17 +1803,22 @@ function previewHTML(){
   const target=blindTarget(S.leg,S.blind);
   return `
   <div style="text-align:center;margin:8px 0 2px">${legSign()}</div>
-  <div class="panel"><p class="oracle">${esc(leg.flavor)}</p></div>
-  <div class="panel">
-    <div class="spread">${blindChip()}<span class="tiny" style="text-align:right">clear it: <span class="kn">${ICON_KN} ${blindReward()} kn</span><br>+1 kn per unspent drive, +interest</span></div>
+  <p class="brieflavor">${esc(leg.flavor)}</p>
+  <div class="panel brief">
+    <div style="text-align:center">${blindChip()}</div>
     ${boss?warnSign(leg.boss,true):""}
-    <div class="odorow" style="margin-top:8px"><span class="odo" style="font-size:23px">${ICON_KM}${fmt(target)}<small>km to cover</small></span></div>
-    <div class="tiny" style="margin-top:5px">${maneuversForRound()} drives · 3 discards · 8 cards in hand</div>
-    <div style="display:flex;gap:9px;margin-top:11px">
+    <div class="brieftarget"><span class="big">${ICON_KM}${fmt(target)}</span><span class="lbl">km to cover</span></div>
+    <div class="meters">
+      <div class="meter"><b>${maneuversForRound()}</b><label>drives</label></div>
+      <div class="meter"><b>3</b><label>discards</label></div>
+      <div class="meter"><b>${HAND_SIZE}</b><label>in hand</label></div>
+      <div class="meter kn"><b>${ICON_KN}${blindReward()}</b><label>reward</label></div>
+    </div>
+    <div class="briefbtns">
       <button class="bx gold" style="flex:1.6" onclick="startBlind();render()">drive</button>
       ${!boss?`<button class="bx" style="flex:1" onclick="skipBlind()">wave through</button>`:""}
     </div>
-    ${!boss?`<div class="tiny" style="margin-top:7px">Waving it through skips this stretch — no kiosk after, but the road usually leaves something on the passenger seat.</div>`:""}
+    ${!boss?`<p class="briefnote">Wave through to skip — no kiosk, but the road leaves something on the seat.</p>`:""}
   </div>
   ${crewHTML()}${infoHTML(true)}
   <div class="grow"></div>
