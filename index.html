@@ -10,6 +10,11 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MAGISTRALA">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MAGISTRALA">
 <meta property="og:title" content="MAGISTRALA — the drive from Pula to Biograd, remembered wrong">
@@ -2404,6 +2409,11 @@ function animatePlayzone(lp){
 function boot(){ S=null; render(); }
 if(IS_BROWSER){
   boot();
+  // offline play: a service worker precaches the shell + art so the game
+  // reloads with no wifi. (no-op on file:// or unsupported browsers)
+  if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+    window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); });
+  }
   document.addEventListener("pointerdown",(e)=>{
     SFX.unlock();
     if(e.target.closest && e.target.closest(".bx,.seg button,.ctile,.mtile")) SFX.click();
