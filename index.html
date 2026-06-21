@@ -312,27 +312,36 @@
   .pz.idle p{font-style:italic; font-family:var(--serif); color:#a7bacc; font-size:12.5px; max-width:320px; line-height:1.55;}
   .pzname{font-family:var(--disp); font-weight:700; text-transform:uppercase; letter-spacing:.14em; font-size:13px; color:var(--gold2);}
   .pzname i{font-style:normal; font-size:10.5px; color:var(--dim); letter-spacing:.1em;}
-  .pzcards{display:flex; gap:6px; justify-content:center; margin:2px 0; padding-top:17px;}
-  .zc{position:relative; animation:zpop .3s cubic-bezier(.2,1.4,.4,1) both;}
-  .zc .zk{position:absolute; left:50%; top:-15px; transform:translateX(-50%); font-family:var(--mono);
-    font-size:12px; color:#a5dcf2; white-space:nowrap; animation:chipfloat .55s ease both; text-shadow:0 1px 4px #000;}
-  .zc .zk i{font-style:normal; color:#f4ad96; margin-left:3px;}
+  .pzcards{display:flex; gap:4px; justify-content:center; align-items:center; margin:2px 0; padding-top:22px; flex-wrap:nowrap;}
+  .zc{position:relative; animation:zpop .32s cubic-bezier(.2,1.4,.4,1) both; animation-delay:var(--d,0ms);}
+  .zc .zk{position:absolute; left:50%; top:-18px; transform:translateX(-50%); font-family:var(--mono);
+    font-size:13.5px; font-weight:600; color:#bfe7f8; white-space:nowrap; animation:chipfloat .55s ease both;
+    animation-delay:var(--dk,0ms); padding:1px 5px; border-radius:7px; background:rgba(7,18,30,.78);
+    box-shadow:0 1px 5px rgba(0,0,0,.5);}
+  .zc .zk i{font-style:normal; color:#f7bda8; margin-left:3px; font-size:11px;}
   .zc.zdeb .mini, .zc.zoff .mini{filter:grayscale(1) brightness(.5);}
-  .pzmath{display:flex; align-items:baseline; gap:7px; font-family:var(--mono); animation:fadeup .3s ease both;}
-  .pzmath b{font-size:20px; font-variant-numeric:tabular-nums;}
+  .pz.fresh .zc .mini{animation:zland .6s ease both; animation-delay:var(--d,0ms);}
+  .pzmath{display:flex; align-items:baseline; gap:7px; font-family:var(--mono); animation:fadeup .3s ease both; margin-top:2px;}
+  .pzmath b{font-size:25px; font-variant-numeric:tabular-nums; transition:text-shadow .15s, transform .15s;}
   .pzmath .km{color:#7fc3e8;} .pzmath .tm{color:#f49a82;}
-  .pzmath span{font-family:var(--disp); font-weight:600; font-size:9.5px; letter-spacing:.12em; color:var(--faint); text-transform:uppercase;}
-  .pzmath em{font-style:normal; color:var(--dim); font-size:15px;}
-  .pztotal{font-family:var(--mono); font-size:26px; color:var(--gold2); font-variant-numeric:tabular-nums;
-    text-shadow:0 0 18px rgba(216,181,74,.5); animation:slam .34s cubic-bezier(.2,1.5,.4,1) both;}
-  .pztotal span{font-size:13px; color:var(--dim);}
-  .pztotal.ghost{opacity:.6; text-shadow:none; animation:none;}
+  .pzmath span{font-family:var(--disp); font-weight:600; font-size:10px; letter-spacing:.12em; color:var(--faint); text-transform:uppercase;}
+  .pzmath em{font-style:normal; color:var(--dim); font-size:18px;}
+  .pzmath .km.ticking{text-shadow:0 0 12px rgba(127,195,232,.85);}
+  .pzmath .tm.ticking{text-shadow:0 0 12px rgba(244,154,130,.85);}
+  .pztotal{font-family:var(--mono); font-size:34px; font-weight:600; color:var(--gold2); font-variant-numeric:tabular-nums;
+    text-shadow:0 0 18px rgba(216,181,74,.5); animation:slam .4s cubic-bezier(.2,1.6,.4,1) both;}
+  .pztotal .tv{font-variant-numeric:tabular-nums;}
+  .pztotal .tv.ticking{text-shadow:0 0 24px rgba(216,181,74,.95);}
+  .pztotal span{font-size:14px; color:var(--dim); font-weight:400;}
+  .pztotal.ghost{opacity:.6; text-shadow:none; animation:none; font-size:28px;}
   .pz.preview .pzmath{animation:none;}
   .pz.noanim *{animation:none !important;}
-  .con{display:inline-flex; flex-direction:column; gap:1px; align-self:center; margin:0 1px; min-width:13px;
-    font-family:var(--disp); font-weight:700; font-size:10px; text-align:center; animation:fadeup .3s ease both;}
-  .con.none{color:rgba(141,162,184,.55); font-size:13px;}
-  .con i{font-style:normal; line-height:1.1;}
+  .con{display:inline-flex; flex-direction:column; gap:2px; align-self:center; margin:0 2px; min-width:17px;
+    font-family:var(--disp); font-weight:800; font-size:9.5px; text-align:center;
+    animation:conpop .34s cubic-bezier(.2,1.5,.4,1) both;}
+  .con.none{color:rgba(141,162,184,.5); font-size:13px; font-weight:400;}
+  .con i{font-style:normal; line-height:1; padding:2.5px 0; border-radius:5px; letter-spacing:.02em;}
+  .con i.b-link{background:rgba(143,217,168,.2);} .con i.b-shift{background:rgba(127,195,232,.2);} .con i.b-echo{background:rgba(244,154,130,.2);}
   .b-link{color:#8fd9a8; font-style:normal;} .b-shift{color:#7fc3e8; font-style:normal;} .b-echo{color:#f49a82; font-style:normal;}
   .pzmoves{font-family:var(--disp); font-weight:600; font-size:10px; letter-spacing:.1em; text-transform:uppercase;}
   .pzmoves span{color:var(--faint);}
@@ -343,10 +352,13 @@
     font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center;
     box-shadow:0 2px 6px rgba(0,0,0,.5); border:1px solid #f8ecc0;}
   .pzdeb{font-size:11px; color:var(--bad); font-family:var(--disp); letter-spacing:.1em; text-transform:uppercase;}
+  .pz.fresh .pzdeb{animation:fadeup .3s ease both;}
   @keyframes zpop{from{transform:scale(.4) rotate(-6deg); opacity:0} to{transform:scale(1) rotate(0); opacity:1}}
-  @keyframes chipfloat{from{opacity:0; transform:translate(-50%,8px)} 35%{opacity:1} to{opacity:1; transform:translate(-50%,0)}}
+  @keyframes chipfloat{from{opacity:0; transform:translate(-50%,10px)} 35%{opacity:1} to{opacity:1; transform:translate(-50%,0)}}
   @keyframes fadeup{from{opacity:0; transform:translateY(7px)} to{opacity:1; transform:translateY(0)}}
   @keyframes slam{from{opacity:0; transform:scale(1.7)} to{opacity:1; transform:scale(1)}}
+  @keyframes conpop{from{opacity:0; transform:scale(.3) translateY(4px)} to{opacity:1; transform:scale(1) translateY(0)}}
+  @keyframes zland{0%{box-shadow:0 2px 6px rgba(0,0,0,.4)} 32%{box-shadow:0 0 0 2px var(--sc,#888), 0 0 16px var(--sc,#888), 0 2px 6px rgba(0,0,0,.4)} 100%{box-shadow:0 2px 6px rgba(0,0,0,.4)}}
 
   /* ---- idle playzone: the scoring legend as a tidy grid of move keys ---- */
   .movekeys{display:grid; grid-template-columns:repeat(2,1fr); gap:6px; width:100%; max-width:344px;}
@@ -449,12 +461,13 @@
     border:1px solid rgba(216,181,74,.28);}
   .pcard.back::after{content:"Ⱅ"; font-family:'Glag',var(--serif); position:absolute; inset:0; display:flex; align-items:center;
     justify-content:center; font-size:25px; color:#5d7ba8; text-shadow:0 0 8px rgba(93,123,168,.6);}
-  .mini{position:relative; width:40px; height:57px; border-radius:5px;
+  .mini{position:relative; width:48px; height:68px; border-radius:6px;
     background:linear-gradient(163deg,#faf4e4,#e9dec1); border:1px solid #c8b98f; color:var(--sc,#333);
     box-shadow:0 2px 6px rgba(0,0,0,.4); display:flex; flex-direction:column; align-items:center; justify-content:center;}
-  .mini b{font-family:var(--disp); font-size:14px; line-height:1;}
-  .mini svg{width:14px; height:14px; margin-top:3px;}
-  .mini .fg{font-size:17px; line-height:1.1;}
+  .mini b{font-family:var(--disp); font-size:18px; line-height:1; text-shadow:0 1px 0 rgba(255,255,255,.6);}
+  .mini svg{width:17px; height:17px; margin-top:4px;}
+  .mini .fg{font-size:21px; line-height:1.1;}
+  @media (max-width:380px){ .mini{width:42px; height:60px;} .mini b{font-size:16px;} .con{min-width:14px;} }
 
   /* ================= BUTTONS / ACTION BAR ================= */
   .bx{display:inline-flex; align-items:center; justify-content:center; gap:7px; font-family:var(--disp);
@@ -1710,8 +1723,8 @@ function conHTML(bon, delay){
 function seqHTML(breakdown, animate){
   return breakdown.map((b,i)=>{
     const d = animate ? i*110 : undefined;
-    const card = `<div class="zc suit-${b.suit}${b.deb?" zdeb":""}"${d!==undefined?` style="animation-delay:${d}ms"`:""}>
-      ${miniCard(b)}${(!b.deb && b.dkm) ? `<span class="zk"${d!==undefined?` style="animation-delay:${d+170}ms"`:""}>+${fmt(b.dkm)}${b.dt?`<i>+${fmt(b.dt)}t</i>`:""}</span>`:""}</div>`;
+    const card = `<div class="zc suit-${b.suit}${b.deb?" zdeb":""}"${d!==undefined?` style="--d:${d}ms;--dk:${d+170}ms"`:""}>
+      ${miniCard(b)}${(!b.deb && b.dkm) ? `<span class="zk">+${fmt(b.dkm)}${b.dt?`<i>+${fmt(b.dt)}t</i>`:""}</span>`:""}</div>`;
     return (i>0 ? conHTML(b.deb?[]:b.bon, d) : "") + card;
   }).join("");
 }
@@ -1725,15 +1738,25 @@ function movesLine(ctx){
 function playzoneHTML(){
   const lp=S.lastPlay;
   if(lp){
-    const an=lp.seen?" noanim":"";
     const bd=lp.breakdown||[];
-    const dly=bd.length*110+240;
-    return `<div class="pz${an}${lp.fullsend?" fs":""}">
+    if(lp.seen){
+      // already watched once — show the settled result with no replay
+      return `<div class="pz noanim${lp.fullsend?" fs":""}">
+        <div class="pzname">${esc(lp.type)}</div>${movesLine(lp)}
+        <div class="pzcards">${seqHTML(bd,false)}</div>
+        <div class="pzmath"><b class="km">${fmt(lp.km)}</b><span>km</span><em>×</em><b class="tm">${fmt(lp.tempo)}</b><span>tempo</span></div>
+        <div class="pztotal">+<span class="tv">${fmt(lp.total)}</span> <span>km</span></div>
+        ${lp.debuffed.length?`<div class="pzdeb">${lp.debuffed.length} card${lp.debuffed.length>1?"s":""} scored nothing — rhythm broken</div>`:""}
+      </div>`;
+    }
+    // fresh play: cards land one by one and the score tallies up live (animatePlayzone drives the count-up)
+    const cardWin=bd.length*110;
+    return `<div class="pz fresh${lp.fullsend?" fs":""}">
       <div class="pzname">${esc(lp.type)}</div>${movesLine(lp)}
       <div class="pzcards">${seqHTML(bd,true)}</div>
-      <div class="pzmath" style="animation-delay:${dly}ms"><b class="km">${fmt(lp.km)}</b><span>km</span><em>×</em><b class="tm">${fmt(lp.tempo)}</b><span>tempo</span></div>
-      <div class="pztotal" style="animation-delay:${dly+200}ms">+${fmt(lp.total)} <span>km</span></div>
-      ${lp.debuffed.length?`<div class="pzdeb">${lp.debuffed.length} card${lp.debuffed.length>1?"s":""} scored nothing — rhythm broken</div>`:""}
+      <div class="pzmath"><b class="km">${fmt(moveVal("base"))}</b><span>km</span><em>×</em><b class="tm">${fmt(1)}</b><span>tempo</span></div>
+      <div class="pztotal" style="animation-delay:${cardWin+260}ms">+<span class="tv">0</span> <span>km</span></div>
+      ${lp.debuffed.length?`<div class="pzdeb" style="animation-delay:${cardWin+260}ms">${lp.debuffed.length} card${lp.debuffed.length>1?"s":""} scored nothing — rhythm broken</div>`:""}
     </div>`;
   }
   const sel=selectedCards();
@@ -2309,6 +2332,7 @@ function render(){
     const lp=S.lastPlay;
     const fresh = !!(lp && !lp.seen);
     const delay = fresh ? lp.breakdown.length*110+460 : 0;
+    if(fresh) animatePlayzone(lp);
     const el=document.getElementById("odo");
     if(el){
       const target=S.score;
@@ -2350,6 +2374,31 @@ function tweenOdo(el, from, to){
     el.textContent=fmt(Math.round(from+(to-from)*e));
     if(k<1) requestAnimationFrame(step);
   })(t0);
+}
+// count a number element up from->to, easing out, with an optional ticking glow
+function tweenNum(el, from, to, dur, delay, dec){
+  if(!el) return;
+  const p = Math.pow(10, dec||0);
+  const round = v => Math.round(v*p)/p;
+  setTimeout(()=>{
+    if(typeof requestAnimationFrame==="undefined"){ el.textContent=fmt(to); return; }
+    el.classList.add("ticking");
+    const t0=performance.now();
+    (function step(t){
+      const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+      el.textContent=fmt(round(from+(to-from)*e));
+      if(k<1) requestAnimationFrame(step);
+      else { el.textContent=fmt(to); el.classList.remove("ticking"); }
+    })(t0);
+  }, delay);
+}
+// the drive's score tallies up as the cards land: km climbs, tempo climbs, total slams
+function animatePlayzone(lp){
+  const pz=document.querySelector(".pz.fresh"); if(!pz) return;
+  const n=lp.breakdown.length, cardWin=n*110;
+  tweenNum(pz.querySelector(".pzmath .km"), moveVal("base"), lp.km, cardWin+160, 90, 0);
+  tweenNum(pz.querySelector(".pzmath .tm"), 1, lp.tempo, cardWin+160, 170, 2);
+  tweenNum(pz.querySelector(".pztotal .tv"), 0, lp.total, 560, cardWin+260, 0);
 }
 
 function boot(){ S=null; render(); }
